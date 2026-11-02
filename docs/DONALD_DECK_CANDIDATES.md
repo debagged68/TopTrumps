@@ -1,16 +1,16 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.6 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.7 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 29 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 30 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
 **Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), and #27 (1992 quotation/context requires original-page verification). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
@@ -57,6 +57,7 @@ Individual source records now accompany all 29 candidates. Sources range from or
 | Donald #27 (HOLD; paired) | 85 | 10 | 60 | 5 | 88 | 55 |
 | Donald #28 | 98 | 10 | 20 | 5 | 55 | 65 |
 | Donald #29 | 82 | 94 | 45 | 5 | 5 | 15 |
+| Donald #30 | 75 | 15 | 65 | 5 | 99 | 55 |
 
 ## Card fronts and reveal notes
 
@@ -714,6 +715,32 @@ As of September 2026, Forbes estimated Trump's net worth at **US$7 billion**, ap
 
 **Release status:** Quote and dated estimate corroborated; normal editorial/asset review remains. Scores are provisional satirical judgments of the quote, not findings of illegality or causation.
 
+### Donald #30
+
+**Draft front text:**
+
+> For many years I’ve said that if someone screws you, screw them back. When somebody hurts you, just go after them as viciously and as violently as you can.
+
+*Donald Trump, Trump: How to Get Rich (2004).*
+
+**Hidden scores:** Pride 75 · Greed 15 · Lust 65 · Envy 5 · Wrath 99 · Stupidity 55
+
+**Reveal overlaps:**
+
+- Wrath: explicit retaliation, viciousness and violence make revenge the clearest and strongest attribute.
+- Pride: a personal code built around answering perceived injury suggests refusal to tolerate humiliation or defeat. This interpretation is weaker than the direct revenge language.
+- Lust: under the game's power/control definition, intimidating or overpowering an adversary provides a secondary dominance reading. This is not sexual lust.
+- Stupidity: a moderate, contestable poor-judgment reading of recommending maximal escalation without stated limits. Retaliation is not automatically irrational; this is editorial interpretation, not a verified fact.
+
+**Source and context record:**
+
+- **Date / original setting:** Trump: How to Get Rich, Donald Trump with Meredith McIver, 2004. Exact edition/page and whether the two sentences are consecutive remain to be verified against a legitimate original copy.
+- **Source links:** [University of Pennsylvania Language Log — Mark Liberman, “Viciously,” 1 August 2016](https://languagelog.ldc.upenn.edu/nll/?p=27155) · [ABC News — reporting on use of book excerpts in the 2024 trial](https://abcnews.com/US/prosecutors-hush-money-case-plan-quotes-trumps-books/story?id=107648232) · [Creative Loafing Tampa Bay — literary quotation collection](https://www.cltampa.com/news/the-oh-so-quotable-don-our-favorite-quotes-from-the-literary-works-of-a-certain-really-rich-guy-12287039/).
+- **Additional primary-record lead:** [28 May 2024 summations transcript, hosted by Just Security](https://www.justsecurity.org/wp-content/uploads/2024/06/Day-21-Transcript-Summations-May-28-2024.pdf). Indexed text attributes the excerpts to the book and the chapter Sometimes You Still Have to Screw Them; this is a court record of excerpts being quoted, not the original book edition.
+- **Evidence type:** Secondary sources reproduce the supplied wording and identify the 2004 book; indexed court material and reports of publisher testimony corroborate attribution. No original book page has been inspected in this update.
+- **Verification / wording notes:** Preserve the user's text as the draft. Before release, establish exact sentence order, intervening text and page number; mark an omission if the final front combines nonconsecutive sentences. Context concerns a general retaliation/business philosophy, not an identified incident or an instruction from this game. The surrounding trial reporting is an evidence trail, not part of the original 2004 statement.
+- **Release status:** Attribution corroborated; final original-edition transcription/context review pending. Scores remain provisional.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -729,7 +756,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 29 candidates now recorded, a 52-card deck has 23 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 30 candidates now recorded, a 52-card deck has 22 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
