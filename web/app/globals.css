@@ -17,7 +17,7 @@ header{height:70px;display:flex;align-items:center;justify-content:space-between
 /* Fixed-size cards stay on the table through the deal, overlap and reveal. */
 .game-screen{height:100vh;height:100dvh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px)}.game-screen header{height:52px}
 .sin-hint{margin:0 0 5px;text-align:center;font-size:12px;color:#e1e9ec;flex-shrink:0}.sin-hint strong{color:#fff5df}
-.card-stage{--card-width:min(440px,calc(100vw - 40px));--spread-step:clamp(100px,calc(100vw - var(--card-width) - 44px),416px);position:relative;flex:1;min-height:0;isolation:isolate}
+.card-stage{--card-width:min(380px,calc(100vw - 70px));--spread-step:clamp(105px,calc(100vw - var(--card-width) - 44px),356px);position:relative;flex:1;min-height:0;isolation:isolate}
 .card-rail{height:100%;width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:4px}.card-rail::-webkit-scrollbar{display:none}
 .card-layout{position:relative;height:100%;width:var(--card-width);margin-inline:auto;isolation:isolate}
 .card-slot{position:absolute;left:0;top:6px;width:var(--card-width);height:calc(100% - 12px);min-height:0;z-index:1;transition:left .6s cubic-bezier(.2,.7,.2,1),top .6s}
@@ -25,7 +25,6 @@ header{height:70px;display:flex;align-items:center;justify-content:space-between
 .stacked .card-layout{width:calc(var(--card-width) + 16px)}.stacked .card-slot:first-child{top:12px}.stacked .card-slot:last-child{left:16px;top:0;animation:deal-onto-table .55s ease-out}
 .spread .card-layout{width:calc(var(--card-width) + var(--spread-step))}.spread .card-slot:last-child{left:var(--spread-step)}
 .hand-pair .card-layout{width:calc(var(--card-width)*2 + 18px)}.hand-pair .card-slot:last-child{left:calc(var(--card-width) + 18px)}
-.result-ribbon{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;display:flex;flex-direction:column;gap:4px;width:min(94%,720px);min-height:76px;border:1px solid #f0cc83;border-radius:4px;background:#102d3ff2;color:#fff;box-shadow:0 5px 24px #0007;padding:12px 18px;text-align:center}.result-ribbon:hover{background:#183d50}.result-ribbon strong{font:500 28px Georgia,serif}.result-ribbon span{font-size:14px;font-weight:400}
 @keyframes deal-onto-table{from{transform:translate(60px,-25px) rotate(8deg);opacity:0}to{transform:translate(0,0) rotate(0);opacity:1}}
 .flip-shell{width:100%;height:100%;min-height:0;perspective:1500px;border-radius:16px;cursor:pointer}.flip-inner{height:100%;width:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.7,.2,1)}.flip-inner.is-flipped{transform:rotateY(180deg)}
 .playing-card{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid #cca453;border-radius:15px;padding:10px 10px 34px;background:var(--paper);color:var(--ink);overflow:hidden;box-shadow:0 6px 22px #0004}.playing-card[inert]{pointer-events:none}.score-back{transform:rotateY(180deg)}
@@ -37,7 +36,7 @@ header{height:70px;display:flex;align-items:center;justify-content:space-between
 .fold-corner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 49%,#d6bc82 50%,#f5e3b8 78%);z-index:-1}.fold-corner svg{position:absolute;right:5px;bottom:5px}.fold-corner:hover{background:transparent}.fold-corner:hover::before{background:linear-gradient(135deg,transparent 49%,#baa16b 50%,#f5e3b8 78%)}
 .score-back{display:flex;flex-direction:column}.back-heading{text-align:center;flex-shrink:0;padding:10px 4px 16px}.back-heading h2{font-size:30px;margin:0 0 8px}.back-heading p{font-size:13px;line-height:1.3;margin:0;color:#344851}
 .sin-rows{display:grid;grid-template-rows:repeat(6,minmax(0,1fr));gap:7px;flex:1;min-height:0;padding:0 2px 0}.sin-score{display:grid;grid-template-columns:minmax(0,1fr) auto 18px;align-items:center;gap:12px;background:#fffdf7;color:#142832;border:1px solid #9c9d92;border-radius:7px;padding:8px 14px;min-height:0;text-align:left;font-size:18px;font-weight:400}
-button.sin-score:hover{background:#e0edf4;border-color:#142832}.sin-score strong{font-size:25px;font-variant-numeric:tabular-nums}.sin-score small{display:flex;align-items:center;gap:4px;font:700 10px Arial,sans-serif;margin-top:3px}.sin-score.deciding{background:#173747;color:#fff;border:2px solid #173747}.source-link{position:absolute;bottom:10px;left:15px;font-size:11px;color:#192b33;text-underline-offset:3px}
+button.sin-score:hover{background:#e0edf4;border-color:#142832}.sin-score strong{font-size:25px;font-variant-numeric:tabular-nums}.sin-score small{display:flex;align-items:center;gap:4px;font:700 10px Arial,sans-serif;margin-top:3px}.sin-score.deciding{border:2px solid #173747}.sin-score.winning{background:#14653f;color:#fff;border-color:#14653f}.source-link{position:absolute;bottom:10px;left:15px;font-size:11px;color:#192b33;text-underline-offset:3px}
 .bottom-actions{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:12px;padding:4px 0 10px}.bottom-actions>button{min-width:140px}
 .notice{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#fff8e9;color:#142832;border:2px solid #9db1ba;box-shadow:0 3px 15px #0005;padding:12px 18px;border-radius:8px;z-index:5;max-width:calc(100% - 24px);font-size:14px}.notice.error{border-color:#842222;color:#661919}
 .modal-backdrop{position:fixed;inset:0;background:#000b;display:grid;place-items:center;z-index:10;padding:18px}.modal{position:relative;background:#112d39;border:1px solid #8fa9b4;border-radius:14px;padding:28px;max-width:520px;max-height:90dvh;overflow:auto;color:#fff8e9}.modal p{line-height:1.5;font-size:15px;color:#e1e9ec}.modal h2{font-size:32px;margin:15px 0}.modal h3{font-size:22px;margin-bottom:8px}.modal .close{position:absolute;right:12px;top:12px;background:transparent;border:0;color:white;padding:8px;min-height:40px}
@@ -53,8 +52,33 @@ main{padding:0 10px}.game-screen header{height:44px}.brand{font-size:18px;letter
 @media(max-width:650px){.welcome{display:flex;flex-direction:column;gap:30px;align-items:stretch}.intro h1{font-size:48px}.intro .lede{font-size:17px}.deal-options{flex-direction:row;gap:10px}.deal-options button{flex:1;min-width:145px;padding:14px;font-size:18px;gap:10px}.cover{width:200px;align-self:center}.cover>img{max-height:210px}.cover>div{padding:12px}.cover h2{font-size:25px}.cover p{font-size:8px}.cover>div>svg{display:none}}
 @media(max-width:1100px) and (orientation:landscape){
 .game-screen{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right))}.game-screen header{height:34px}.game-screen .brand{font-size:15px}.game-screen .brand svg{width:18px;height:18px}.game-screen .help-button{min-height:32px}
-.sin-hint{font-size:11px;margin-bottom:2px}.result-ribbon{min-height:62px;padding:8px 16px}.result-ribbon strong{font-size:24px}
+.sin-hint{font-size:11px;margin-bottom:2px}
 .quote-front{grid-template-columns:minmax(70px,30%) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:10px}.quote-front>.card-top{grid-column:1/-1}.quote-front>.portrait{grid-column:1;grid-row:2}.quote-front>.quote{grid-column:2;grid-row:2;align-self:center;max-height:100%;text-align:left;padding:6px 2px}.quote p{font-size:clamp(14px,3.9dvh,18px);line-height:1.25}.quote cite{font-size:10px;margin-top:6px}
 .bottom-actions{min-height:45px;padding:3px 0}.bottom-actions>button{min-height:38px;padding:7px 14px;font-size:14px;max-width:200px}.back-heading{display:none}.sin-rows{gap:3px}.sin-score{font-size:14px;padding:2px 9px;gap:8px}.sin-score strong{font-size:17px}.sin-score small{display:inline-flex;font-size:9px;margin:0 0 0 6px}.card-top{min-height:20px;font-size:9px;padding-bottom:3px}
 }
 @media(prefers-reduced-motion:reduce){.flip-inner,.card-slot{transition:none}.stacked .card-slot:last-child{animation:none}}
+
+/* Totals stay beside the logo; they never take height away from the cards. */
+.brand-group{display:flex;align-items:center;gap:22px;min-width:0}.tally{display:flex;align-items:center;gap:16px;text-align:center;border-left:1px solid #79909a;padding-left:18px}.tally>span{display:flex;flex-direction:column;gap:2px;min-width:28px}.tally strong{font-size:21px;color:#fff8e9;font-variant-numeric:tabular-nums}.tally small{font-size:10px;color:#e1e9ec}.help-symbol{display:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@media(max-width:1100px){.brand-group{gap:10px}.brand{font-size:16px;letter-spacing:1px}.tally{gap:9px;padding-left:10px}.tally>span{min-width:22px}.tally strong{font-size:16px}.tally small{font-size:8px}.help-label{display:none}.help-symbol{display:inline}.help-button{min-width:30px;font-size:16px}}
+@media(max-width:350px){header{gap:5px}.brand-group{gap:7px}.brand{font-size:14px;gap:5px}.brand svg{width:20px;height:20px}.tally{gap:6px;padding-left:7px}.tally strong{font-size:14px}}
+/* Brief full-screen theatre; the settled result stays on the winning score row. */
+.round-celebration{position:fixed;inset:0;z-index:20;pointer-events:none;overflow:hidden;display:grid;place-items:center;animation:celebration-fade 3s both}
+.round-celebration.win{background:radial-gradient(ellipse at center,#05261d66,transparent 75%)}
+.round-celebration.loss{background:radial-gradient(ellipse at center,#351516a6,#120b1599);box-shadow:inset 0 0 110px #a0252766}
+.round-celebration.draw{animation-duration:1.8s;background:radial-gradient(ellipse,#102d3f66,transparent 70%)}
+.celebration-message{position:relative;text-align:center;color:#fff9e9;text-shadow:0 3px 12px #000;display:flex;flex-direction:column;align-items:center;gap:9px;padding:24px 32px;background:#0c2731e8;border:1px solid #f0cc8388;border-radius:18px;box-shadow:0 12px 50px #0006;animation:celebration-pop .5s cubic-bezier(.16,.8,.25,1.2) both}
+.celebration-message strong{font:600 clamp(32px,7vw,58px) Georgia,serif}.celebration-message>span{font-size:15px}.celebration-crown{color:#f5d76e}.loss .celebration-crown{color:#ff9c82;animation:crown-fall 1.1s ease-out both}.loss .celebration-message{border-color:#ff9c82;background:#311a24ed}
+.confetti,.ember{position:absolute;left:var(--x);background:var(--color);animation-delay:var(--delay);animation-duration:var(--duration);animation-fill-mode:both;animation-timing-function:linear}
+.confetti{top:-12vh;width:9px;height:17px;animation-name:confetti-fall}.confetti:nth-child(3n){width:11px;height:11px;border-radius:50%}.confetti:nth-child(4n){width:6px;height:20px}
+.ember{bottom:-20px;width:5px;height:12px;box-shadow:0 0 12px var(--color);animation-name:ember-rise}
+.loss-wave{position:absolute;width:70vmin;height:70vmin;border-radius:50%;border:2px solid #ff997488;animation:loss-wave 2.3s ease-out both}.loss-wave.second{animation-delay:.35s}
+@keyframes confetti-fall{from{transform:translate3d(0,-10vh,0) rotate(0)}to{transform:translate3d(var(--drift),125vh,0) rotate(var(--spin))}}
+@keyframes ember-rise{0%{opacity:0;transform:translateY(0) rotate(0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--drift),-110vh) rotate(var(--spin))}}
+@keyframes loss-wave{from{opacity:.7;transform:scale(.3)}to{opacity:0;transform:scale(2.4)}}
+@keyframes crown-fall{0%{transform:rotate(0) translateY(-12px)}65%,100%{transform:rotate(-22deg) translateY(6px)}}
+@keyframes celebration-pop{from{opacity:0;transform:scale(.78) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes celebration-fade{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0}}
+@media(max-width:650px){.celebration-message{padding:22px;max-width:88vw}.celebration-message>span{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.round-celebration,.celebration-message,.loss .celebration-crown{animation:none}.confetti,.ember,.loss-wave{display:none}}

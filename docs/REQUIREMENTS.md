@@ -363,3 +363,13 @@ This revision supersedes the compact top status line and card tabs from the prev
 The computer’s card is dealt on top of the player’s card, offset 16px horizontally and 12px vertically so the card behind remains visible. On reveal, both card reverses spread sideways with an overlap and a result ribbon across the middle. Card width and height must remain the same through the single/stacked/revealed states at a given viewport; no scale-down at reveal. Use wider spacing when space allows, stronger overlap on narrower screens, and horizontal sliding on portrait phones. Tapping either card brings it forward and flips it. Keyboard focus also brings a covered card forward.
 
 The result ribbon can be cleared by tapping it or either card so it cannot permanently obscure the wording or score rows. Play again and Cancel remain below the cards. Keep the folded corners and full, uncropped artwork. Higher-score comparison and Deal-second locking rules remain unchanged.
+
+## Slim cards, visible score columns and restored tally
+
+Cards are now 380px wide at the desktop maximum (previously 440px), with a narrower phone width and the same height before/after reveal. When scores are revealed, bring the left/player card in front of the right/computer card so both right-aligned score columns remain visible. Either card can still be selected and flipped.
+
+Remove the persistent central result ribbon. Highlight only the deciding sin on the winning card in accessible dark green with white text, a Winner label and ticks. The losing played sin stays neutral and outlined; equal scores show Draw on both cards.
+
+Restore the tally beside the Top Trumps brand: You wins, Computer wins and Draws. Store it on this browser across refreshes and count each revealed round once. Historical visit-only totals that were never saved cannot be reconstructed. Existing saved rounds remain playable. Each newly dealt round gets a stable unique identity to distinguish later rounds even if the cards and sin repeat.
+
+A new win triggers a brief full-screen confetti shower and a You win message. A loss triggers a warm red/amber ember display with expanding rings, a tilting crown and Round lost message. These effects last approximately three seconds, clear automatically, and do not block card controls. Draws receive a short neutral acknowledgement. Respect reduced-motion preferences by omitting particle motion and shortening the acknowledgement. Restoring an already-counted result must not replay its celebration.

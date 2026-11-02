@@ -132,3 +132,15 @@ The current table uses a horizontally scrollable rail containing a positioned ca
 On narrow phones the rail permits horizontal inspection of the overlapping cards. Selecting/focusing a card brings it to the front and scrolls it into view. The result ribbon stays centered on the visible table rather than moving off-screen with the rail; tapping the ribbon or a card removes it for inspection. There are no top instruction headings or card-switch tabs. Only required Deal-second hint names remain above the table. Bottom controls do not change card dimensions when a result appears.
 
 Validation: browser flow through first deal, offset stack, reveal, unchanged measured 440×808px card slots across all three states in the desktop preview, rear-card selection and ribbon clearance; game tests, TypeScript and production build. No physical iPhone test was available.
+
+## Winning rows, persistent browser totals and round effects
+
+The result view no longer mounts a permanent ribbon. Reveal activates the player card on top of the spread. Shared card CSS narrows both cards while preserving dimensions through the stack/reveal transition. Winner styling reads the server's result outcome; it does not recalculate the game outcome in the browser. The winning deciding row uses #14653f with white text plus explicit Winner/tick markers. Draw and losing comparison rows remain neutral.
+
+`game.mjs` assigns a UUID at deal time and exposes roundId in every view. The ID survives commit/reveal and persistence, and contains no hidden card or category information. Older stored rounds without an ID use a deterministic client identity for their one currently restorable result. No database migration is required.
+
+`lib/tally.mjs` validates stored tallies and records each round ID once. The browser persists counts and counted IDs under toptrumps-tally-v1 in localStorage; the header shows You / Computer / Draws beside the logo. Storage events keep other tabs current. If browser storage is unavailable, the current visit still counts results in memory. Totals are browser-specific, not an account-wide or cross-device leaderboard.
+
+`RoundCelebration.tsx` renders deterministic CSS particles, outcome messages, and loss waves/crown motion. Only a newly counted result triggers it. A timer removes the component after three seconds (shorter for draws/reduced motion); controls are not intercepted. Motion is suppressed for prefers-reduced-motion. Replay/cancel also clears the effect. No new imagery, external effects dependency or duplicated result calculation is used.
+
+Validation: 13 game/tally tests cover repeated restore/reveal, corrupt storage and distinct round identities; TypeScript and production build; browser checks confirmed win and loss effects, automatic effect clearance, winning-green row, 380px card width, left-card layering, tally increments and refresh without double counting. Physical iPhone verification was not available.
