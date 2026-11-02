@@ -1,18 +1,18 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.12 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.20 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31 and the Access Hollywood recording excerpt as Donald #32 and the Diana courtship quote as Donald #33 and the Japan bow quote as Donald #34 and the I.Q. quote as Donald #35 and the drones quote as Donald #36. The fingers quote supplied in the same batch was already present as Donald #10 and was not duplicated. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31 and the Access Hollywood recording excerpt as Donald #32 and the Diana courtship quote as Donald #33 and the Japan bow quote as Donald #34 and the I.Q. quote as Donald #35 and the drones quote as Donald #36 and the wind turbine quote as Donald #37 and the Biden retaliation quote as Donald #38 and the Texas lawsuit quote as Donald #39 and the election quote as Donald #40 and the Strait quote as Donald #41 and the civilization quote as Donald #42 and the face mask quote as Donald #43 and the immigration meeting remark as Donald #44 and the Tillerson negotiation post as Donald #45 and the polls post as Donald #46 and the Mar-a-Lago post as Donald #47 and the Nobel Prize remark as Donald #48. The fingers quote supplied in the same batch was already present as Donald #10 and was not duplicated. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 36 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 48 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
-**Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), #27 (1992 quotation/context requires original-page verification), and #36 (user-supplied; no source located, exact wording unconfirmed). #35 is an editorial candidate whose source links still need to be inspected. #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
+**Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), #27 (1992 quotation/context requires original-page verification), #36 (user-supplied; no source located, exact wording unconfirmed), #40 (user-supplied; no date, setting or source located), #41 (user-supplied; masked word, so exact wording unconfirmed), #42 (user-supplied; incomplete as supplied, no date, setting or source located), and #44 (truncated and masked as supplied; reported second-hand from a closed meeting, with the exact words disputed). #35, #37, #38, #39, #43, #45, #46, #47 and #48 are editorial candidates whose source links still need to be inspected. #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
 ## Scoring and overlap policy
 
@@ -64,6 +64,18 @@ Individual source records now accompany all 36 candidates. Sources range from or
 | Donald #34 | 55 | 5 | 20 | 5 | 65 | 40 |
 | Donald #35 | 99 | 5 | 12 | 8 | 66 | 48 |
 | Donald #36 (HOLD) | 90 | 5 | 18 | 5 | 5 | 62 |
+| Donald #37 | 25 | 8 | 10 | 5 | 35 | 72 |
+| Donald #38 | 85 | 5 | 35 | 10 | 96 | 40 |
+| Donald #39 | 60 | 5 | 20 | 8 | 95 | 32 |
+| Donald #40 (HOLD) | 78 | 5 | 72 | 10 | 35 | 85 |
+| Donald #41 (HOLD) | 60 | 5 | 30 | 5 | 98 | 40 |
+| Donald #42 (HOLD) | 40 | 5 | 30 | 5 | 99 | 50 |
+| Donald #43 | 99 | 5 | 20 | 5 | 20 | 45 |
+| Donald #44 (HOLD) | 30 | 5 | 25 | 5 | 88 | 40 |
+| Donald #45 | 70 | 5 | 55 | 10 | 68 | 35 |
+| Donald #46 | 60 | 5 | 35 | 5 | 45 | 72 |
+| Donald #47 | 62 | 5 | 38 | 8 | 90 | 30 |
+| Donald #48 | 72 | 5 | 20 | 74 | 58 | 45 |
 
 ## Card fronts and reveal notes
 
@@ -909,6 +921,331 @@ As of September 2026, Forbes estimated Trump's net worth at **US$7 billion**, ap
 - **Verification / wording notes:** HOLD. The speaker often uses the construction “nobody knows more about X than me”, so the exact wording, in particular “anybody” versus “me”, must be confirmed from a transcript or recording before any scoring is relied on. If it is a paraphrase or misattribution it must not be published as a quotation. Record the date, venue and speaker once found.
 - **Release status:** HOLD. Exclude from live dealing and from balancing summaries until the wording, date and source are verified. Scores are hypothetical draft values.
 
+### Donald #37
+
+**Draft front text:**
+
+> Obama’s wind turbines kill “13-39 million birds and bats every year!” http://t.co/33vZUrkKu2 Save our bald eagles, symbol of our nation!
+
+*Donald Trump, post on Twitter/X (user-supplied attribution). The shortened link is part of the original post and is retained as supplied.*
+
+**Hidden scores:** Pride 25 · Greed 8 · Lust 10 · Envy 5 · Wrath 35 · Stupidity 72
+
+**Reveal overlaps:**
+
+- Stupidity: the strongest reading, and conditional. The post presents a very large casualty figure, attributed to a linked article, as settled fact and frames it as the president’s own policy. If the figure is a misreading, an outlier or a misquote of its source, that is poor reasoning. The score must be revisited once the linked source and the real range of published estimates are checked.
+- Wrath: moderate. “Obama’s wind turbines” turns a general energy technology into a personal attack on an opponent. It is hostile framing, with no insult, threat or revenge.
+- Pride: weak. The post is a call to protect a national symbol, with no self-praise beyond the implied role of defender.
+- Lust, Greed and Envy have little support. The stated cause is conservation, and nothing in the text expresses a desire for gain (Greed) or resentment of another’s advantage (Envy).
+
+**Source and context record:**
+
+- **Date / original setting:** Twitter/X post. Date not established in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user; not independently corroborated here.
+- **Source links:** None inspected. Search and fetch tools failed in this session, so no link is recorded and none is implied. The t.co link in the post should be resolved from an archive to identify the article it cites.
+- **Evidence type:** User-supplied wording only.
+- **Verification / wording notes:** Confirm the exact text, including the quotation marks around the statistic, which suggest it is quoted from the linked article and not Trump’s own estimate. Check that article for the original range and what it was counting. Do not present the casualty figure as accurate on the card. Distinguish the post’s claim from the published research.
+- **Release status:** Editorial candidate, source verification pending. Scores are provisional.
+
+### Donald #38
+
+**Draft front text:**
+
+> Crazy Joe Biden is trying to act like a tough guy. Actually, he is weak, both mentally and physically, and yet he threatens me, for the second time, with physical assault. He doesn’t know me, but he would go down fast and hard, crying all the way. Don’t threaten people Joe!
+
+*Donald Trump, post on Twitter/X (user-supplied attribution).*
+
+**Hidden scores:** Pride 85 · Greed 5 · Lust 35 · Envy 10 · Wrath 96 · Stupidity 40
+
+**Reveal overlaps:**
+
+- Wrath: the dominant reading. The post names a specific person, mocks his mind and body, and describes him as crying after a fight. It is open contempt and a graphic taunt, though not a direct threat from the speaker.
+- Pride: strong. The speaker presents himself as the more formidable fighter and casts the other man as weak, which is personal superiority rather than argument.
+- Lust: moderate. “Go down fast and hard” is a dominance and control framing, a desire to win and humiliate. It is not a desire for office, and it is not sexual.
+- Stupidity: weak to moderate. The post accuses an opponent of weakness while describing the speaker as the one being threatened, which is a strained account of events. Its own claim about a “second” threat depends on context that is not in the text.
+- Envy and Greed have no meaningful support; the post is a response to a perceived threat and not resentment of another’s advantage.
+
+**Source and context record:**
+
+- **Date / original setting:** Twitter/X post. Reported from memory as 22 March 2018, replying to remarks by Joe Biden the day before. Not confirmed against a live source in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user.
+- **Source links:** None inspected. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only.
+- **Verification / wording notes:** Obtain the original post or an archive capture, and the remarks that prompted it, before publication. The phrase “for the second time” refers to an earlier exchange that must be identified; do not describe what Biden actually said from this text alone. Keep the reply context available on the reveal screen so the card is not read as an unprovoked attack.
+- **Release status:** Editorial candidate, source verification pending. Scores are provisional.
+
+### Donald #39
+
+**Draft front text:**
+
+> Great, now I can go after Horseface and her 3rd rate lawyer in the Great State of Texas. She will confirm the letter she signed! She knows nothing about me, a total con!
+
+*Donald Trump, post on Twitter/X (user-supplied attribution).*
+
+**Hidden scores:** Pride 60 · Greed 5 · Lust 20 · Envy 8 · Wrath 95 · Stupidity 32
+
+**Reveal overlaps:**
+
+- Wrath: the dominant reading. A demeaning nickname, a contemptuous description of her lawyer, and a stated intention to “go after” both is direct contempt and a promise of retaliation.
+- Pride: moderate to strong. “She knows nothing about me” and the confident prediction that she will confirm the letter present the speaker as the authority on his own conduct, and cast the opponent as a fraud.
+- Lust: weak. “Go after” is a control and punishment framing, but nothing in the text suggests a desire for power as such.
+- Stupidity: weak. The prediction that the opponent will confirm a signed letter is a confident, unsupported forecast. Legal strategy and a political or personal dispute are not themselves foolish.
+- Greed and Envy have no meaningful support in the text.
+
+**Source and context record:**
+
+- **Date / original setting:** Twitter/X post. Reported from memory as 16 October 2018, after a US court ruling in a lawsuit brought by Stormy Daniels. Not confirmed against a live source in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user. The target is not named in the text and is identified here from memory and context.
+- **Source links:** None inspected. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only.
+- **Verification / wording notes:** The nickname is a demeaning appearance-based insult, and the card must present it as a quotation and not endorse it. The reference to a signed letter relates to a disputed legal matter, and the card must not assert facts about the underlying allegations. Confirm the date, the court ruling that prompted the post, and the wording against the original. Include the target’s identity on the reveal screen only once confirmed from a reliable source.
+- **Release status:** Editorial candidate, source verification pending. Scores are provisional.
+
+### Donald #40 (HOLD)
+
+**Draft front text:**
+
+> Great. Most corrupt election in history, by far. We won!!!
+
+*Donald Trump (user-supplied attribution; no date, setting or source located).*
+
+**Hidden scores:** Pride 78 · Greed 5 · Lust 72 · Envy 10 · Wrath 35 · Stupidity 85
+
+**Reveal overlaps:**
+
+- Stupidity: the strongest reading, and conditional on the context. A sweeping claim of the “most corrupt election in history, by far” paired with a declaration of victory is an unsupported claim if it refers to an election he lost. If the context is a different election or a result still in dispute, this score must be revised.
+- Pride: strong. “We won!!!” asserts personal triumph and, with the corruption claim, infallibility on the outcome.
+- Lust: strong. Insisting on victory regardless of the result is a claim to office and power. It is a satirical reading of the statement and not a finding about the speaker’s motives.
+- Wrath: moderate. “Most corrupt … by far” accuses unnamed others of cheating, but there is no named target, insult or threat.
+- Envy and Greed have no meaningful support.
+
+**Source and context record:**
+
+- **Date / original setting:** Not established.
+- **Attribution:** Donald Trump. Attribution supplied by the user; not independently corroborated.
+- **Source links:** None located. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only. This is not enough to publish as a verified quotation.
+- **Verification / wording notes:** HOLD. The statement cannot be read without knowing which election it refers to and what the result was, and all of Stupidity, Lust and the factual framing depend on that. Establish the date, platform, full text and surrounding thread before any scoring is relied on. If it is a paraphrase, an edited excerpt or a misattribution, it must not be published as a quotation. Do not state on the card that any election was or was not corrupt.
+- **Release status:** HOLD. Exclude from live dealing and from balancing summaries until wording, date, context and source are verified. Scores are hypothetical draft values.
+
+### Donald #41 (HOLD)
+
+**Draft front text:**
+
+> Open the F------ Strait, you crazy bastards, or you’ll be living in Hell - JUST WATCH!
+
+*Donald Trump, post on Twitter/X (user-supplied attribution). The supplied text masks part of one word with dashes; the full wording is not confirmed.*
+
+**Hidden scores:** Pride 60 · Greed 5 · Lust 30 · Envy 5 · Wrath 98 · Stupidity 40
+
+**Reveal overlaps:**
+
+- Wrath: the dominant reading. “Crazy bastards” is a direct insult, and “you’ll be living in Hell” is a threat of punishment aimed at a group.
+- Pride: moderate. “JUST WATCH” presents the speaker as the one who will be proven right, and his demand as one that must be obeyed.
+- Lust: moderate. Demanding compliance under threat is a control framing. It is not a desire for office in itself.
+- Stupidity: weak to moderate. The ultimatum gives no reasoning, which is coercion rather than poor argument, so the score stays low.
+- Greed and Envy have no meaningful support in the text.
+
+**Source and context record:**
+
+- **Date / original setting:** Not established. The text does not name the strait, and the event it responded to is not identified here.
+- **Attribution:** Donald Trump. Attribution supplied by the user; not independently corroborated.
+- **Source links:** None located. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only.
+- **Verification / wording notes:** HOLD. The masked word must be confirmed from the original post and not guessed. The threat must appear in full, unshortened, with the context that prompted it, and the card must present it as a quotation criticised on the reveal screen, not endorsed. Confirm which strait is named and the event it responded to.
+- **Release status:** HOLD. Exclude from live dealing and from balancing summaries until wording, date and source are verified. Scores are hypothetical draft values.
+
+### Donald #42 (HOLD)
+
+**Draft front text:**
+
+> A whole civilization will die tonight, never to be brought back again,
+
+*Donald Trump (user-supplied attribution; no date, platform, setting or source located).*
+
+**Hidden scores:** Pride 40 · Greed 5 · Lust 30 · Envy 5 · Wrath 99 · Stupidity 50
+
+**Reveal overlaps:**
+
+- Wrath: the dominant reading. The statement threatens mass death for a population. This is the most extreme reading in the deck.
+- Stupidity: moderate. It presents mass destruction as a certain, imminent outcome with no reasoning, which is an absurd and unexamined claim.
+- Pride: moderate. The speaker presents himself as the one who decides the outcome.
+- Lust: moderate. Claiming power over life and death is a control framing, not a desire for office.
+- Greed and Envy have no meaningful support.
+
+**Source and context record:**
+
+- **Date / original setting:** Not established.
+- **Attribution:** Donald Trump. Attribution supplied by the user; not independently corroborated.
+- **Source links:** None located. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only. This is not enough to publish as a verified quotation.
+- **Verification / wording notes:** HOLD. The supplied text ends with a trailing comma, so it is incomplete and the rest of the sentence must be found. The full statement, its date, platform and context must be verified before any scoring is relied on. A partial or paraphrased threat must not be published as a quotation (CARD-01). Because this card quotes a threat of mass harm, it also needs editorial and legal review before any publication decision.
+- **Release status:** HOLD. Exclude from live dealing and from balancing summaries until wording, date and source are verified. Scores are hypothetical draft values.
+
+### Donald #43
+
+**Draft front text:**
+
+> We are United in our effort to defeat the Invisible China Virus, and many people say that it is Patriotic to wear a face mask when you can’t socially distance. There is nobody more Patriotic than me, your favorite President!
+
+*Donald Trump, post on Twitter/X (user-supplied attribution).*
+
+**Hidden scores:** Pride 99 · Greed 5 · Lust 20 · Envy 5 · Wrath 20 · Stupidity 45
+
+**Reveal overlaps:**
+
+- Pride: the dominant reading. “Nobody more Patriotic than me, your favorite President!” is an explicit, superlative boast of personal virtue and popularity.
+- Stupidity: moderate and weak in places. Framing mask-wearing as “Patriotic” because “many people say” so is an appeal to an unnamed authority and not an argument. Describing the virus as “Invisible” is rhetorical, not an error. The score reflects the weakness of the reasoning only, not any view on masks or the public-health response.
+- Wrath: weak. “Invisible China Virus” assigns blame to a country in a way many people read as hostile. This is a naming choice with no threat, insult to a person, or call for revenge.
+- Lust: weak. “Your favorite President!” frames the speaker’s standing and office as a point of pride rather than expressing a desire for power as such.
+- Greed and Envy have no meaningful support in the text.
+
+**Source and context record:**
+
+- **Date / original setting:** Twitter/X post. Reported from memory as July 2020, during the COVID-19 pandemic. Not confirmed against a live source in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user.
+- **Source links:** None inspected. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only.
+- **Verification / wording notes:** Confirm the exact text and date against the original post or an archive capture. Keep the context available on the reveal screen: the post encourages mask-wearing, and the card must not be read as opposing it. The phrase “China Virus” is contested terminology and should be shown as a quotation, not adopted as the game’s own wording.
+- **Release status:** Editorial candidate, source verification pending. Scores are provisional.
+
+### Donald #44 (HOLD)
+
+**Draft front text:**
+
+> Why are we having all these people from s–thole countries come here?...
+
+*Attributed to Donald Trump (user-supplied). The supplied text masks part of one word and ends with an ellipsis, so it is both censored and truncated. The full wording is not confirmed.*
+
+**Hidden scores:** Pride 30 · Greed 5 · Lust 25 · Envy 5 · Wrath 88 · Stupidity 40
+
+**Reveal overlaps:**
+
+- Wrath: the dominant reading. If the wording is accurate, it expresses open contempt for entire countries and the people from them. No threat or revenge is expressed, so this is strong rather than extreme.
+- Stupidity: weak to moderate. Dismissing many countries and their people with one sweeping label is an overgeneralisation. The score reflects the weakness of the reasoning only, and offensiveness alone does not earn it.
+- Pride: weak. The remark implies the speaker’s preferences about who should be admitted, but not explicit self-praise. The fuller reported account of the remark (which must be checked) may support a stronger or different reading.
+- Lust: weak. Questioning who is allowed to enter is a control framing about admission policy, not a desire for office.
+- Greed and Envy have no meaningful support in the supplied text.
+
+**Source and context record:**
+
+- **Date / original setting:** Reported from memory as a closed White House meeting on immigration with members of Congress in January 2018. Not confirmed against a live source in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user. As I recall, the remark was reported by people present in the meeting, not captured on a recording, and Trump publicly disputed the reported wording while acknowledging that his language had been tough. Neither the reports nor the denial have been inspected here.
+- **Source links:** None located. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only. This is not enough to publish as a verified direct quotation.
+- **Verification / wording notes:** HOLD. Several things must be established before use: who reported it and how many sources; the full sentence and any continuation after the ellipsis; the exact masked word; and the precise terms of Trump’s denial. If the account stays a disputed second-hand report, it must be presented as a reported statement with the denial shown, and not as a verified quotation (CARD-01). The card must not state as fact that the words were or were not said.
+- **Release status:** HOLD. Exclude from live dealing and from balancing summaries until wording, date and sourcing are verified. Scores are hypothetical draft values.
+
+### Donald #45
+
+**Draft front text:**
+
+> I told Rex Tillerson, our wonderful Secretary of State, that he is wasting his time trying to negotiate with Little Rocket Man...
+
+*Donald Trump, post on Twitter/X (user-supplied attribution). The supplied text ended with the note “regarding NK Leader”; that is treated as the submitter’s context note identifying the nickname’s target, not as part of the quotation. The ellipsis indicates the post continues.*
+
+**Hidden scores:** Pride 70 · Greed 5 · Lust 55 · Envy 10 · Wrath 68 · Stupidity 35
+
+**Reveal overlaps:**
+
+- Pride: strong. The speaker announces that he has overruled his own Secretary of State on a diplomatic effort, which presents his judgment as the deciding one.
+- Wrath: strong. “Little Rocket Man” is a mocking nickname for a foreign leader, and “wasting his time” dismisses negotiation in favour of confrontation. No threat is stated in the supplied portion.
+- Lust: moderate. Overriding a subordinate’s diplomacy is a control and authority framing. It is not a desire for office in itself.
+- Stupidity: weak. Declaring diplomacy futile is a contestable judgment, but no factual error or faulty reasoning is established in the supplied portion.
+- Envy has little support; the text expresses no resentment of another’s advantage. Greed has no support.
+
+**Source and context record:**
+
+- **Date / original setting:** Twitter/X post. Reported from memory as 1 October 2017, concerning Kim Jong-un. Not confirmed against a live source in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user; the target is identified from the submitter’s note and from memory.
+- **Source links:** None inspected. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only.
+- **Verification / wording notes:** The post continued past the ellipsis, and the continuation changes how the whole post reads, so the full text must be obtained and either included or clearly marked as an excerpt with the rest accessible. Confirm the wording and date against the original or an archive capture. Present the nickname as a quotation, not as the game’s own naming. The post references a diplomatic effort that must be described neutrally on the reveal screen.
+- **Release status:** Editorial candidate, source verification pending. Scores are provisional.
+
+### Donald #46
+
+**Draft front text:**
+
+> Any negative polls are fake news, just like the CNN, ABC, NBC polls in the election. Sorry, people want border security and extreme vetting.
+
+*Donald Trump, post on Twitter/X (user-supplied attribution). The supplied text began “ny negative polls”; this is treated as a typo for “Any” and corrected on the card. Confirm against the original.*
+
+**Hidden scores:** Pride 60 · Greed 5 · Lust 35 · Envy 5 · Wrath 45 · Stupidity 72
+
+**Reveal overlaps:**
+
+- Stupidity: the strongest reading. The post declares any unfavourable poll “fake news” in advance, which makes the claim impossible to test, and it cites polls from the election as evidence of bias without showing they were wrong. The score reflects the weakness of that reasoning only; it is not a finding on whether any poll was accurate.
+- Pride: moderate to strong. “People want border security and extreme vetting” asserts that the speaker knows what the public wants, regardless of what measured opinion says.
+- Wrath: moderate. Naming three news organisations as sources of false polls is hostile and dismissive of the press, with no threat, insult to a person or call for revenge.
+- Lust: weak to moderate. Rejecting outside measures of public opinion in favour of his own account is an authority framing, not a desire for office in itself.
+- Envy and Greed have no meaningful support in the text.
+
+**Source and context record:**
+
+- **Date / original setting:** Twitter/X post. Reported from memory as early February 2017, around the first weeks of the administration. Not confirmed against a live source in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user (“attribute X”), read as meaning a post on X.
+- **Source links:** None inspected. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording only.
+- **Verification / wording notes:** Confirm the exact text, including the first word, and the date, against the original post or an archive capture. Identify which polls prompted it. The reveal screen should not state whether any named poll was right or wrong without a checked source, and should distinguish the post’s claim from polling data.
+- **Release status:** Editorial candidate, source verification pending. Scores are provisional.
+
+### Donald #47
+
+**Draft front text:**
+
+> ...to Mar-a-Lago 3 nights in a row around New Year’s Eve, and insisted on joining me. She was bleeding badly from a face-lift. I said no!
+
+*Donald Trump, post on Twitter/X, 1:58 PM · 29 June 2017 (date and time as supplied by the user). The leading ellipsis shows this is the second half of a longer post; the first half is not in the supplied text.*
+
+**Who it is about:** Mika Brzezinski, co-host of MSNBC’s *Morning Joe*. The supplied excerpt does not name her, since the name appears in the first half of the post. The identification is from memory of that post, not from a source inspected here. As I recall, the first half also named her co-host Joe Scarborough. The card must show the identification only once confirmed against the full original.
+
+**Hidden scores:** Pride 62 · Greed 5 · Lust 38 · Envy 8 · Wrath 90 · Stupidity 30
+
+**Reveal overlaps:**
+
+- Wrath: the dominant reading. The post publicly demeans a named woman’s body and appearance, and mocks her with a claim about cosmetic surgery. It is contemptuous and humiliating, though it contains no threat or revenge.
+- Pride: moderate to strong. “Insisted on joining me … I said no!” casts the speaker as the one in demand, who graciously refuses and holds the power to admit or exclude.
+- Lust: moderate. The gatekeeping (“I said no!”) is an authority and control framing. It is not a desire for office, and it is not a statement of sexual interest; the surgery reference is an insult and not an expression of desire.
+- Stupidity: weak. The anecdote is offered to rebut criticism, and recounting a private visit as a retort is a poor line of argument. Offensiveness alone does not earn this category, and the score is kept low for that reason.
+- Envy: weak only. Nothing in the supplied text shows resentment of her success or status. Greed has no meaningful support.
+
+**Source and context record:**
+
+- **Date / original setting:** Twitter/X post, 1:58 PM, 29 June 2017 (as supplied). The post responded to criticism of him on *Morning Joe*, as I recall. Not confirmed against a live source in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user; the target is identified from memory, as above.
+- **Source links:** None inspected. Search and fetch tools failed in this session.
+- **Evidence type:** User-supplied wording and timestamp only.
+- **Verification / wording notes:** Obtain the full original post or an archive capture and use the complete text, or mark this clearly as an excerpt with the full post accessible, as the first half changes the context and names the target (CARD-01, CARD-03). The post alleges private facts about a named person; the card must present them as the speaker’s claims, not as established facts, and must not endorse the claim about her appearance or any surgery. The post drew substantial public criticism and a denial or counter-account from the people it named. Neither has been inspected here, so cite them from sources before the reveal screen mentions them. Because the card is an insult to a named woman’s body, it should have editorial review before publication.
+- **Release status:** Editorial candidate, source verification pending, and target identification unconfirmed. Scores are provisional.
+
+### Donald #48
+
+**Draft front text:**
+
+> I didn’t get the Nobel Prize. So I don’t want anybody from Norway. I don’t want anything to do with Norway.
+
+*Attributed to Donald Trump (user-supplied). The supplied text was “‘I didn’t get the Nobel Prize,’ he said, per the New York Times. ‘So I don’t want anybody from Norway. I don’t want anything to do with Norway.’” The words “he said, per the New York Times” are treated as the submitter’s attribution note, not part of the quotation, and the speaker is assumed to be Trump because the card sits in this deck. The two quoted sentences are joined here and the sentence break after “Prize” is normalised; confirm against the report.*
+
+**Hidden scores:** Pride 72 · Greed 5 · Lust 20 · Envy 74 · Wrath 58 · Stupidity 45
+
+**Reveal overlaps:**
+
+- Envy: the dominant reading, and the first strong Envy card in the deck. The statement is a grievance about a prize he did not receive, which is resentment of an honour that others have been given, and it leads straight to rejecting the country he links with the award. This is a satirical reading of the statement; it is not a claim about his inner feelings. It is below the extreme range because the remark names no rival or winner.
+- Pride: strong. The complaint presumes that the prize was due to him, which is a sense of entitlement and self-importance.
+- Wrath: moderate to strong. “I don’t want anything to do with Norway” is a blanket rejection of a country and its people as a response to a grievance. It is a grudge and an act of contempt, but contains no threat or insult to a named person.
+- Stupidity: moderate. Holding “anybody from Norway” responsible for a prize decision is an overgeneralisation. The score reflects the reasoning only, and the reveal screen should not state who decides the prize without a checked source.
+- Lust: weak. Deciding with whom he will deal is a control framing, not a desire for office in itself. Greed has no meaningful support.
+
+**Source and context record:**
+
+- **Date / original setting:** Not established. The remark was reported by the New York Times according to the submitter. The date, the occasion, and whether it was spoken, written or relayed by others are not known here.
+- **Attribution:** Donald Trump, as supplied by the user. The speaker is not named in the supplied text.
+- **Source links:** None located. Search and fetch tools failed in this session, so the New York Times report has not been inspected and no link is recorded.
+- **Evidence type:** User-supplied wording citing a newspaper report. The report is a secondary source, and nothing here shows whether the words come from a recording, a transcript, a written statement or a participant’s account.
+- **Verification / wording notes:** Find the New York Times article and establish whether this is a direct quotation or a paraphrase, the date, the setting, and the continuation. The quotation marks around two separate sentences may mean two separate quoted passages, so check what comes between them. Keep the context available on the reveal screen. Do not state on the card why the prize was or was not awarded, or which body decides it, without a checked source.
+- **Release status:** Editorial candidate, source verification pending; date and setting unknown. Scores are provisional.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -924,7 +1261,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 36 candidates now recorded, a 52-card deck has 16 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 48 candidates now recorded, a 52-card deck has 4 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
