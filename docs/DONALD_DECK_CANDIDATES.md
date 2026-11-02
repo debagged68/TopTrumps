@@ -1,16 +1,16 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.7 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.8 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 30 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 31 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
 **Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), and #27 (1992 quotation/context requires original-page verification). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
@@ -58,6 +58,7 @@ Individual source records now accompany all 30 candidates. Sources range from or
 | Donald #28 | 98 | 10 | 20 | 5 | 55 | 65 |
 | Donald #29 | 82 | 94 | 45 | 5 | 5 | 15 |
 | Donald #30 | 75 | 15 | 65 | 5 | 99 | 55 |
+| Donald #31 | 94 | 20 | 25 | 5 | 40 | 50 |
 
 ## Card fronts and reveal notes
 
@@ -741,6 +742,31 @@ As of September 2026, Forbes estimated Trump's net worth at **US$7 billion**, ap
 - **Verification / wording notes:** Preserve the user's text as the draft. Before release, establish exact sentence order, intervening text and page number; mark an omission if the final front combines nonconsecutive sentences. Context concerns a general retaliation/business philosophy, not an identified incident or an instruction from this game. The surrounding trial reporting is an evidence trail, not part of the original 2004 statement.
 - **Release status:** Attribution corroborated; final original-edition transcription/context review pending. Scores remain provisional.
 
+### Donald #31
+
+**Draft front text:**
+
+> My marriage, it seemed, was the only area of my life in which I was willing to accept something less than perfection.
+
+*Donald Trump, Trump: Surviving at the Top (1990).*
+
+**Hidden scores:** Pride 94 · Greed 20 · Lust 25 · Envy 5 · Wrath 40 · Stupidity 50
+
+**Reveal overlaps:**
+
+- Pride: calling marriage the only exception to accepting perfection implies exceptionally high standards across the rest of his life. This is the strongest signal, though the statement describes standards rather than literally claiming perfect results everywhere.
+- Stupidity: a moderate, contestable interpretation of applying an absolute perfection standard to complex human relationships. The line is a subjective reflection, not a demonstrably false factual claim.
+- Wrath: a weaker dismissive judgment of the marriage as falling short. It does not contain an explicit threat, anger or revenge; the surrounding reflection on separation makes this overlap less certain.
+- Lust remains low: marriage alone does not establish sexual desire or a wish to control a partner. Envy and Greed likewise have little direct support.
+
+**Source and context record:**
+
+- **Date / original setting:** Trump: Surviving at the Top, Donald Trump with Charles Leerhsen, 1990; reflection on his marriage to Ivana.
+- **Source links:** [Los Angeles Times — contemporary book review, 16 August 1990](https://www.latimes.com/archives/la-xpm-1990-08-16-vw-1216-story.html) · [Washington Post — book-reading review, 30 July 2015](https://www.washingtonpost.com/news/book-party/wp/2015/07/30/i-just-binge-read-eight-books-by-donald-trump-heres-what-i-learned/?postshare=4501456670376937&tid=ss_fb) · [Washington Post — longer surrounding book excerpt, 5 August 2015](https://www.washingtonpost.com/news/book-party/wp/2015/08/05/donald-trump-on-women-sex-marriage-and-feminism/).
+- **Evidence type:** Contemporary secondary review reproduces the sentence and identifies the book; later book reviews corroborate attribution and provide surrounding context. Original edition/page not inspected.
+- **Verification / wording notes:** Supplied wording is corroborated. The contemporary review places it in the chapter Trump vs. Trump, Undoing the Deal. The longer published excerpt discusses the family ideal, pressure to keep a marriage together, effects on children and separation. Preserve that context rather than portraying the sentence as a complete account of his marriage. Verify exact edition/page before final publication; no precise book-release day is asserted.
+- **Release status:** Editorial candidate with corroborated book attribution; original-page and final scoring review pending. Three overlaps are discussed, but only Pride is strongly supported; do not inflate weak attributes solely to create balance.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -756,7 +782,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 30 candidates now recorded, a 52-card deck has 22 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 31 candidates now recorded, a 52-card deck has 21 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
