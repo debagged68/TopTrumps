@@ -1,16 +1,16 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.10 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.11 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31 and the Access Hollywood recording excerpt as Donald #32 and the Diana courtship quote as Donald #33. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31 and the Access Hollywood recording excerpt as Donald #32 and the Diana courtship quote as Donald #33 and the Japan bow quote as Donald #34. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 33 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 34 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
 **Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), and #27 (1992 quotation/context requires original-page verification). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
@@ -61,6 +61,7 @@ Individual source records now accompany all 33 candidates. Sources range from or
 | Donald #31 | 94 | 20 | 25 | 5 | 40 | 50 |
 | Donald #32 | 95 | 25 | 99 | 5 | 55 | 70 |
 | Donald #33 | 70 | 15 | 85 | 20 | 5 | 15 |
+| Donald #34 | 55 | 5 | 20 | 5 | 65 | 40 |
 
 ## Card fronts and reveal notes
 
@@ -828,6 +829,32 @@ As of September 2026, Forbes estimated Trump's net worth at **US$7 billion**, ap
 - **Verification / context notes:** The supplied passage is corroborated. The longer book excerpt continues with admiration of Diana's charm and presence. Keep that context available. His claim to have met her repeatedly is part of the quotation, not independently established by the quote itself. Do not imply mutual romantic interest, a relationship or consent, or combine this with separate Howard Stern remarks as if they were one statement.
 - **Release status:** Editorial candidate with corroborated book attribution; exact edition/page and final scoring review pending. Three overlaps are discussed but Envy is weak.
 
+### Donald #34
+
+**Draft front text:**
+
+> I wouldn't mind a little bow. In Japan, they bow. I love it. Only thing I love about Japan.
+
+*Donald Trump, interview reported by David Segal, Washington Post, republished in The Spokesman-Review, 23 September 2004.*
+
+**Hidden scores:** Pride 55 · Greed 5 · Lust 20 · Envy 5 · Wrath 65 · Stupidity 40
+
+**Reveal overlaps:**
+
+- Wrath: the final sentence dismisses an entire country apart from one custom; contempt is the strongest satirical reading, though no revenge or threat is expressed.
+- Pride: enjoying a bow can suggest pleasure in deference, but the actual interview explains bowing as a no-contact substitute for a handshake. That context limits this score.
+- Stupidity: the sweeping only-one-good-thing judgment supplies a weak overgeneralisation reading, tempered by possible humorous exaggeration. Preferring bowing for hygiene is not itself foolish.
+- Lust stays low: a bow does not establish a desire to dominate; Greed and Envy have no meaningful support in this excerpt.
+
+**Source and context record:**
+
+- **Date / original setting:** Interview in Trump's Fifth Avenue office, reported by David Segal for the Washington Post; syndicated article published by The Spokesman-Review on 23 September 2004. Exact interview day and original Washington Post publication date are not established here.
+- **User-supplied source:** [BrainyQuote — Donald Trump quotation](https://www.brainyquote.com/quotes/donald_trump_733834). Search-index text reproduces the quotation; direct retrieval returned 403. A quotation database alone does not establish the original context.
+- **Stronger source:** [The Spokesman-Review — “Look but don’t touch,” David Segal / Washington Post, 23 September 2004](https://www.spokesman.com/stories/2004/sep/23/look-but-dont-touch/).
+- **Evidence type:** Directly inspected syndicated interview reporting, quoting the supplied wording; the interviewer’s Washington Post byline identifies its reporting provenance.
+- **Verification / context notes:** The passage answers criticism of his reluctance to shake hands. He explains that concern about germs, rather than elitism, drives his preference. Keep that explanation available on the reveal/context screen; do not reframe the quotation as an explicit demand that Japanese people bow to him or an instruction to political subordinates. The source supports the submitted words; punctuation is normalised for the card.
+- **Release status:** Wording and interview context corroborated; normal editorial/layout review pending. Scores remain provisional and reflect the complete context.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -843,7 +870,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 33 candidates now recorded, a 52-card deck has 19 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 34 candidates now recorded, a 52-card deck has 18 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
