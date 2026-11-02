@@ -139,3 +139,22 @@ main{padding:0 12px}.table{padding-top:24px}.round-head h1{font-size:34px;line-h
 @media(max-width:1100px){.game-active .reverse-quote{font-size:12px;line-height:1.35;max-height:14dvh;padding:6px 8px;margin-bottom:6px}.results-page{padding:0 14px}.results-page>header{height:48px}.results-page>footer{display:none}.full-results{padding:20px 0}.results-heading{margin-bottom:18px}.results-heading h1{font-size:38px}.result-quotes{gap:12px}.result-quotes>article{padding:14px}.result-quotes blockquote{font-size:20px;margin:12px 0}.result-total{font-size:38px}.result-total small{display:block;margin:4px 0 0}.result-card-label{font-size:9px;letter-spacing:.8px}.results-score-row{padding:12px 10px}.results-score-row>strong{font-size:18px}}
 @media(max-width:1100px) and (orientation:landscape){.game-active .reverse-quote{font-size:11px;max-height:20dvh}.results-page>header{height:42px}.results-heading h1{font-size:32px}.result-quotes blockquote{font-size:21px}}
 @media(max-width:360px){.result-quotes{gap:8px}.result-quotes>article{padding:11px}.result-quotes blockquote{font-size:18px}.result-total{font-size:32px}.results-score-row{gap:4px;font-size:13px}}
+
+/* The quote and image share the middle row; controls can never cover the wording. */
+@media(max-width:1100px){
+.game-active .baize .hand .playing-card.quote-front{display:grid;grid-template-columns:minmax(74px,28%) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;gap:7px;align-items:stretch}
+.game-active .baize .hand .quote-front>.card-top{grid-column:1/-1;grid-row:1;padding:3px 5px;min-height:20px}
+.game-active .baize .hand .playing-card.quote-front>.portrait{grid-column:1;grid-row:2;height:100%;min-height:0;max-height:none;margin:0;align-self:stretch;border-radius:5px;background:#102531}
+.game-active .baize .quote-front>.portrait img{object-fit:contain;object-position:center;height:100%;width:100%}
+.game-active .baize .hand .playing-card.quote-front>.quote{grid-column:2;grid-row:2;min-width:0;min-height:0;height:auto;max-height:none;padding:9px 8px;overflow-y:auto;overflow-x:hidden;justify-content:flex-start;align-items:stretch;text-align:left}
+.game-active .baize .quote-front .quote-mark{height:16px;font-size:24px;display:block}
+.game-active .baize .hand .quote-front .quote p{font-size:clamp(16px,2.7dvh,21px);line-height:1.23;margin:4px 0 10px;overflow-wrap:anywhere}
+.game-active .baize .quote-front .attribution{margin-top:auto;font-size:8px;letter-spacing:1px}
+.game-active .baize .hand .playing-card.quote-front>.card-action{grid-column:1/-1;grid-row:3;position:static;min-height:42px;margin:0;padding:10px 6px;align-self:end;z-index:auto}
+}
+@media(max-width:1100px) and (orientation:landscape){
+.game-active .baize .hand .playing-card.quote-front{grid-template-columns:minmax(62px,27%) minmax(0,1fr);gap:5px}
+.game-active .baize .hand .quote-front .quote p{font-size:16px;line-height:1.2}
+.game-active .baize .quote-front .quote-mark{display:none}
+.game-active .baize .hand .playing-card.quote-front>.card-action{min-height:32px;padding:6px}
+}
