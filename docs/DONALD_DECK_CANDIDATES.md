@@ -1,16 +1,16 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.8 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.9 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31 and the Access Hollywood recording excerpt as Donald #32. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 31 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 32 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
 **Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), and #27 (1992 quotation/context requires original-page verification). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
@@ -59,6 +59,7 @@ Individual source records now accompany all 31 candidates. Sources range from or
 | Donald #29 | 82 | 94 | 45 | 5 | 5 | 15 |
 | Donald #30 | 75 | 15 | 65 | 5 | 99 | 55 |
 | Donald #31 | 94 | 20 | 25 | 5 | 40 | 50 |
+| Donald #32 | 95 | 25 | 99 | 5 | 55 | 70 |
 
 ## Card fronts and reveal notes
 
@@ -767,6 +768,40 @@ As of September 2026, Forbes estimated Trump's net worth at **US$7 billion**, ap
 - **Verification / wording notes:** Supplied wording is corroborated. The contemporary review places it in the chapter Trump vs. Trump, Undoing the Deal. The longer published excerpt discusses the family ideal, pressure to keep a marriage together, effects on children and separation. Preserve that context rather than portraying the sentence as a complete account of his marriage. Verify exact edition/page before final publication; no precise book-release day is asserted.
 - **Release status:** Editorial candidate with corroborated book attribution; original-page and final scoring review pending. Three overlaps are discussed, but only Pride is strongly supported; do not inflate weak attributes solely to create balance.
 
+### Donald #32
+
+**Draft front text — Trump’s remarks excerpted from a conversation:**
+
+> You know, I’m automatically attracted to beautiful — I just start kissing them. It’s like a magnet. Just kiss. I don’t even wait. And when you’re a star, they let you do it. You can do anything.
+>
+> […]
+>
+> Grab ’em by the pussy. You can do anything.
+
+*Donald Trump, recorded speaking with Billy Bush during an Access Hollywood production in September 2005; recording made public on 7 October 2016.*
+
+**Transcription note:** The opening typo “ou” in the submission is corrected to “You.” The ellipsis marks an intervening response by Billy Bush; these are Trump-only excerpts, not uninterrupted dialogue. Final punctuation and ’em/them transcription should follow the approved recording transcript. The submitted bold emphasis is not an indication of spoken emphasis or a different speaker.
+
+**Hidden scores:** Pride 95 · Greed 25 · Lust 99 · Envy 5 · Wrath 55 · Stupidity 70
+
+**Reveal overlaps:**
+
+- Lust: explicit sexual attraction and descriptions of sexual touching make this the strongest attribute. The game must not portray attraction as permission or imply that celebrity establishes consent.
+- Pride: the claim that being a star permits anything links fame to exceptional personal entitlement.
+- Stupidity: a strong, contestable poor-judgment interpretation of equating status with blanket permission and boasting about not waiting. This is an editorial assessment of the reasoning and speech, not a clinical assessment.
+- Wrath: a moderate, weaker overlap from the aggressive/objectifying language; the excerpt does not directly express revenge or anger. Greed is weak because the acquisitive framing is metaphorical rather than financial. Envy is unsupported.
+
+**Source and context record:**
+
+- **Date / original setting:** September 2005, off-camera conversation with Billy Bush during an Access Hollywood production associated with a Days of Our Lives appearance. Factba.se dates the recording 13 September 2005; use the month/year on the front unless that exact day is confirmed against production records.
+- **Public release:** 7 October 2016. This is distinct from the recording date.
+- **Source links:** [Roll Call / Factba.se — recording transcript](https://rollcall.com/factbase/trump/transcript/donald-trump-interview-access-hollywood-september-13-2005/) · [Voice of America — conversation transcript, 8 October 2016](https://www.voanews.com/a/transcript-of-donald-trumps-conversation-with-billy-bush-of-access-hollywood/3542128.html) · [Washington Post — original publication of the recording, 7 October 2016](https://www.washingtonpost.com/politics/trump-recorded-having-extremely-lewd-conversation-about-women-in-2005/2016/10/07/3b9ce776-8cb4-11e6-bf8a-3d26847eeed4_story.html).
+- **Context / response source:** [PolitiFact — full exchange and subsequent apology statements](https://politifact.com/article/2016/oct/08/context-donald-trumps-lewd-remarks-2005/).
+- **Evidence type:** Publicly released audiovisual recording, with published transcripts and contemporaneous reporting. Attribution is supported by a recording, rather than solely by a quotation compilation.
+- **Verification / context notes:** Retain separate speaker attribution when showing dialogue; do not assign Bush’s interjection to Trump. Trump subsequently apologised and described the conversation as locker-room talk. The recording documents his words; it does not independently establish that every described act occurred or that any person consented.
+- **Presentation:** Contains explicit sexual language and discussion of unwanted sexual contact. Keep readable on an appropriately labelled card; do not shrink this long passage below legibility. A shorter front must be clearly marked as an excerpt with the full text accessible.
+- **Release status:** Recording attribution corroborated; final transcript/omission, layout and editorial review pending. Six scores are provisional.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -782,7 +817,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 31 candidates now recorded, a 52-card deck has 21 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 32 candidates now recorded, a 52-card deck has 20 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
