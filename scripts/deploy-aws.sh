@@ -31,7 +31,17 @@ variables.update(TOPTRUMPS_TABLE_NAME=table,TOPTRUMPS_AWS_REGION=region,AMPLIFY_
 variables.pop('TOPTRUMPS_LOCAL_STATE',None)
 Path(folder,'update.json').write_text(json.dumps({'appId':app,'branchName':'main','environmentVariables':variables,'computeRoleArn':role,'enableAutoBuild':True,'enablePullRequestPreview':False,'framework':'Next.js - SSR'}))
 PY
-aws amplify update-app --app-id "$app_id" --platform WEB_COMPUTE --build-spec "file://$repo_root/amplify.yml" --region "$region" --query app.appId --output text
+# Framework detection runs before the build; set app-level root as well as branch root.
+aws amplify get-app --app-id "$app_id" --region "$region" --output json > "$work_dir/app.json"
+python3 - "$work_dir" "$app_id" "$repo_root" <<'PY'
+import json,sys
+from pathlib import Path
+folder,app,root=sys.argv[1:]
+variables=json.loads(Path(folder,'app.json').read_text())['app'].get('environmentVariables',{})
+variables['AMPLIFY_MONOREPO_APP_ROOT']='web'
+Path(folder,'app-update.json').write_text(json.dumps({'appId':app,'platform':'WEB_COMPUTE','environmentVariables':variables,'buildSpec':Path(root,'amplify.yml').read_text()}))
+PY
+aws amplify update-app --cli-input-json "file://$work_dir/app-update.json" --region "$region" --query app.appId --output text
 aws amplify update-branch --cli-input-json "file://$work_dir/update.json" --region "$region" --query branch.branchName --output text
 job_id=$(aws amplify start-job --app-id "$app_id" --branch-name main --job-type RELEASE --region "$region" --query jobSummary.jobId --output text)
 echo "Deployment started. Job: $job_id"
