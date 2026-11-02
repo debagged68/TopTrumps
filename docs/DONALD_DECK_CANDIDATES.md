@@ -1,16 +1,16 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.4 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.5 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 27 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 28 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
 **Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), and #27 (1992 quotation/context requires original-page verification). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
@@ -55,6 +55,7 @@ Individual source records now accompany all 27 candidates. Sources range from or
 | Donald #25 | 40 | 5 | 5 | 5 | 50 | 74 |
 | Donald #26 | 96 | 65 | 94 | 10 | 5 | 35 |
 | Donald #27 (HOLD; paired) | 85 | 10 | 60 | 5 | 88 | 55 |
+| Donald #28 | 98 | 10 | 20 | 5 | 55 | 65 |
 
 ## Card fronts and reveal notes
 
@@ -648,6 +649,28 @@ Individual source records now accompany all 27 candidates. Sources range from or
 
 **Release status:** HOLD pending original 1992 page/context check and final transcription of both segments. Scores and explanations are conditional editorial draft values; exclude this card from live dealing until reviewed. Once approved, one round selects a sin for the entire paired card, not separately for each statement.
 
+### Donald #28
+
+**Draft front text:**
+
+> Show me someone without an ego, and I’ll show you a loser.
+
+**Hidden scores:** Pride 98 · Greed 10 · Lust 20 · Envy 5 · Wrath 55 · Stupidity 65
+
+**Reveal overlaps:**
+
+- Pride: ego is explicitly presented as essential to success, making this a very strong Pride card.
+- Stupidity: the absolute connection between lacking ego and being a loser is an unsupported generalisation. This score reflects the compressed claim, not a factual measurement of the speaker; the longer healthy-ego qualification makes the position less absolute and needs review before final scoring.
+- Wrath: the dismissive label loser supplies a moderate contempt/insult overlap, without an explicit threat or revenge.
+
+**Source and context record:**
+
+- **Date / original setting:** User-supplied attribution: Facebook, 9 December 2013. Retained as provisional; original post/date not directly verified.
+- **Source links:** [Live Science — 2016 article quoting a longer version and identifying a 2013 Facebook post](https://www.livescience.com/53307-donald-trump-narcissism-reflects-us-culture.html) · [A-Z Quotes — specific Facebook/date attribution](https://www.azquotes.com/quote/1406674) · [Texas Tribune — quotation citations identifying Twitter](https://www.texastribune.org/2016/05/24/citations-who-said-it-trump-or-cuban-quiz/?campaign=814407) · [Univision — longer version with an embedded tweet dated 8 December 2013](https://www.univision.com/noticias/politica/que-tienen-en-comun-donald-trump-y-kanye-west).
+- **Evidence type:** Secondary reporting corroborates the wording; the exact Facebook date comes from a quotation database. Other reproductions identify Twitter, indicating cross-posting or differing attribution that needs an original capture to resolve.
+- **Verification / wording notes:** The longer reported version continues with an explanation that a healthy ego or high opinion of oneself is positive. Treat this card as an excerpt and include that qualification in the context/reveal; do not imply that qualification was absent. Verify the original Facebook post, date/timezone and punctuation before publication. A reported Twitter version does not by itself verify the Facebook post. Sources' commentary about personality is not adopted as a clinical judgment.
+- **Release status:** Editorial candidate; primary social-post capture and final context-aware scoring pending.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -663,7 +686,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 27 candidates now recorded, a 52-card deck has 25 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 28 candidates now recorded, a 52-card deck has 24 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
