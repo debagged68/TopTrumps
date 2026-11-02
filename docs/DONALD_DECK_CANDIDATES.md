@@ -16,7 +16,7 @@ Individual source records now accompany all 48 candidates. Sources range from or
 
 ## Scoring and overlap policy
 
-- Scores are provisional satirical editorial judgments of each statement/context, not factual measurements of the speaker's character or intelligence. Higher wins; all six scores remain hidden until play.
+- Scores are provisional satirical editorial judgments of each statement/context, not factual measurements of the speaker's character or intelligence. Higher wins. In the current v2 web interaction, the player's dealt cards show all six scores on their reverses before commitment; the computer's scores remain hidden until its reveal.
 - Scale: 1–20 negligible, 21–40 weak, 41–60 moderate, 61–80 strong, 81–100 very strong. These are raw intensity scores, not calibrated win probabilities.
 - Each candidate has **at least three discussed overlaps**. Weak and negligible links are explicitly identified: three explanations do not mean three strong scores. A few quotes do not credibly support three meaningful overlaps and should be replaced before launch if that is a publication requirement.
 - Aim for spread without inventing motives: insults are not automatically Envy; wealth is not automatically Greed; sexual references are not automatically evidence of attraction; political disagreement is not automatically Stupidity. Envy needs a comparison showing resentment of another's advantage.

@@ -33,3 +33,7 @@ round. Missing rationales remain missing rather than being invented.
 
 Optional SQL export remains available with `python3 scripts/build_seed.py`.
 Both exporters use the single shared parser in `scripts/card_content.py`.
+
+## Current score-disclosure rule (v2)
+
+This section supersedes earlier pre-choice score-hint restrictions above: the two dealt player cards may include their own six scores and show them on their reverse before play. Keep the opponent's identity/scores/selected category and the full deck off precommit responses. After commitment, the reference API returns the result; the UI waits for a manual computer-card flip before showing it. See `docs/SOLUTION_DESIGN.md` and `docs/GAME_FLOWS.md`.

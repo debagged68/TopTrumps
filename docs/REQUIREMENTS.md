@@ -1,12 +1,14 @@
 # Top Trumps — Product Requirements
 
-Version 1.2 · 2 November 2026 · Design updated for file-based card content; gameplay and commerce are not implemented.
+Version 2.0 · 2 November 2026 · Current card-flip web prototype and independent implementation baseline; commerce and WhatsApp are deferred.
+
+Implementation handoff: [solution design](SOLUTION_DESIGN.md), [game flows](GAME_FLOWS.md), [artwork](ARTWORK.md) and [developer checklist](DEVELOPER_HANDOFF.md). The v2 disclosure/manual-reveal requirements supersede earlier blanket hidden-player-score and automatic-flip assumptions.
 
 ## 1. Purpose and scope
 
 Create a humorous political quote card game playable on a mobile website and through a one-to-one WhatsApp conversation. The website also presents all decks, prices, previews, secure payments and the player's collection. No installed mobile app is required.
 
-The central challenge is interpreting a genuine political statement: choose one of two cards and nominate a deadly sin, without seeing any scores. The computer's random card is revealed, the selected sin scores are compared, and the player wins, loses or draws. A prominent **Twist Again** action starts the next round.
+The central challenge is interpreting a genuine political statement: choose one of two cards and nominate a deadly sin, after flipping the player's cards to inspect their own scores. The computer's scores remain hidden until the comparison reveal. The computer's random card is revealed, the selected sin scores are compared, and the player wins, loses or draws. A prominent **Twist Again** action starts the next round.
 
 This document uses MUST for launch requirements, SHOULD for preferred behaviour and LATER for deferred features. Product choices introduced to fill gaps are identified as proposed defaults. They are implementation baselines that can be adjusted before launch, rather than claims that the owner expressly approved every detail.
 
@@ -16,7 +18,7 @@ This document uses MUST for launch requirements, SHOULD for preferred behaviour 
 |---|---|
 | Card content | Authentic political quote or statement, with attribution and context. Agreed. |
 | Attributes | Donald Deck: six categories — Pride, Greed, Lust, Envy, Wrath and Stupidity. Greed absorbs Gluttony; Stupidity replaces Sloth. Supersedes the original seven-attribute baseline. |
-| Hidden scores | Player chooses before scores are revealed. Agreed. |
+| Score disclosure | Player flips either card to see its own six scores before commitment. Computer identity/scores stay unavailable before commitment and visually hidden until the user flips its house card. |
 | Hand | Two cards; choose one to play. Agreed. |
 | Opponent | Random computer card compared on the player's chosen sin. Agreed. |
 | Replay | Twist Again starts a fresh round. Agreed. |
@@ -34,7 +36,7 @@ This document uses MUST for launch requirements, SHOULD for preferred behaviour 
 |---|---|---|
 | Discover | Home page, rules, deck catalogue, previews and prices | Welcome message, brief rules, free-play and shop actions |
 | View cards | Two readable visual cards; stack on narrow phones | Two separately labelled card images, A and B; concise text equivalents |
-| Choose | Select a card, then tap one of the deck’s category controls (six for Donald) | Choose A/B, then choose from the deck’s category list (six items for Donald); text fallback |
+| Choose | Flip player cards; Deal first selects a sin on a reverse, Deal second selects a card against a locked computer sin | Future adapter must reproduce the same two modes using supported messages/controls; text fallback |
 | Result | Reveal opponent, selected scores, outcome and explanation | Result image plus readable result text and replay button |
 | More detail | Reveal all sins, attribution, context and source | Optional Reveal all sins / source response or website link |
 | Buy | Deck details and provider-hosted checkout | Shop/buy link opens website checkout; no card details collected in chat |
@@ -65,15 +67,15 @@ A deck/pool MUST have at least three eligible cards. Avoid repeats between conse
 
 ### GAME-02: Choice and commitment
 
-The category-selection steps below apply to Deal first. In Deal second, choosing A/B commits immediately against the computer's locked category; only its two-category hint is permitted before commitment.
+The category-selection steps below apply to Deal first. In Deal second, Play card A/B on the reverse commits against the computer's locked category; the player may inspect their own six scores, while only two category names are disclosed about the computer.
 
-Before commitment, show quote, speaker, date/context and artwork but no numeric sin scores, dominant-sin labels or other strong score hints. The player selects A or B, then one of the selected deck’s categories: Pride, Greed, Lust, Envy, Wrath or Stupidity for the Donald Deck. Allow Back/change-card before submitting the sin. Choosing the sin commits the round; no separate confirmation is required.
+Player fronts show quote, speaker, date/context and artwork. Flipping either or both cards reveals their own six sins and numeric scores. Deal first: tap a sin row on the chosen reverse to commit the card/category immediately. Deal second: inspect either reverse, then tap Play card A/B to commit against the computer's locked category; the player does not choose a sin. Allow free flipping back to quotes before commitment. Never expose the computer's identity, scores or selected category before commitment.
 
 The server MUST atomically validate ownership, round state, card choice and sin, then resolve exactly once. Double taps, retries and duplicate webhooks MUST return the original result without creating additional rounds or statistics. Selecting an already resolved round MUST never permit a different choice.
 
 ### GAME-03: Outcome
 
-Compare the two selected-sin integer scores: player greater = win; smaller = loss; equal = draw. Reveal the computer quote, both selected scores, clear outcome and short editorial explanations for that sin. Never invent the outcome with an LLM. Reveal all sins is optional after resolution and shows both complete category-score profiles without altering the outcome.
+Compare the two selected-sin integer scores: player greater = win; smaller = loss; equal = draw. After commitment, slide the unused player card off the baize, replace it in the same slot with the face-down computer card, and wait for the user to press Flip computer's card. Only then turn it to its six sins/scores, highlight the deciding row on both reverses and show both selected scores and the outcome. Provide quotes, context and editorial explanation through details. Never invent the outcome with an LLM. Reveal all sins is optional after resolution and shows both complete category-score profiles without altering the outcome.
 
 Track completed rounds, wins, losses, draws, current winning streak and best winning streak. Proposed default: a win increases the streak; a loss or draw resets it. Abandoned or expired rounds do not count as outcomes. Display the streak rule in help.
 
@@ -110,13 +112,13 @@ No live LLM generation is required for play. AI-assisted research or drafting, i
 
 ### CARD-03: Visual design
 
-Use recognisable original branding, large quote text, attribution and accessible contrast. Portraits/caricatures require appropriate asset permission or original commissioned artwork. Hidden and revealed card versions must be distinct. Long quotes MUST use an approved layout or a clearly marked preview with access to the complete wording; never shrink into unreadable text or silently truncate. Keep accessible text alongside images. Published card scores and explanations are versioned; existing rounds retain their original version after corrections.
+Use recognisable original branding, large quote text, attribution and accessible contrast. Portraits/caricatures require appropriate asset permission or original commissioned artwork. Quote fronts, player score reverses and face-down house covers must be distinct. The web design uses a green felt baize, ivory/gold quote fronts and navy/gold reverses. Card shells must be identical in size; scroll long quotes inside the fixed front. Reduced-motion mode preserves the manual reveal step without timed rotation/sliding. Long quotes MUST use an approved layout or a clearly marked preview with access to the complete wording; never shrink into unreadable text or silently truncate. Keep accessible text alongside images. Published card scores and explanations are versioned; existing rounds retain their original version after corrections.
 
 ## 6. Website requirements
 
 ### WEB-01: Public pages
 
-Home: explain the game, show sample cards, Play free and Browse decks. How to play: demonstrate two cards, hidden scores, sin selection, reveal and replay. Shop: show all published decks, cover artwork, theme, eligible card count, currency, total displayed price and free/owned/paid status. Deck details: include representative previews, contents, purchase terms and a clear buy/play action. Do not expose the complete hidden score database through public previews or API payloads.
+Home: explain the game, show sample cards, Play free and Browse decks. How to play: demonstrate two card fronts, flips to the player's visible scores, sin/card selection, a face-down house card awaiting user flip, result and replay. Shop: show all published decks, cover artwork, theme, eligible card count, currency, total displayed price and free/owned/paid status. Deck details: include representative previews, contents, purchase terms and a clear buy/play action. Do not expose the complete hidden score database through public previews or API payloads.
 
 ### WEB-02: Player experience
 
@@ -217,15 +219,15 @@ Card content MUST use the default workflow **Markdown → generated JSON → gam
 - The current v0.20 export contains 48 draft cards, 288 scores, eight HOLD cards and 71 source links. HOLD cards are #11, #19, #27, #36, #40, #41, #42 and #44. Counts describe the current snapshot, not fixed deck limits.
 - All exported content remains draft. Candidate status MUST NOT imply publication or verification. HOLD cards MUST never be dealt; production use of any other card requires editorial approval. The exporter does not implement the publication workflow, and missing rationales remain missing.
 - IDs use the deck slug and original card number; never renumber existing cards. Pin quote and score snapshots when dealing so a deployment cannot alter an active round.
-- Read the full JSON only in trusted server code. Never copy it into public/static assets, import it into browser bundles or return full records through pre-choice APIs. Explicitly allowlist player card ID, label, quote, speaker and approved context/artwork. Attribution notes, source Markdown and reveal explanations can contain score hints.
+- Read the full JSON only in trusted server code. Never copy the full deck into public/static assets or browser bundles. Precommit APIs may return the two dealt player cards and their six scores so the reverses work. Exclude computer identity/scores/selected category and unrelated cards. Explicitly project fields; source Markdown and editorial verification notes do not belong in card-front payloads.
 - The GitHub repository is public and includes scores; server-only delivery prevents accidental disclosure during play, not deliberate repository lookup.
 - Keep Supabase migration and seed files available as an optional future route. Accounts, entitlements, payments, rounds and statistics still need appropriate durable storage when implemented; the content JSON does not replace transactional player-state storage.
 
-See [content handling instructions](../content/README.md). The export pipeline is implemented; the game server, publication controls and player-state storage are not yet implemented.
+See [content handling instructions](../content/README.md). The export pipeline, private reference game server and D1 round storage are implemented. Publication controls, robust content snapshot pinning and production player-state handling remain implementation work.
 
 ### ARCH-03: Security and reliability
 
-Before commitment, APIs and image assets MUST NOT expose hidden scores or the computer identity. Full score tables stay server-side. Signed player sessions, authorization on every owned resource, admin access control and webhook signature verification are required. Rate-limit play, linking and checkout creation. Store credentials in managed secrets, never in source control.
+Before commitment, APIs and assets MUST NOT expose the computer's scores, selected category or identity. The player's two dealt cards intentionally include their own scores for reverse inspection. Full deck score tables stay server-side. The current API returns the computer/result after commitment, with a manual visual flip delaying display; a separate reveal endpoint is needed if postcommit network secrecy is required. Signed player sessions, authorization on every owned resource, admin access control and webhook signature verification are required. Rate-limit play, linking and checkout creation. Store credentials in managed secrets, never in source control.
 
 Use idempotency keys and transactional updates for payments, entitlements, quota reservation and round resolution. Duplicate messages, webhook reordering and concurrent browser/WhatsApp actions must not corrupt state. Retries must be bounded and observable, with dead-letter/support recovery. Keep logs useful without recording secret tokens or unnecessary personal message content.
 
@@ -243,9 +245,9 @@ WhatsApp tariffs and provider fees are launch dependencies; do not hard-code an 
 
 | ID | Scenario and expected outcome |
 |---|---|
-| AC-01 | A new round shows exactly two distinct cards without scores or dominant-sin hints; computer card is already persisted and is distinct. |
+| AC-01 | A new round shows exactly two distinct quote fronts. Either flips to its own six scores. The computer card is already persisted and distinct; Deal second may show its two category-name hints only. |
 | AC-02 | For each configured category (six for Donald), known fixture scores produce the correct win/loss/draw; result includes both scores and relevant rationales. |
-| AC-03 | Inspecting pre-choice network responses/assets cannot retrieve hidden scores or the opponent card. |
+| AC-03 | Precommit responses contain only the two player cards/scores and permitted hints; no opponent identity, scores or selected category. Full deck is absent from browser bundles. |
 | AC-04 | Double taps, duplicate inbound messages and retries resolve one round once and update statistics once. |
 | AC-05 | Twist Again creates a new round; limits show a clear explanation without charging automatically. |
 | AC-06 | Website and WhatsApp given the same round produce identical results and entitlements. Switching channels resumes rather than rerolls. |
@@ -261,11 +263,14 @@ WhatsApp tariffs and provider fees are launch dependencies; do not hard-code an 
 | AC-16 | Sources and full context are accessible; satire scoring is distinguished from the verified quotation. |
 | AC-17 | Guest-to-account recovery, refund reconciliation, data backup recovery and support entitlement repair have documented checks. |
 | AC-18 | Regenerating content produces deterministic JSON matching the Markdown scores, card identities, holds and source records; no Supabase project is needed. |
-| AC-19 | Full content JSON and reveal/editorial fields are absent from browser bundles, static assets and pre-choice API responses. |
+| AC-19 | Full content JSON and unrelated editorial fields are absent from browser bundles/static assets; precommit APIs explicitly project only dealt player fields and permitted hints. |
+| AC-20 | Selecting a sin/card removes the unused card, preserves the selected slot and inserts the computer face down in the vacated slot. It never auto-flips. |
+| AC-21 | Only the user's Flip computer's card action reveals its reverse, deciding-row highlights, totals update and outcome. Reduced-motion mode still requires this action. |
+| AC-22 | Both card shells have equal dimensions, including mobile layout; long quotes stay readable inside the fixed front. |
 
 ### Current private web prototype
 
-A playable mobile-first prototype is deployed at https://toptrumps-play.debagged.chatgpt.site (owner-private; ChatGPT sign-in required). It includes both deal modes, original illustrated gold-and-ivory cards, score reveal, category breakdown, source links, replay and same-browser round restoration. The Site source is versioned by Sites separately from this editorial repository. Card content remains the generated JSON snapshot; Cloudflare D1 stores round state only. No Supabase project is required.
+A playable mobile-first prototype is deployed at https://toptrumps-play.debagged.chatgpt.site (owner-private; ChatGPT sign-in required). It includes both deal modes, original illustrated ivory/gold cards on green baize, player flips to six visible scores, animated unused-card removal, a computer house card awaiting manual flip, comparison, source links, replay and same-browser round restoration. The deployed Site is versioned separately; this repository also includes a readable source snapshot under `reference/prototype/`, the original artwork under `assets/artwork/`, and independent solution/flow documentation. Card content remains the generated JSON snapshot; Cloudflare D1 stores round state only. No Supabase project is required.
 
 Prototype limits: all cards are editorial drafts; HOLD cards are excluded. Session totals reset on refresh. The same decorative portrait is reused across cards and is independent of scores. No purchases, player accounts, WhatsApp integration, public launch or cross-device continuity are implemented. Database retention cleanup and rate limits remain launch work. Browser tests exercised both modes and refresh restoration; 50 automated round tests and TypeScript/build checks passed.
 
