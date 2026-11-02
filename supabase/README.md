@@ -1,4 +1,7 @@
-# Card content database (Supabase)
+# Optional card content database (Supabase)
+
+The default workflow now uses generated JSON; see the repository README.
+No Supabase project or migration is required for file-based card content.
 
 Holds The Donald Deck candidate cards: quote text, attribution, reveal description, per-category scores with rationales, and source links.
 
