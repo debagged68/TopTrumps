@@ -1,18 +1,18 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.3 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.4 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 26 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 27 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
-**Publication holds:** #11 (wording/context conflict) and #19 (disputed second-hand account). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
+**Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), and #27 (1992 quotation/context requires original-page verification). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
 ## Scoring and overlap policy
 
@@ -54,6 +54,7 @@ Individual source records now accompany all 26 candidates. Sources range from or
 | Donald #24 | 20 | 5 | 12 | 5 | 5 | 83 |
 | Donald #25 | 40 | 5 | 5 | 5 | 50 | 74 |
 | Donald #26 | 96 | 65 | 94 | 10 | 5 | 35 |
+| Donald #27 (HOLD; paired) | 85 | 10 | 60 | 5 | 88 | 55 |
 
 ## Card fronts and reveal notes
 
@@ -603,6 +604,50 @@ Individual source records now accompany all 26 candidates. Sources range from or
 - **Evidence type:** Secondary publications reproducing the passage and identifying the book. The Creative Loafing attribution uses the title *Think Big and Kick Ass in Business and Life* and the year 2008; Esquire uses the title supplied by the user without establishing that edition's year.
 - **Verification / wording notes:** The supplied wording is corroborated by secondary quotations. A legitimate original edition has not been inspected; confirm title variant, edition/year, full surrounding passage and page before publication. Do not infer an actual partner's identity or independently verified sexual history from the boast.
 
+### Donald #27 — Paired statements (HOLD)
+
+**Draft front text — two separately attributed statements on ONE card:**
+
+**1992 — reported remark about women**
+
+> “You have to treat ’em like shit.”
+
+*Reported attribution: Julie Baumgold, “Fighting Back,” New York magazine, 9 November 1992. Context/direct-quotation verification pending; see below.*
+
+**2015 — Face the Nation**
+
+> “I will be phenomenal to the women. I mean, I want to help women.”
+
+*CBS, Face the Nation, 9 August 2015.*
+
+**Presentation rule:** These are two statements approximately 23 years apart, juxtaposed editorially at the user's request. They are not a single utterance, exchange or continuous quotation. Keep separate source/date labels visible on the front. “Women” is a contextual label for the first remark, not an additional word inside its quotation. Do not claim the pairing itself proves hypocrisy or that the two statements have identical scope.
+
+**Hidden scores, provisional for the combined card:** Pride 85 · Greed 10 · Lust 60 · Envy 5 · Wrath 88 · Stupidity 55
+
+**Reveal overlaps:**
+
+- Wrath: the reported 1992 remark expresses contempt through hostile language. This reading depends on establishing what was said and its context.
+- Pride: the 2015 prediction of being “phenomenal” is emphatic self-praise, made in a discussion of women voters, employment and health.
+- Lust: moderate, weaker overlap under the game's power/control definition: the reported 1992 framing concerns how women should be treated or managed. Neither sentence alone expresses sexual desire, so do not score it as a direct sexual statement.
+- Stupidity: the apparent clash in public messaging permits a moderate poor-judgment interpretation, but a long time gap, uncertain earlier context and possible change in views mean contradiction is not established automatically.
+
+**Source and context record — statement A:**
+
+- **Date / original setting:** Julie Baumgold, “Fighting Back,” New York magazine, 9 November 1992, pp. 36–47. The relevant treatment of women appears on pp. 41 and 43 according to the contextual review below.
+- **Original issue/archive lead:** [Google Books — 9 November 1992 issue, page 41](https://books.google.be/books?dq=%22Marie+Brenner%22+trump+wine&id=BeUCAAAAMBAJ&lpg=PA41&pg=PA41). The accessible fetch did not expose the scanned page text; neither page 41 nor page 43 has been visually verified in this update.
+- **Contextual sources:** [Truth or Fiction — review of both page 41 and page 43](https://www.truthorfiction.com/did-donald-trump-say-women-you-have-to-treat-them-like-s-in-a-1992-interview/) · [Lead Stories — challenge to the generalised wording](https://leadstories.com/hoax-alert/2019/09/fake-news-donald-trump-women-you-have-to-treat-them-like-shit.html).
+- **Evidence type:** A reported magazine quotation, with secondary fact-checks that differ in scope. Lead Stories challenges the generalised “Women, you have to…” version based on page 41. Truth or Fiction additionally identifies a direct attributed remark on page 43, while noting incomplete conversational context and a later denial.
+- **Verification / wording notes:** Do not treat the narrower page-41 review as establishing that the phrase never appeared elsewhere in the issue. Equally, do not turn the remark into a verified universal instruction about all women. Confirm the actual page-43 print wording/censorship and surrounding conversation, and document the reported later denial before release. The draft retains the user's uncensored wording as a candidate transcription, not as certified original typography.
+
+**Source and context record — statement B:**
+
+- **Date / original setting:** CBS, Face the Nation, interview with John Dickerson, 9 August 2015.
+- **Source links:** [CBS — full programme transcript](https://www.cbsnews.com/news/face-the-nation-transcripts-august-9-2015-trump-fiorina-carson-sanders/) · [CBS New York — contemporary report reproducing the user's exact two-sentence version](https://www.cbsnews.com/newyork/news/donald-trump-megyn-kelly-2/) · [CBS — full interview video](https://www.cbsnews.com/video/full-interview-donald-trump-august-9/).
+- **Evidence type:** Original broadcaster transcript/video and contemporary reporting.
+- **Verification / wording notes:** The full programme transcript prints the two sentences without “I mean”; the contemporary CBS New York report includes it. Verify the audio to settle that small transcription difference. The surrounding exchange concerns why women should vote for him, women in his businesses, women's health and criticism of Jeb Bush.
+
+**Release status:** HOLD pending original 1992 page/context check and final transcription of both segments. Scores and explanations are conditional editorial draft values; exclude this card from live dealing until reviewed. Once approved, one round selects a sin for the entire paired card, not separately for each statement.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -618,7 +663,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 26 candidates now recorded, a 52-card deck has 26 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 27 candidates now recorded, a 52-card deck has 25 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
