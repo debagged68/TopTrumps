@@ -1,4 +1,4 @@
-# The Seven Deadly Spins — Product Requirements
+# Top Trumps — Product Requirements
 
 Version 1.1 · 2 November 2026 · Design updated for file-based card content; gameplay and commerce are not implemented.
 
@@ -26,7 +26,7 @@ This document uses MUST for launch requirements, SHOULD for preferred behaviour 
 | Scores | Fixed integers from 1–100; higher wins. Proposed default. |
 | Format | Independent rounds with running totals; no five-round restriction or restriction on repeating sins. Proposed default reflecting the latest design. |
 | Commercial launch | Free starter deck plus one-off paid decks. Prices and free limits configurable, not final. |
-| Naming | The Seven Deadly Spins is a working title. |
+| Naming | Top Trumps. Updated by owner decision. |
 
 ## 3. Experience by channel
 
@@ -266,7 +266,7 @@ Subscriptions, party passes, multiplayer, shared seeded daily challenges, leader
 
 ## 15. Decisions needed before launch
 
-Final title/domain/visual style; approved quote collection and asset rights; deck sizes; starter allowance; prices/currencies/tax setup; whether paid decks include updates; WhatsApp provider and policy acceptance; messaging budget; authentication/recovery provider; final access/refund terms; support owner; retention schedule and hosting stack. These do not prevent documenting or prototyping the agreed game.
+Domain/final visual style; approved quote collection and asset rights; deck sizes; starter allowance; prices/currencies/tax setup; whether paid decks include updates; WhatsApp provider and policy acceptance; messaging budget; authentication/recovery provider; final access/refund terms; support owner; retention schedule and hosting stack. These do not prevent documenting or prototyping the agreed game.
 
 ## 16. Reference sources and verification notes
 
