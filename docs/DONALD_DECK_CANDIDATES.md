@@ -1,12 +1,18 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.1 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.2 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
 All 25 spreadsheet rows are retained in original order. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+
+## Source update — 2 November 2026
+
+Individual source records now accompany all 25 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+
+**Publication holds:** #11 (wording/context conflict) and #19 (disputed second-hand account). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
 ## Scoring and overlap policy
 
@@ -64,7 +70,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Stupidity: the false birther allegation supports a high score for unsupported reasoning.
 - Pride: appeal to an exceptionally credible personal source suggests privileged knowledge.
 
-**Source/context status:** Original post/date required; false allegation, not a factual description of the certificate.
+**Source and context record:**
+
+- **Date / original setting:** 6 August 2012; Twitter/X post.
+- **Source links:** [ABC News — Donald Trump Hates ‘Sources’ Except When They’re His](https://abcnews.com/Politics/donald-trump-hates-sources/story?id=42488088)
+- **Evidence type:** Secondary reporting reproducing the dated post.
+- **Verification / wording notes:** The post uses @BarackObama rather than the expanded name in the draft. Attribution corroborated; preserve the false-allegation context. Original post/archive capture is still desirable.
 
 ### Donald #02
 
@@ -80,7 +91,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: the speaker positions himself as judge of another person's worth.
 - Stupidity: weak-to-moderate reading of the unsupported leap from an insult to explaining a marriage; not established by offensiveness alone.
 
-**Source/context status:** Verify original post, spelling and date; the person's name is Arianna Huffington. The quote's claim about the marriage is not endorsed.
+**Source and context record:**
+
+- **Date / original setting:** 28 August 2012; Twitter/X post.
+- **Source links:** [The Irish News — seven Twitter feuds](https://www.irishnews.com/magazine/daily/2017/03/15/news/7-of-donald-trump-s-biggest-twitter-feuds-to-stop-snoop-dogg-feeling-targeted-965748/)
+- **Evidence type:** Secondary report reproducing/embedding the dated post.
+- **Verification / wording notes:** Name/handle and punctuation need comparison with the original post. Do not endorse its explanation of the marriage.
 
 ### Donald #03
 
@@ -96,7 +112,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: an attractive partner is presented as a status asset.
 - Greed: weaker possessive reading of having someone as a reward; distinct from literal financial accumulation.
 
-**Source/context status:** Wording varies in reports; verify Esquire 1991 original. The spreadsheet's young-female-journalist setting is unconfirmed.
+**Source and context record:**
+
+- **Date / original setting:** 1991; Esquire interview.
+- **Source links:** [PBS/AP — history of comments about women](https://www.pbs.org/newshour/amp/politics/trump-offensive-comments-women) · [Euronews — quoted remarks](https://www.euronews.com/2015/12/08/trumpisms-the-things-donald-trump-says)
+- **Evidence type:** Secondary reports identifying Esquire as origin; PBS text was search-indexed but direct fetch returned 403.
+- **Verification / wording notes:** Wording variants include it doesn’t really matter / it really doesn’t matter and what they / the media write. Locate original Esquire before choosing final verbatim wording; no support here for the female-journalist premise.
 
 ### Donald #04
 
@@ -112,7 +133,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Lust: the statement centres on authority to impose an outcome.
 - Greed: weaker interpretation of obtaining the benefit while shifting its cost to another party; cost shifting alone is not proof of greed.
 
-**Source/context status:** Check June 2015 recording for exact wording. Mexico, not Mexicans. Score Stupidity only with an agreed feasibility rubric, not partisan disagreement.
+**Source and context record:**
+
+- **Date / original setting:** 16 June 2015; candidacy announcement, Trump Tower, New York.
+- **Source links:** [Roll Call / Factba.se — announcement transcript](https://rollcall.com/factbase/trump/transcript/donald-trump-announcement-speech-new-york-ny-june-16-2015/)
+- **Evidence type:** Transcript of the speech (primary-content transcription).
+- **Verification / wording notes:** The longer passage includes the wall-building boast and the promise that Mexico would pay. Confirm have/make against audio rather than mixing transcript variants. Draft remains an excerpt.
 
 ### Donald #05
 
@@ -128,7 +154,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Stupidity: sweeping inference about a group rather than an evidenced individual claim.
 - Pride: weaker posture of superior judgment in deciding which members are good.
 
-**Source/context status:** Verify June 2015 transcript; full context must identify the group being discussed. Do not present the generalisation as fact.
+**Source and context record:**
+
+- **Date / original setting:** 16 June 2015; same candidacy announcement.
+- **Source links:** [Roll Call / Factba.se — announcement transcript](https://rollcall.com/factbase/trump/transcript/donald-trump-announcement-speech-new-york-ny-june-16-2015/)
+- **Evidence type:** Transcript of the speech (primary-content transcription).
+- **Verification / wording notes:** Preceding discussion identifies Mexico. Retain that context and distinguish his generalisation from a factual description of migrants.
 
 ### Donald #06
 
@@ -144,7 +175,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Lust: the claim concerns sexual or romantic attention.
 - Stupidity: attributing unconscious attraction makes the universal boast difficult to disprove.
 
-**Source/context status:** Original publication/date required.
+**Source and context record:**
+
+- **Date / original setting:** 2004; Trump: How to Get Rich.
+- **Source links:** [PBS/AP — comments quoting the book](https://www.pbs.org/newshour/amp/politics/trump-offensive-comments-women) · [Washington Post — review of his books](https://www.washingtonpost.com/news/book-party/wp/2015/08/05/donald-trump-on-women-sex-marriage-and-feminism/)
+- **Evidence type:** Secondary reports quoting and identifying the book; original edition/page not inspected.
+- **Verification / wording notes:** Source origin established at book/year level. Check a legitimate copy for exact of the women wording and the concluding sentence before publication; do not invent a page number.
 
 ### Donald #07
 
@@ -160,7 +196,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Greed: money is elevated as a defining personal virtue; weaker than a direct demand for more.
 - Stupidity: weak reading of reducing personal merit to one financial attribute, not a verifiable factual error.
 
-**Source/context status:** Original source/date required.
+**Source and context record:**
+
+- **Date / original setting:** 17 March 2011; ABC Good Morning America interview with Ashleigh Banfield.
+- **Source links:** [ABC News — interview report](https://abcnews.com/Politics/donald-trump-president-trump-weighs-sheen-palin-obama/story?id=13154163) · [Roll Call / Factba.se — interview transcript](https://rollcall.com/factbase/trump/transcript/donald-trump-interview-abc-good-morning-america-march-17-2011/)
+- **Evidence type:** Original interviewing outlet plus transcript.
+- **Verification / wording notes:** Wording correction needed: the source says Part of the beauty of me … rather than the shortened draft opening. The surrounding point is ability to self-fund a presidential bid.
 
 ### Donald #08
 
@@ -176,7 +217,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: weaker confidence in an instant personal verdict on a complex topic.
 - Wrath: weak reading of the dismissive, mocking tone; not explicit anger.
 
-**Source/context status:** Draft wording from spreadsheet; verify original post and whether sentences have been combined.
+**Source and context record:**
+
+- **Date / original setting:** November 2012; Twitter/X post (commonly dated 7 November).
+- **Source links:** [ABC News — climate-tweet retrospective](https://abcnews.com/US/trumps-global-warming-tweet-troll-job-based-science/story?id=52044473) · [TheWrap — reproduces dated post](https://www.thewrap.com/michael-rapaport-skewers-president-trump-global-warming/)
+- **Evidence type:** Secondary reports reproducing the post; ABC identifies month/year, TheWrap displays 7 November.
+- **Verification / wording notes:** Wording corroborated. Exact timestamp/timezone still needs original-post verification; avoid conflating this with other cold-weather tweets.
 
 ### Donald #09
 
@@ -192,7 +238,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: weaker self-presentation as a plausible romantic partner.
 - Stupidity: poor public judgment in framing the family relationship this way; an editorial reading, not evidence of an actual relationship.
 
-**Source/context status:** The View, March 2006; verify recording. Include that a representative described the remark as a joke.
+**Source and context record:**
+
+- **Date / original setting:** 6 March 2006; ABC The View appearance; report published 7 March.
+- **Source links:** [Reality Blurred — contemporary report](https://www.realityblurred.com/realitytv/2006/03/the-apprentice-5-trump_ivanka_comments/)
+- **Evidence type:** Contemporary secondary report quoting the programme.
+- **Verification / wording notes:** Supports the quoted dating remark and programme context. Obtain original clip for final transcription and preserve joking context.
 
 ### Donald #10
 
@@ -208,7 +259,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Lust: deliberate sexual innuendo.
 - Stupidity: weaker interpretation of using an intimate physical boast as self-validation; no factual error is established.
 
-**Source/context status:** Verify original publication/date; do not assume it is the separate March 2016 debate remark.
+**Source and context record:**
+
+- **Date / original setting:** April 2011; statement to New York Post / Page Six.
+- **Source links:** [The Week — discussion quoting the 2011 statement](https://theweek.com/speedreads/610378/donald-trump-continued-praising-hands-after-debate-featuring-penis-joke) · [Cambridge, Signs and Society — scholarly discussion](https://www.cambridge.org/core/journals/signs-and-society/article/tiny-hand-of-donald-trump-and-the-metapragmatics-of-typographic-parody/856BA576AD301054600A046AA14316FE)
+- **Evidence type:** Secondary reporting and research quote the statement; original New York Post page could not be fetched.
+- **Verification / wording notes:** Sources differ on various other / other parts and punctuation. The 3 April 2011 original is a lead, not directly inspected evidence. Do not confuse with the separate 2016 debate remark.
 
 ### Donald #11
 
@@ -224,7 +280,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: confidence in a personal maxim about success.
 - Stupidity: weaker interpretation of an absolute rule that overlooks the costs of excess.
 
-**Source/context status:** Verify original book wording: can't / can never versions circulate. Greed includes excessive consumption as well as accumulation.
+**Source and context record:**
+
+- **Date / original setting:** Unresolved wording; related passage in Trump: The Art of the Deal (1987), risk/downside discussion.
+- **Source links:** [Related book text indexed in a PDF reproduction](https://idleguy.com/library/Trump__The_Art_of_the_Deal_-_Donald_J_Trump.pdf) · [Independent indexed reproduction of the passage](https://trumpdossier.biz/PDF-BOOK/TRUMP_Art_of_the_DEAL.pdf)
+- **Evidence type:** Search-indexed reproductions of primary book text; the first direct fetch failed. Neither is an authenticated publisher edition.
+- **Verification / wording notes:** HOLD — CONTEXT CONFLICT. The indexed book passage uses can’t be too greedy while discussing a failed gamble and avoiding overexposure; the surrounding advice cautions against excess. This does not substantiate the draft’s can never wording or its pro-greed meaning. Confirm against a legitimate edition or a separate original interview before use. Existing scores/explanations are historical draft values, suspended, and must not be used in play.
 
 ### Donald #12
 
@@ -240,7 +301,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Stupidity: weak possible non-sequitur between friendship and the policy position; full context may resolve it.
 - Wrath: very weak evidence only if surrounding context supplies hostility; traditionalism itself is not anger.
 
-**Source/context status:** Original interview and full question required. Poor fit for three strong attributes; retain as low-intensity candidate, not a forced high-scoring card.
+**Source and context record:**
+
+- **Date / original setting:** May 2011; New York Times interview, After Roasting, Trump Reacts in Character.
+- **Source links:** [The Advocate — contemporary coverage, 3 May 2011](https://www.advocate.com/news/daily-news/2011/05/03/trump-gays-and-threefooters) · [Yahoo Sports — contemporary coverage](https://sports.yahoo.com/blogs/golf-devil-ball-golf/trump-compares-gay-marriage-long-putters-course-does-130900707.html)
+- **Evidence type:** Secondary reports identifying and quoting the original interview.
+- **Verification / wording notes:** Wording corroborated in reports. Original publication is variously cited online as 1/2 May; use May 2011 unless the original is checked. The discussion concerns same-sex marriage and a golf-putter analogy.
 
 ### Donald #13
 
@@ -256,7 +322,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: weak emphasis on personal presence and witnessing events.
 - Wrath: negligible in the excerpt; third overlap placeholder for completeness, not a supported accusation.
 
-**Source/context status:** Fragment; obtain full April 2016 recording/transcript. Slip referring to 9/11. A slip is not evidence of laziness or a persistent false belief.
+**Source and context record:**
+
+- **Date / original setting:** 18 April 2016; campaign speech, Buffalo, New York.
+- **Source links:** [Roll Call / Factba.se — Buffalo speech](https://rollcall.com/factbase/trump/transcript/donald-trump-speech-buffalo-ny-april-18-2016/)
+- **Evidence type:** Transcript of the speech; relevant passage 00:11:35–00:12:33.
+- **Verification / wording notes:** Supports the 7-Eleven slip in a passage praising emergency/construction workers. Transcript varies watch/watched and down/down at; confirm final wording against audio. This remains a fragment, not a complete statement.
 
 ### Donald #14
 
@@ -272,7 +343,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Greed: weaker link between access to leisure and financial attainment.
 - Stupidity: weak reading of the assumptions about who can or should access the sport; disagreement with elitism is not a factual error.
 
-**Source/context status:** Excerpt from 2015 golf interview. Correct answer is play golf. Preserve affordability/elitism context.
+**Source and context record:**
+
+- **Date / original setting:** Interview conducted February 2015; published 1 July 2015; Fortune, Daniel Roberts.
+- **Source links:** [Fortune — edited interview transcript](https://fortune.com/2015/07/01/donald-trump-golf-rich-elite/)
+- **Evidence type:** Original interviewing outlet’s edited transcript.
+- **Verification / wording notes:** The draft excerpt is supported. Keep the question about elitism and following affordability explanation in the context field. Distinguish interview date from publication date.
 
 ### Donald #15
 
@@ -288,7 +364,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: the transaction is also a success boast.
 - Stupidity: generalising from one profitable customer to a country is a questionable inference, if the surrounding context sustains it.
 
-**Source/context status:** Approximate spreadsheet reconstruction; exact wording, sum and transcript required. Not ready as a verbatim quotation.
+**Source and context record:**
+
+- **Date / original setting:** 16 June 2015; candidacy announcement, New York.
+- **Source links:** [Roll Call / Factba.se — announcement transcript](https://rollcall.com/factbase/trump/transcript/donald-trump-announcement-speech-new-york-ny-june-16-2015/)
+- **Evidence type:** Transcript; relevant passage 00:20:18–00:20:43.
+- **Verification / wording notes:** Amount and somebody from China are supported. The draft silently removes I sell apartments for — between sentences; use a marked omission or restore the intervening words. Surrounding remarks also praise Chinese leaders/business links; not an exhaustive statement of why he likes China.
 
 ### Donald #16
 
@@ -304,7 +385,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Wrath: directs blame toward a foreign country.
 - Pride: weaker claim to see through a supposed deception others accept.
 
-**Source/context status:** Verify original November 2012 post; label the climate-conspiracy claim false. Context is required.
+**Source and context record:**
+
+- **Date / original setting:** 6 November 2012; Twitter/X post.
+- **Source links:** [ABC News — report reproducing the dated post](https://abcnews.com/US/government-report-contradicts-trump-climate-change/story?id=49088334) · [FactCheck.org — debate check and later explanation](https://www.factcheck.org/2016/09/factchecking-the-first-debate/)
+- **Evidence type:** Secondary reproduction of original post plus contextual fact-check.
+- **Verification / wording notes:** Wording corroborated. Add that Trump later characterised the China explanation as a joke; distinguish that later account from the original wording and from climate-science facts.
 
 ### Donald #17
 
@@ -320,7 +406,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Wrath: weak interpersonal antagonism toward rich people, without an explicit insult.
 - Envy: weak alternative interpretation only; dislike of rich people does not establish jealousy.
 
-**Source/context status:** ABC interview reporting available; capture exact date and source. Include the continuation rather than the incomplete quiz stem.
+**Source and context record:**
+
+- **Date / original setting:** 17 March 2011; ABC interview.
+- **Source links:** [ABC News — interview report, page 3](https://abcnews.com/Politics/donald-trump-president-trump-weighs-sheen-palin-obama/story?id=13154163&page=3)
+- **Evidence type:** Original interviewing outlet’s reporting.
+- **Verification / wording notes:** Supports the complete rich/middle-class/poor comparison. Retain the continuation; disliking rich people does not establish envy.
 
 ### Donald #18
 
@@ -336,7 +427,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: weaker prioritisation of the speaker's performance.
 - Lust: weaker power/control reading of ordering a removal; ordinary crowd management is not inherently lust.
 
-**Source/context status:** Verify complete August 2016 exchange. Do not splice I love babies and the later line into a single uninterrupted quotation; preserve joking context.
+**Source and context record:**
+
+- **Date / original setting:** 2 August 2016; campaign rally in Ashburn, Virginia.
+- **Source links:** [CNN — transcript of the recorded exchange](https://transcripts.cnn.com/show/wolf/date/2016-08-02/segment/01) · [CBS — contemporary report](https://www.cbsnews.com/amp/news/donald-trump-you-can-get-the-baby-out-of-here/)
+- **Evidence type:** Broadcast transcript containing video-clip dialogue; contemporary secondary report.
+- **Verification / wording notes:** Supports the later line, separate from the earlier I love babies passage. Do not stitch the two into one sentence. Preserve the joking/ambiguous tone and sequence.
 
 ### Donald #19
 
@@ -352,7 +448,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Wrath: conditional reading of willingness to use destructive force.
 - Lust: conditional attraction to exercising exceptional power.
 
-**Source/context status:** HOLD: spreadsheet wording; related nuclear-weapons account was second-hand and denied by the campaign. Scores are hypothetical only. Exclude from published gameplay until resolved.
+**Source and context record:**
+
+- **Date / original setting:** Related allegation reported August 2016 by Joe Scarborough, about an unnamed adviser’s briefing.
+- **Source links:** [Washington Examiner — reported nuclear question and denial](https://www.washingtonexaminer.com/news/21347/) · [The Week — account of Scarborough’s report, 3 August 2016](https://theweek.com/speedreads/640785/gop-national-security-adviser-lays-waste-donald-trumps-nuclear-weapons-comments)
+- **Evidence type:** Second-hand reported allegation, denied by campaign; no direct recording/transcript substantiating this draft.
+- **Verification / wording notes:** HOLD remains. These sources concern a question about using nuclear weapons; they do not establish the spreadsheet’s exact 7,000 wording. Do not label as a verified direct quote.
 
 ### Donald #20
 
@@ -368,7 +469,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: implied potency without assistance.
 - Stupidity: blanket explanation that ignores other reasons someone may need treatment; satirical assessment of the statement.
 
-**Source/context status:** Reportedly Howard Stern; original recording/date required. Do not present as medical advice.
+**Source and context record:**
+
+- **Date / original setting:** Date unresolved; attributed to The Howard Stern Show.
+- **Source links:** [Jezebel — quotation collection identifying Stern](https://www.jezebel.com/the-collected-donald-trump-107-of-his-worst-weirdest-1793857006)
+- **Evidence type:** Secondary quotation collection only; original episode not located.
+- **Verification / wording notes:** ATTRIBUTION LEAD ONLY. Exact sentence is reproduced, but no original recording/date has been verified. Do not mark publication-ready. Other Viagra remarks from Playboy are different quotes and cannot verify this sentence.
 
 ### Donald #21
 
@@ -384,7 +490,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Pride: implies the speaker's superior judgment.
 - Stupidity: weaker self-defeating campaign judgment in insulting people whose support is sought; not established merely by the word stupid.
 
-**Source/context status:** Verify November 2015 recording and full context; distinguish question/insult from evidence about the population.
+**Source and context record:**
+
+- **Date / original setting:** 12 November 2015; Fort Dodge, Iowa, discussion of Ben Carson’s autobiographical stories.
+- **Source links:** [ABC News — contemporary rally report](https://abcnews.com/Politics/donald-trump-ben-carson-stories-stupid-people-iowa/story?id=35168986) · [PolitiFact — contextual transcript/excerpt](https://politifact.com/article/2016/jan/26/ted-cruz-ad-abortion-donald-trump-saying-how-stupi/)
+- **Evidence type:** Contemporary reporting and contextual transcription.
+- **Verification / wording notes:** Important qualification: the short question is embedded in criticism of believing Carson’s stories, not a context-free judgment of every Iowan. Use the surrounding challenge in context; revisit draft scoring if the longer quote changes its meaning.
 
 ### Donald #22
 
@@ -400,7 +511,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Lust: power/control interpretation of enforcing a sanction.
 - Stupidity: weaker policy inconsistency/poor judgment reading only when the full exchange and same-day retraction are included.
 
-**Source/context status:** March 2016 hypothetical abortion-ban exchange. MUST include the condition that abortion were illegal and the same-day retraction; do not imply a current unqualified position.
+**Source and context record:**
+
+- **Date / original setting:** 30 March 2016; MSNBC town hall with Chris Matthews; transcript published 31 March.
+- **Source links:** [PolitiFact — in-context transcript](https://politifact.com/article/2016/mar/31/context-heres-transcript-what-donald-trump-said-ab/) · [FactCheck.org — retraction/context](https://www.factcheck.org/2023/09/trump-walked-back-abortion-statement-misleadingly-used-in-biden-harris-ad/)
+- **Evidence type:** Transcript of the exchange plus secondary contextual reporting.
+- **Verification / wording notes:** Supports the line. Context must state the hypothetical illegality of abortion and his same-day change of position, putting responsibility on the provider rather than the woman.
 
 ### Donald #23
 
@@ -416,7 +532,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Stupidity: a false historical allegation asserted as fact.
 - Pride: weaker insistence on personal certainty despite its unsupported basis.
 
-**Source/context status:** August 2016, referring to Obama. Label allegation false; note later sarcasm explanation. Confirm exact rally wording.
+**Source and context record:**
+
+- **Date / original setting:** 10 August 2016; Sunrise/Fort Lauderdale-area rally, Florida; repeated 11 August.
+- **Source links:** [ABC News — contemporary report of the rally](https://abcnews.com/Politics/donald-trump-president-barack-obama-founder-isis/story?id=41286869) · [FactCheck.org — historical check and subsequent explanation](https://www.factcheck.org/2016/08/trumps-false-obama-isis-link/)
+- **Evidence type:** Contemporary rally reporting plus fact-check.
+- **Verification / wording notes:** Supports attribution and the Obama referent. The claim is false; include the later sarcasm explanation. Final repeated-sentence transcription should be compared with the original rally clip.
 
 ### Donald #24
 
@@ -432,7 +553,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Lust: weak contextual overlap because the discussion concerned sex/dating, not a strong signal in this sentence.
 - Pride: very weak appeal to personally encountered information; the wording is tentative rather than boastful.
 
-**Source/context status:** 1993 Howard Stern reporting/recording review. Context must correct the claim: HIV is not transmitted through saliva or ordinary kissing. Not standalone health information.
+**Source and context record:**
+
+- **Date / original setting:** 11 January 1993; The Howard Stern Show.
+- **Source links:** [CNN KFile reporting republished by WRAL](https://www.wral.com/archive/19121536/) · [Trump on Stern — dated episode index](https://www.trumponstern.com/episode/auto-draft-32/)
+- **Evidence type:** Investigative reporting based on recordings; independent episode index, with discussion at approximately 07:20.
+- **Verification / wording notes:** The index corroborates subject/date, not a verbatim transcript; its audio has been removed. The report supplies the wording. Include a factual correction that ordinary kissing/saliva does not transmit HIV; distinguish HIV infection from AIDS.
 
 ### Donald #25
 
@@ -448,7 +574,12 @@ All 25 spreadsheet rows are retained in original order. Incorrect quiz alternati
 - Wrath: mildly disparaging framing of other people's bodies.
 - Pride: weaker certainty in one's own observational verdict.
 
-**Source/context status:** Verify original post/date. Greed stays low: mentioning a drink is not evidence of excessive consumption.
+**Source and context record:**
+
+- **Date / original setting:** 14 October 2012; Twitter/X post.
+- **Source links:** [TheWrap — dated tweet reproduction](https://www.thewrap.com/donald-trump-mean-tweets-before-president/) · [Washington Post — later coverage reproducing tweet](https://www.washingtonpost.com/news/to-your-health/wp/2017/12/12/trump-reportedly-drinks-12-cans-of-diet-coke-each-day-is-that-healthy/)
+- **Evidence type:** Secondary reports reproducing original post.
+- **Verification / wording notes:** Exact sentence/date corroborated by reproductions; an original archive capture remains desirable. The statement is not evidence about the actual effects of Diet Coke.
 
 ## Spread assessment and next editorial pass
 
@@ -469,7 +600,7 @@ For a 52-card deck, the remaining 27 slots should prioritise verified Envy and G
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
-## Existing research references (not verification of every row)
+## Earlier research bibliography (retained for history; individual records above are authoritative)
 
 - Rows 1–12 and 25: circulating-quote compilation, https://timesofindia.indiatimes.com/world/us/20-outrageous-quotes-from-donald-trump/articleshow/52740788.cms — secondary lead only.
 - Row 3: https://www.pbs.org/newshour/amp/politics/trump-offensive-comments-women — attributes the remark to Esquire 1991; original still needed.
@@ -483,4 +614,4 @@ Before locking scores, compare empirical per-category win rates against the elig
 - Row 23: https://www.factcheck.org/2016/08/trumps-false-obama-isis-link/ — factual correction and subsequent sarcasm claim.
 - Row 24: https://www.wral.com/archive/19121536/ and https://www.trumponstern.com/episode/auto-draft-32/ — reporting and recording index.
 
-No new source verification is claimed by this scoring revision. Original quotes, misleading fragments, reported speech and editorial interpretation must remain distinguishable throughout publication.
+The 2 November source revision adds a specific evidence record for every card, while retaining unresolved checks explicitly. Original quotes, misleading fragments, reported speech and editorial interpretation must remain distinguishable throughout publication.
