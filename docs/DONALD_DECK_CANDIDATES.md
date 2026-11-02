@@ -1,18 +1,18 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.11 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.12 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31 and the Access Hollywood recording excerpt as Donald #32 and the Diana courtship quote as Donald #33 and the Japan bow quote as Donald #34. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29 and the retaliation quote as Donald #30 and the marriage quote as Donald #31 and the Access Hollywood recording excerpt as Donald #32 and the Diana courtship quote as Donald #33 and the Japan bow quote as Donald #34 and the I.Q. quote as Donald #35 and the drones quote as Donald #36. The fingers quote supplied in the same batch was already present as Donald #10 and was not duplicated. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 34 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 36 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
-**Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), and #27 (1992 quotation/context requires original-page verification). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
+**Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), #27 (1992 quotation/context requires original-page verification), and #36 (user-supplied; no source located, exact wording unconfirmed). #35 is an editorial candidate whose source links still need to be inspected. #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
 ## Scoring and overlap policy
 
@@ -62,6 +62,8 @@ Individual source records now accompany all 34 candidates. Sources range from or
 | Donald #32 | 95 | 25 | 99 | 5 | 55 | 70 |
 | Donald #33 | 70 | 15 | 85 | 20 | 5 | 15 |
 | Donald #34 | 55 | 5 | 20 | 5 | 65 | 40 |
+| Donald #35 | 99 | 5 | 12 | 8 | 66 | 48 |
+| Donald #36 (HOLD) | 90 | 5 | 18 | 5 | 5 | 62 |
 
 ## Card fronts and reveal notes
 
@@ -855,6 +857,58 @@ As of September 2026, Forbes estimated Trump's net worth at **US$7 billion**, ap
 - **Verification / context notes:** The passage answers criticism of his reluctance to shake hands. He explains that concern about germs, rather than elitism, drives his preference. Keep that explanation available on the reveal/context screen; do not reframe the quotation as an explicit demand that Japanese people bow to him or an instruction to political subordinates. The source supports the submitted words; punctuation is normalised for the card.
 - **Release status:** Wording and interview context corroborated; normal editorial/layout review pending. Scores remain provisional and reflect the complete context.
 
+### Donald #35
+
+**Draft front text:**
+
+> Sorry losers and haters, but my I.Q. is one of the highest, and you all know it! Please don’t feel so stupid or insecure. It’s not your fault.
+
+*Donald Trump, post on Twitter/X (user-supplied attribution; dated and sourced below as a lead).*
+
+**Hidden scores:** Pride 99 · Greed 5 · Lust 12 · Envy 8 · Wrath 66 · Stupidity 48
+
+**Reveal overlaps:**
+
+- Pride: an explicit boast of exceptional intellect, combined with the claim that everyone already knows it, makes self-importance the dominant reading.
+- Wrath: addressing critics as “losers and haters” and telling them not to feel “stupid or insecure” is open contempt and condescension. No threat or revenge is expressed, so this is strong rather than extreme.
+- Stupidity: a moderate satirical reading only. A bare, unverifiable I.Q. claim offered as proof of superiority, alongside the suggestion that critics are stupid, is a weak argument. This is not a measurement of anyone’s intelligence, and the score must not be read as one.
+- Lust stays low: asserting superiority over critics is a weak status or dominance reading, not a desire for office or control. Envy and Greed have no meaningful support; the speaker is dismissing critics, not resenting another person’s advantage.
+
+**Source and context record:**
+
+- **Date / original setting:** Widely reported as a Twitter/X post from May 2013 (reported date 8 May 2013). Not confirmed against a live source in this session.
+- **Attribution:** Donald Trump. Attribution supplied by the user; consistent with how the post is generally reported.
+- **Source links:** None inspected. Search and fetch tools failed during this edit, so no link is recorded and none is implied.
+- **Evidence type:** User-supplied wording. Original post or archive capture still needed, ideally with a secondary report to confirm the date.
+- **Verification / wording notes:** The supplied text is normalised. Reports of the original post may differ on punctuation, such as a dash before “and you all know it” and the comma before “it’s not your fault”. Compare against the original before choosing final verbatim wording. The post concerns his own claimed intelligence; keep that context on the reveal screen.
+- **Release status:** Editorial candidate, source verification pending. Scores are provisional.
+
+### Donald #36 (HOLD)
+
+**Draft front text:**
+
+> Nobody knows more about drones than anybody.
+
+*Donald Trump (user-supplied attribution; no source, date or setting located).*
+
+**Hidden scores:** Pride 90 · Greed 5 · Lust 18 · Envy 5 · Wrath 5 · Stupidity 62
+
+**Reveal overlaps:**
+
+- Pride: a claim of unmatched expertise, with no supporting evidence, is a strong self-importance reading.
+- Stupidity: moderate and conditional. As worded, “nobody knows more … than anybody” is logically garbled, because it literally says no one knows more than any other person. This reading disappears if the verified wording turns out to be a different construction, for example “than I do” or “than me”. An unsupported expertise claim is a weak argument, but it is not shown to be false.
+- Lust: a weaker authority or mastery reading, in which claimed expertise is a basis for control over the subject. It is not a desire for office or power, and the score stays low.
+- Wrath, Envy and Greed have no textual support in this line.
+
+**Source and context record:**
+
+- **Date / original setting:** Not established.
+- **Attribution:** Donald Trump. Attribution supplied by the user; not independently corroborated.
+- **Source links:** None located. Search and fetch tools failed during this edit.
+- **Evidence type:** User-supplied wording only. This is not enough to publish as a verified quotation.
+- **Verification / wording notes:** HOLD. The speaker often uses the construction “nobody knows more about X than me”, so the exact wording, in particular “anybody” versus “me”, must be confirmed from a transcript or recording before any scoring is relied on. If it is a paraphrase or misattribution it must not be published as a quotation. Record the date, venue and speaker once found.
+- **Release status:** HOLD. Exclude from live dealing and from balancing summaries until the wording, date and source are verified. Scores are hypothetical draft values.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -870,7 +924,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 34 candidates now recorded, a 52-card deck has 18 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 36 candidates now recorded, a 52-card deck has 16 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
