@@ -1,16 +1,16 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.5 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.6 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26 and a paired statement card as Donald #27, followed by the ego quote as Donald #28 and the campaign-profit quote as Donald #29. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 28 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 29 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
 **Publication holds:** #11 (wording/context conflict), #19 (disputed second-hand account), and #27 (1992 quotation/context requires original-page verification). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
@@ -56,6 +56,7 @@ Individual source records now accompany all 28 candidates. Sources range from or
 | Donald #26 | 96 | 65 | 94 | 10 | 5 | 35 |
 | Donald #27 (HOLD; paired) | 85 | 10 | 60 | 5 | 88 | 55 |
 | Donald #28 | 98 | 10 | 20 | 5 | 55 | 65 |
+| Donald #29 | 82 | 94 | 45 | 5 | 5 | 15 |
 
 ## Card fronts and reveal notes
 
@@ -671,6 +672,48 @@ Individual source records now accompany all 28 candidates. Sources range from or
 - **Verification / wording notes:** The longer reported version continues with an explanation that a healthy ego or high opinion of oneself is positive. Treat this card as an excerpt and include that qualification in the context/reveal; do not imply that qualification was absent. Verify the original Facebook post, date/timezone and punctuation before publication. A reported Twitter version does not by itself verify the Facebook post. Sources' commentary about personality is not adopted as a clinical judgment.
 - **Release status:** Editorial candidate; primary social-post capture and final context-aware scoring pending.
 
+### Donald #29
+
+**Draft front text:**
+
+> It’s very possible that I could be the first presidential candidate to run and make money on it.
+
+*Donald Trump, quoted by Jerry Useem in Fortune, 3 April 2000.*
+
+**Attributed editorial context — separate from Trump’s quote:**
+
+As of September 2026, Forbes estimated Trump's net worth at **US$7 billion**, approximately **US$2.7 billion more than when he won the November 2024 election**, citing cryptocurrency ventures and overseas deals. — Dan Alexander and Kyle Khan-Mullins, Forbes, 15 September 2026.
+
+**Measurement note:** This is a dated estimate of net-worth growth since the 2024 election, including the period before his January 2025 inauguration. It is not a projection to the end of his term, not presidential salary, not cash profit, and not a calculation that every dollar was caused by holding office. Do not relabel it as money definitively earned as president or as the cumulative gain across both presidencies. An end-of-term forecast has not been established. Forbes valuations can change.
+
+**Hidden scores:** Pride 82 · Greed 94 · Lust 45 · Envy 5 · Wrath 5 · Stupidity 15
+
+**Reveal overlaps:**
+
+- Greed: personal financial gain is presented as a potential benefit of running for office. This is the strongest editorial interpretation, although making money alone does not establish wrongdoing.
+- Pride: the claim to potentially be the first combines commercial self-confidence with exceptionalism.
+- Lust: a weaker power/ambition overlap because the contemplated activity is a bid for presidential office. The quote does not directly express a desire to control others.
+- The Stupidity score stays low: the verified sentence alone is not a clear reasoning error. The later wealth estimate is context, not retroactive proof that the original prediction was correct in every election.
+
+**Source and context record — original quote:**
+
+- **Date / original setting:** Fortune, “What does Donald Trump really want?”, Jerry Useem, published 3 April 2000. The article describes an early-January trip to Minnesota during consideration of a Reform Party presidential bid.
+- **Source:** [Fortune — original article](https://fortune.com/article/what-does-donald-trump-really-want/).
+- **Evidence type:** Original outlet's reported interview/profile; text directly checked.
+- **Verification / wording notes:** The supplied sentence matches the published article. The immediate context is arranging political stops alongside paid Tony Robbins seminar appearances. This is a remark about making money while campaigning, not a stated promise to profit from presidential office. Preserve that distinction.
+
+**Source and context record — wealth comment:**
+
+- **Estimate publication date:** 15 September 2026; valuation as of September 2026.
+- **Source:** [Forbes — The Definitive Net Worth of Donald Trump / Here’s How Much Donald Trump Is Worth](https://www.forbes.com/sites/danalexander/article/the-definitive-networth-of-donaldtrump/), by Dan Alexander and Kyle Khan-Mullins.
+- **Corroborating contextual source:** [PolitiFact — financial-gain fact-check, 5 October 2026](https://politifact.com/factchecks/2026/oct/05/markwayne-mullin/trump-wealth-financial-gain-crypto/).
+- **Evidence type:** Forbes' own asset-valuation estimate, directly checked; secondary fact-check reports the same gain. Neither is an audited statement of personal net profit.
+- **Period / scope:** Trump personally; estimated total net worth and change since the 2024 election. Not family-wide revenue, campaign receipts or forecast wealth.
+- **First-term qualification:** PolitiFact also reports that Forbes estimates fell from US$3.7 billion in 2016 to US$2.5 billion in 2021. Do not imply that net worth increased throughout both terms.
+- **Presentation / refresh rule:** Keep the wealth comment labelled editorial context, with source, valuation date and measurement qualifier visible wherever shown. It may sit below the quote on this card; it is not part of his speech. Recheck before publication, then freeze the approved text/source date in a versioned card. Any later update creates a new version so completed rounds do not change.
+
+**Release status:** Quote and dated estimate corroborated; normal editorial/asset review remains. Scores are provisional satirical judgments of the quote, not findings of illegality or causation.
+
 ## Spread assessment and next editorial pass
 
 Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
@@ -686,7 +729,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts, from
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-With 28 candidates now recorded, a 52-card deck has 24 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 29 candidates now recorded, a 52-card deck has 23 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
