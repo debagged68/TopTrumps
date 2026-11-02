@@ -1,6 +1,6 @@
 # Top Trumps — Product Requirements
 
-Version 2.0 · 2 November 2026 · Current card-flip web prototype and independent implementation baseline; commerce and WhatsApp are deferred.
+Version 2.1 · 2 November 2026 · Current card-flip web prototype and independent implementation baseline; commerce and WhatsApp are deferred.
 
 Implementation handoff: [solution design](SOLUTION_DESIGN.md), [game flows](GAME_FLOWS.md), [artwork](ARTWORK.md) and [developer checklist](DEVELOPER_HANDOFF.md). The v2 disclosure/manual-reveal requirements supersede earlier blanket hidden-player-score and automatic-flip assumptions.
 
@@ -303,3 +303,13 @@ Platform details can change. Validate again during implementation; these sources
 - Stripe webhooks: https://docs.stripe.com/webhooks
 
 No production integration, merchant acceptance, quote rights clearance or payment processing has yet been completed.
+
+## 17. Standalone AWS version-one implementation
+
+The runnable application is now `web/` (standard Next.js 15/React). It preserves the approved card flips, baize, two deal modes and manual house-card reveal. Shared server rules are in `web/lib/game.mjs`; `web/lib/service.mjs` handles state transitions and compare-and-set retries; `web/lib/store.mjs` implements AWS DynamoDB state storage. No Supabase, Brevo, Cloudflare runtime or ChatGPT login is required for the intended AWS deployment.
+
+This implementation improves on the historical prototype: dealt card wording/scores are pinned in round snapshots; concurrent initial deals, choices and reveals are handled atomically; expiry is checked server-side; and the computer's card, selected category, scores and result are absent from network responses until an explicit server `reveal` action. The manual flip therefore controls both data delivery and visual reveal. These rules supersede the historical prototype's postcommit visual-only concealment description.
+
+Round state: dealt → committed → revealed. Own scores remain visible before commit. All eight HOLD cards remain excluded and other content remains labelled editorial draft. Page-visit totals are not persistent player statistics. Commerce, accounts and WhatsApp are out of version-one scope.
+
+The repository includes an Amplify monorepo build specification, pinned package lock, CloudFormation table/role template and deployment helper. Tests cover 200 random deals plus draws, invalid inputs, content mutation after dealing, concurrent requests, expiry and rejected actions. Local browser play and a production Next.js build passed. AWS infrastructure creation, real DynamoDB validation, actual-device testing and a live AWS URL remain pending authenticated AWS deployment. See [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md).

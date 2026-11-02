@@ -2,7 +2,7 @@
 
 A political quote card game for the web and WhatsApp. Choose one of two quote cards, flip your cards to inspect their sins and scores, then select a sin or card, then discover whether you beat the computer. Twist Again deals a new round.
 
-**Status:** private mobile web prototype implemented. Accounts, payments and WhatsApp delivery remain deferred.
+**Status:** standalone AWS-ready first web version implemented under `web/`; production build and local tests pass. AWS publication is pending authenticated account access. Accounts, payments and WhatsApp remain deferred.
 
 See [the complete product requirements](docs/REQUIREMENTS.md) for gameplay, channel journeys, commerce, account linking, administration, technical boundaries and acceptance criteria.
 
@@ -29,3 +29,15 @@ its migration and SQL export remain available for a future database workflow.
 Start with [DEVELOPER_HANDOFF.md](docs/DEVELOPER_HANDOFF.md), [SOLUTION_DESIGN.md](docs/SOLUTION_DESIGN.md) and [GAME_FLOWS.md](docs/GAME_FLOWS.md). Original artwork is committed at [assets/artwork/donald-portrait.png](assets/artwork/donald-portrait.png), with its specification in [ARTWORK.md](docs/ARTWORK.md). The current UI/API/database/test snapshot is under `reference/prototype/`. It is reference source, not a complete installation of the Sites runtime; integration instructions are included.
 
 Player scores are now visible on their flipped reverses before play. The computer's card enters face down and waits for the user's flip before its sins/scores and result appear. Both deal modes use the same server rules.
+
+## Run the standalone web version
+
+```bash
+cd web
+npm ci
+TOPTRUMPS_LOCAL_STATE=1 npm run dev
+```
+
+Deploy to AWS Amplify using [AWS_DEPLOYMENT.md](docs/AWS_DEPLOYMENT.md). The root `amplify.yml` builds `web/`; `infra/toptrumps-state.yaml` provisions DynamoDB round storage and the SSR compute role. `scripts/deploy-aws.sh` configures a new GitHub-connected Amplify app and reports its live URL after a successful build.
+
+`web/` is the authoritative runnable implementation. `reference/prototype/` remains a historical snapshot of the earlier ChatGPT Site and must not become a second maintained game engine. Current server rules live only in `web/lib/game.mjs`; web and future adapters reuse them. No accounts or ChatGPT login are required on the intended AWS deployment.

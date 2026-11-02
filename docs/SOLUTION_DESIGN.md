@@ -92,3 +92,17 @@ The snapshot passed TypeScript and build checks, 50 automated rounds, and browse
 Before public release: source verification/editorial approval and publication gating; immutable round snapshots; enforced expiry and retention cleanup; rate limits; ownership checks; explicit action validation and robust concurrent deal idempotency; accessible focus handling and real narrow-screen testing; durable statistics; operational recovery. Accounts/commerce/WhatsApp remain separate delivery stages.
 
 The original scope's accounts, entitlements, payment verification and cross-channel rules remain requirements when those features are built. They are not dependencies for this private web playtest.
+
+## Standalone AWS implementation update (v2.1)
+
+The current runnable code is `web/`; the preceding `reference/prototype/` discussion describes the historical Site snapshot. See [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md) and `web/README.md` for current deployment steps.
+
+- Standard Next.js 15 and React, deployed through root `amplify.yml` with app root `web`.
+- Canonical content/artwork copied during preparation; no duplicated editorial dataset or additional raster source.
+- Pure shared rules in `web/lib/game.mjs`, transition service in `web/lib/service.mjs`, DynamoDB adapter in `web/lib/store.mjs`.
+- Each stored session has an opaque 256-bit ID, revision, immutable round snapshot and enforced 24-hour expiry. DynamoDB conditional PutItem provides compare-and-set; TTL removes expired entries asynchronously.
+- POST actions are `deal`, `play`, `reveal`. Before reveal, the response includes neither opponent data nor result. Commitment returns `committed: true`, `done: false`, `playedCardId` and the player's own fields. Reveal changes `done` to true and returns the original result and opponent. GET restores that durable stage.
+- A same-site HttpOnly cookie identifies the session. Origin checks reject cross-origin writes when an Origin header is present. HTTPS uses Secure cookies. Requests are size-limited and actions explicitly validated.
+- AWS SSR compute role grants only GetItem/PutItem for the dedicated rounds table; no long-lived AWS credentials are written into app files. The deploy helper merges the main branch's existing variables and refuses apps linked to another repository.
+
+The old prototype's network-secrecy, snapshot and concurrency gaps are addressed by this implementation and unit tests. Real AWS integration/device validation and public-launch editorial/operational work still require completion. No AWS deployment has been claimed without authenticated execution.

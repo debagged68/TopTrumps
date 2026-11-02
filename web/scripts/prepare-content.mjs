@@ -1,0 +1,10 @@
+import {mkdir,copyFile,readFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+const root=new URL('../',import.meta.url);
+await mkdir(new URL('data/',root),{recursive:true});await mkdir(new URL('public/',root),{recursive:true});
+const source=new URL('../content/server/donald.json',root);
+const dataset=JSON.parse(await readFile(source,'utf8'));
+if(!dataset.cards?.length)throw Error('Generate canonical content/server/donald.json first.');
+await copyFile(source,new URL('data/donald.json',root));
+await copyFile(new URL('../assets/artwork/donald-portrait.png',root),new URL('public/trump-art.png',root));
+console.log('Prepared canonical card content and artwork.');

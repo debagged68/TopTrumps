@@ -1,0 +1,25 @@
+version: 1
+applications:
+  - appRoot: web
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - nvm install 22
+            - nvm use 22
+            - npm ci --no-audit --no-fund
+            - npm run prepare:content
+            - node scripts/amplify-env.mjs
+            - npm test
+            - npm run typecheck
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+          - .next/cache/**/*
