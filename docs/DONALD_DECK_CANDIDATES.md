@@ -1,16 +1,16 @@
 # The Donald Deck — Six-Category Candidate Cards
 
-Version 0.2 · 2 November 2026 · Editorial working draft, not publication-ready.
+Version 0.3 · 2 November 2026 · Editorial working draft, not publication-ready.
 
 ## Current category decision
 
 Use **Pride, Greed, Lust, Envy, Wrath and Stupidity**. Greed absorbs Gluttony (excessive acquisition or consumption). Stupidity covers absurd claims, poor reasoning and lazy thinking; physical inactivity alone does not count. Sloth is not a separate attribute. This decision supersedes the seven-attribute assumption in the original requirements for this deck; the older requirements document remains a historical baseline pending a full revision.
 
-All 25 spreadsheet rows are retained in original order. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
+All 25 spreadsheet rows are retained in original order, followed by the additional user-supplied quote as Donald #26. Incorrect quiz alternatives are removed. Correct-answer bold formatting did not survive the pasted table, so completions are provisional where not independently established. Quotation marks do not imply every draft has been verified.
 
 ## Source update — 2 November 2026
 
-Individual source records now accompany all 25 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
+Individual source records now accompany all 26 candidates. Sources range from original-outlet interviews and speech transcripts to secondary reproductions and unresolved attribution leads. A source link is not a blanket verification badge. Dates below distinguish speech/interview dates from publication dates where known. Search-index evidence and failed direct fetches are disclosed. Scores and card wording have been preserved for review; source notes identify necessary corrections.
 
 **Publication holds:** #11 (wording/context conflict) and #19 (disputed second-hand account). #20 remains attribution-only pending an original episode. #11’s existing pro-greed rationale is not supported by the related book context and must not be used for gameplay. The historical score matrix/spread summary below predates this new hold; it is not a current release validation.
 
@@ -53,6 +53,7 @@ Individual source records now accompany all 25 candidates. Sources range from or
 | Donald #23 | 55 | 5 | 25 | 15 | 94 | 95 |
 | Donald #24 | 20 | 5 | 12 | 5 | 5 | 83 |
 | Donald #25 | 40 | 5 | 5 | 5 | 50 | 74 |
+| Donald #26 | 96 | 65 | 94 | 10 | 5 | 35 |
 
 ## Card fronts and reveal notes
 
@@ -581,9 +582,30 @@ Individual source records now accompany all 25 candidates. Sources range from or
 - **Evidence type:** Secondary reports reproducing original post.
 - **Verification / wording notes:** Exact sentence/date corroborated by reproductions; an original archive capture remains desirable. The statement is not evidence about the actual effects of Diet Coke.
 
+### Donald #26
+
+**Draft front text:**
+
+> Oftentimes when I was sleeping with one of the top women in the world I would say to myself, thinking about me as a boy from Queens, ‘Can you believe what I am getting?’
+
+**Hidden scores:** Pride 96 · Greed 65 · Lust 94 · Envy 10 · Wrath 5 · Stupidity 35
+
+**Reveal overlaps:**
+
+- Pride: the contrast between a boy from Queens and “top women” frames sexual success as evidence of personal ascent and status.
+- Lust: explicit reference to sexual relationships, with emphasis on the desirability/status of partners.
+- Greed: the language of “getting” treats intimacy as acquisition or a trophy. This is a weaker, metaphorical overlap than the direct Pride/Lust signals; it does not establish financial greed or excessive consumption.
+
+**Source and context record:**
+
+- **Date / original setting:** Book attribution supplied by the user: *Think Big: Make it Happen in Business and Life* (2008), Donald Trump with Bill Zanker. Exact edition and page remain to be checked.
+- **Source links:** [Esquire — 2013 article quoting the passage and identifying Think Big](https://www.esquire.com/news-politics/news/a24057/donald-trump-presidential-run-2016-072913/) · [Creative Loafing Tampa Bay — 2015 literary-quote collection](https://www.cltampa.com/news/the-oh-so-quotable-don-our-favorite-quotes-from-the-literary-works-of-a-certain-really-rich-guy-12287039/)
+- **Evidence type:** Secondary publications reproducing the passage and identifying the book. The Creative Loafing attribution uses the title *Think Big and Kick Ass in Business and Life* and the year 2008; Esquire uses the title supplied by the user without establishing that edition's year.
+- **Verification / wording notes:** The supplied wording is corroborated by secondary quotations. A legitimate original edition has not been inspected; confirm title variant, edition/year, full surrounding passage and page before publication. Do not infer an actual partner's identity or independently verified sexual history from the boast.
+
 ## Spread assessment and next editorial pass
 
-Statistics below cover 24 non-HOLD candidates, including unverified drafts. They describe this draft only, not launch readiness.
+Statistics below cover 24 non-HOLD candidates, including unverified drafts, from the original 25-card scoring pass. They have not been recalculated for the later #11 hold or addition of #26 and are retained as historical draft analysis, not current launch-readiness statistics.
 
 | Category | Mean raw score | Cards scoring 61+ |
 |---|---:|---:|
@@ -596,7 +618,7 @@ Statistics below cover 24 non-HOLD candidates, including unverified drafts. They
 
 This source list supplies abundant Pride, Wrath, Lust and Stupidity, some Greed, and **no strong, defensible Envy card**. That is a content limitation, not a reason to invent jealous motives. Cards 12, 13, 17 and 24 especially have weak third overlaps. Replace or expand these with properly sourced statements if each published card must offer three credible choices.
 
-For a 52-card deck, the remaining 27 slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
+With 26 candidates now recorded, a 52-card deck has 26 additional slots before replacing any held/rejected candidates. Those slots should prioritise verified Envy and Greed material and clearer multi-category statements. Envy targets are explicit resentment of someone else's awards, attention, success or status; evidence must come from the statement/context, not assumed motivation. Do not fill all new slots with Envy at the expense of authenticity.
 
 Before locking scores, compare empirical per-category win rates against the eligible random opponent pool. Similar mean scores are not required for equal win chances when both players draw from the same distribution, but skew and ties can make choices confusing. If raw-score distributions differ, explain rarity/strength in post-game learning or use a documented, versioned percentile calibration that handles ties. Do not silently change raw scores to manufacture balance. Evaluate whether the top three categories on a card are also competitive within their respective opponent distributions.
 
