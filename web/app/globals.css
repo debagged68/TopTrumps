@@ -16,7 +16,6 @@ header{height:70px;display:flex;align-items:center;justify-content:space-between
 .cover{max-width:350px;justify-self:center;border:2px solid var(--gold);border-radius:18px;overflow:hidden;background:var(--paper);color:var(--ink);transform:rotate(3deg);box-shadow:0 20px 50px #0006}.cover>img{display:block;width:100%;max-height:420px;object-fit:contain;background:#132a34}.cover>div{text-align:center;padding:18px}.cover h2{margin:8px;font-size:32px}.cover p{font-size:10px;letter-spacing:2px}
 /* Fixed-size cards stay on the table through the deal, overlap and reveal. */
 .game-screen{height:100vh;height:100dvh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px)}.game-screen header{height:52px}
-.sin-hint{margin:0 0 5px;text-align:center;font-size:12px;color:#e1e9ec;flex-shrink:0}.sin-hint strong{color:#fff5df}
 .card-stage{--card-width:min(380px,calc(100vw - 70px));--spread-step:clamp(105px,calc(100vw - var(--card-width) - 44px),356px);position:relative;flex:1;min-height:0;isolation:isolate}
 .card-rail{height:100%;width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:4px}.card-rail::-webkit-scrollbar{display:none}
 .card-layout{position:relative;height:100%;width:var(--card-width);margin-inline:auto;isolation:isolate}
@@ -52,7 +51,6 @@ main{padding:0 10px}.game-screen header{height:44px}.brand{font-size:18px;letter
 @media(max-width:650px){.welcome{display:flex;flex-direction:column;gap:30px;align-items:stretch}.intro h1{font-size:48px}.intro .lede{font-size:17px}.deal-options{flex-direction:row;gap:10px}.deal-options button{flex:1;min-width:145px;padding:14px;font-size:18px;gap:10px}.cover{width:200px;align-self:center}.cover>img{max-height:210px}.cover>div{padding:12px}.cover h2{font-size:25px}.cover p{font-size:8px}.cover>div>svg{display:none}}
 @media(max-width:1100px) and (orientation:landscape){
 .game-screen{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right))}.game-screen header{height:34px}.game-screen .brand{font-size:15px}.game-screen .brand svg{width:18px;height:18px}.game-screen .help-button{min-height:32px}
-.sin-hint{font-size:11px;margin-bottom:2px}
 .quote-front{grid-template-columns:minmax(70px,30%) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:10px}.quote-front>.card-top{grid-column:1/-1}.quote-front>.portrait{grid-column:1;grid-row:2}.quote-front>.quote{grid-column:2;grid-row:2;align-self:center;max-height:100%;text-align:left;padding:6px 2px}.quote p{font-size:clamp(14px,3.9dvh,18px);line-height:1.25}.quote cite{font-size:10px;margin-top:6px}
 .bottom-actions{min-height:45px;padding:3px 0}.bottom-actions>button{min-height:38px;padding:7px 14px;font-size:14px;max-width:200px}.back-heading{display:none}.sin-rows{gap:3px}.sin-score{font-size:14px;padding:2px 9px;gap:8px}.sin-score strong{font-size:17px}.sin-score small{display:inline-flex;font-size:9px;margin:0 0 0 6px}.card-top{min-height:20px;font-size:9px;padding-bottom:3px}
 }
@@ -82,3 +80,15 @@ main{padding:0 10px}.game-screen header{height:44px}.brand{font-size:18px;letter
 @keyframes celebration-fade{0%{opacity:0}10%,80%{opacity:1}100%{opacity:0}}
 @media(max-width:650px){.celebration-message{padding:22px;max-width:88vw}.celebration-message>span{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.round-celebration,.celebration-message,.loss .celebration-crown{animation:none}.confetti,.ember,.loss-wave{display:none}}
+
+/* One shared symbol and name for each sin, in either deal mode. */
+.sin-badge{display:inline-flex;align-items:center;gap:8px;min-width:0;vertical-align:middle;line-height:1.15}.sin-icon{width:22px;height:22px;flex-shrink:0;stroke-width:1.8}.sin-description{min-width:0}.sin-description>small{margin-left:30px}
+.sin-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 22px;padding:14px 0;border-top:1px solid #78929e;border-bottom:1px solid #78929e}.sin-legend .sin-badge{font-size:13px}
+.bottom-actions.challenge-actions{gap:10px}.bottom-actions>.play-for{display:flex;flex-direction:column;gap:5px;min-width:0;min-height:64px;width:360px;max-width:480px;padding:8px 14px}.play-for-label{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;line-height:1.1}.possible-sins{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px;width:100%}.play-for .sin-badge{justify-content:center;padding:5px 8px;border:1px solid #9b7d41;border-radius:6px;background:#fff5df;color:#142832;font-size:15px;font-weight:700}.sin-or{font-size:12px;font-weight:400}.play-for .sin-icon{width:20px;height:20px}
+@media(max-width:1100px){.bottom-actions.challenge-actions{gap:8px}.bottom-actions>.play-for{flex:1;max-width:380px;width:auto;min-height:62px;padding:7px 8px}.challenge-actions>.secondary{flex:0 0 auto;min-width:76px;padding:10px}.challenge-actions>.secondary svg{display:none}.play-for .sin-badge{font-size:12px;padding:5px;gap:5px}.play-for .sin-icon{width:18px;height:18px}.possible-sins{gap:5px}.sin-or{font-size:11px}}
+@media(max-width:1100px) and (orientation:landscape){.bottom-actions>.play-for{flex-direction:row;gap:14px;min-height:42px;max-width:480px}.play-for-label{white-space:nowrap}.possible-sins{width:auto;flex:1}.play-for .sin-badge{padding:3px 6px;font-size:12px}.sin-score .sin-icon{width:17px;height:17px}.sin-score .sin-badge{gap:6px}.sin-description>small{margin-left:6px}}
+@media(max-width:350px){.sin-score .sin-badge{gap:6px}.sin-score .sin-icon{width:20px;height:20px}.sin-score{font-size:15px;padding-inline:9px;gap:7px}.sin-legend{grid-template-columns:repeat(2,minmax(0,1fr))}.challenge-actions>.secondary{min-width:65px}.play-for .sin-badge{padding:4px;font-size:11px}.play-for .sin-icon{width:16px;height:16px}}
+/* Colour belongs to the symbol; names and scores retain their readable contrast. */
+.sin-icon{color:var(--sin-ink);fill:var(--sin-fill)}
+.sin-icon circle{fill:var(--sin-ink)}
+.sin-score.winning .sin-icon{background:#fff5df;border-radius:5px;outline:3px solid #fff5df}

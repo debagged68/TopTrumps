@@ -144,3 +144,13 @@ The result view no longer mounts a permanent ribbon. Reveal activates the player
 `RoundCelebration.tsx` renders deterministic CSS particles, outcome messages, and loss waves/crown motion. Only a newly counted result triggers it. A timer removes the component after three seconds (shorter for draws/reduced motion); controls are not intercepted. Motion is suppressed for prefers-reduced-motion. Replay/cancel also clears the effect. No new imagery, external effects dependency or duplicated result calculation is used.
 
 Validation: 13 game/tally tests cover repeated restore/reveal, corrupt storage and distinct round identities; TypeScript and production build; browser checks confirmed win and loss effects, automatic effect clearance, winning-green row, 380px card width, left-card layering, tally increments and refresh without double counting. Physical iPhone verification was not available.
+
+## Shared sin symbols and contextual challenge control
+
+`app/components/SinBadge.tsx` owns the single mapping from sin name to Lucide vector symbol. All visible category UI reuses it: score rows shared by Deal first/second and the computer, the Play for challenge panel, and the rules legend. Each badge includes its text name; the decorative SVG is hidden from assistive technology to avoid duplicate labels. The existing score-choice button accessibility names remain unchanged.
+
+Deal second uses a single semantic Play for button containing the two possible sin badges, or separator and One locked qualifier. It calls the existing play action with only the selected card ID, not a category. Thus clicking either portion of the panel cannot override the computer's locked sin. The panel heading identifies the selected card on the two-card desktop hand, and the whole action has an accessible label explaining the lock. There is no separate hint text row above the cards.
+
+Validation: all 13 rule/tally tests, TypeScript and production build; browser verification of all six icon-bearing Deal-first choice buttons, icon-bearing Deal-second rows, challenge-panel commit and reveal of a hinted locked category. Original artwork and game-rule implementation are unchanged.
+
+The shared badge also owns per-sin ink/fill colour tokens. CSS applies these to the vector symbol; a light backing preserves icon contrast on the green winning row. Labels and scores retain the existing high-contrast text colours.

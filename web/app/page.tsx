@@ -3,6 +3,7 @@ import {useEffect,useRef,useState} from 'react';
 import {ArrowRight,Check,Crown,RotateCcw,Shuffle,X} from 'lucide-react';
 import {emptyTally,parseTally,recordResult} from '../lib/tally.mjs';
 import RoundCelebration from './components/RoundCelebration';
+import SinBadge,{SIN_NAMES} from './components/SinBadge';
 const TALLY_KEY='toptrumps-tally-v1';
 
 export default function Home(){
@@ -109,11 +110,11 @@ export default function Home(){
           </article>
           <article className="playing-card score-back" aria-hidden={!isBack} inert={!isBack}>
             <div className="card-top"><span>{label}</span>{canPlay&&cards.length>1&&game.mode==='second'&&selected?.key===key?<span>SELECTED</span>:<Crown size={17}/>}<span>{c.label.replace('Donald ','')}</span></div>
-            <div className="back-heading"><h2>{canPlay&&game.mode==='first'?'Choose your sin':'Sins & scores'}</h2><p>{canPlay?(game.mode==='first'?'Tap a row to play. Higher score wins.':'Your scores. Play this card when you’re ready.'):!game.done?'Awaiting the computer’s reveal.':game.result?.outcome==='Draw'?'Equal scores. Round drawn.':'The winning sin is marked in green.'}</p></div>
+            <div className="back-heading"><h2>{canPlay&&game.mode==='first'?'Choose your sin':'Sins & scores'}</h2><p>{canPlay?(game.mode==='first'?'Tap a row to play. Higher score wins.':'Inspect your scores, then challenge the locked sin.'):!game.done?'Awaiting the computer’s reveal.':game.result?.outcome==='Draw'?'Equal scores. Round drawn.':'The winning sin is marked in green.'}</p></div>
             <div className="sin-rows">{game.categories.map((sin:string)=>{
               const deciding=game.done&&game.result.category===sin;
               const winner=deciding&&(key==='computer'?game.result.outcome==='Computer wins':game.result.outcome==='You win');
-              const contents=<><span>{sin}{deciding&&<small>{winner&&<Check size={12}/>}{winner?'Winner':game.result.outcome==='Draw'?'Draw':'Played sin'}</small>}</span><strong>{c.scores?.[sin]??'—'}</strong>{canPlay&&game.mode==='first'&&<ArrowRight size={18}/>}{winner&&<Check size={18}/>}</>;
+              const contents=<><span className="sin-description"><SinBadge name={sin}/>{deciding&&<small>{winner&&<Check size={12}/>}{winner?'Winner':game.result.outcome==='Draw'?'Draw':'Played sin'}</small>}</span><strong>{c.scores?.[sin]??'—'}</strong>{canPlay&&game.mode==='first'&&<ArrowRight size={18}/>}{winner&&<Check size={18}/>}</>;
               return canPlay&&game.mode==='first'?<button className="sin-score" key={sin} disabled={busy} onClick={()=>act({action:'play',card:c.id,category:sin})} aria-label={'Play '+sin+', score '+c.scores[sin]}>{contents}</button>:<div className={'sin-score '+(deciding?'deciding ':'')+(winner?'winning':'')} key={sin}>{contents}</div>;
             })}</div>
             {game.done&&c.links?.[0]&&<a className="source-link" href={c.links[0][1]} target="_blank" rel="noreferrer">Quote source ↗</a>}
@@ -132,18 +133,17 @@ export default function Home(){
       </div></div>
       <div className="cover"><img src="/trump-art.png" alt="The Donald deck artwork"/><div><Crown/><h2>Top Trumps</h2><p>SIX SINS. ONE WINNING CHOICE.</p></div></div>
     </section>:<>
-      {!game.committed&&game.mode==='second'&&<p className="sin-hint">Computer plays <strong>{game.hints.join(' or ')}</strong></p>}
       <section className={'card-stage '+(game.done?'spread':game.committed?'stacked':cards.length>1?'hand-pair':'single')} aria-label="Playing cards">
         <div className="card-rail" ref={rail}><div className="card-layout">{cards.map(cardView)}</div></div>
         {game.done&&<p className="sr-only" role="status">{game.result.outcome}. {game.result.category}: you {game.result.yours}, computer {game.result.theirs}.</p>}
       </section>
-      <div className="bottom-actions">
-        {game.done?<button onClick={()=>act({action:'deal',mode:game.mode})} disabled={busy}><RotateCcw size={18}/>Play again</button>:!game.committed&&game.mode==='second'?<button onClick={()=>act({action:'play',card:selected.card.id})} disabled={busy}><ArrowRight size={18}/>{cards.length>1?'Play card '+selected.label.slice(-1):'Play this card'}</button>:null}
+      <div className={'bottom-actions '+(!game.committed&&game.mode==='second'?'challenge-actions':'')}>
+        {game.done?<button onClick={()=>act({action:'deal',mode:game.mode})} disabled={busy}><RotateCcw size={18}/>Play again</button>:!game.committed&&game.mode==='second'?<button className="play-for" onClick={()=>act({action:'play',card:selected.card.id})} disabled={busy} aria-label={'Play '+selected.label.toLowerCase()+' for '+game.hints.join(' or ')+'. The computer has already locked one of these sins.'} title="One sin is already locked by the computer. Challenge it with your selected card."><span className="play-for-label">{cards.length>1?'Play card '+selected.label.slice(-1)+' for':'Play for'}<span className="play-for-lock"> · one locked</span></span><span className="possible-sins"><SinBadge name={game.hints[0]}/><span className="sin-or">or</span><SinBadge name={game.hints[1]}/></span></button>:null}
         <button className="secondary" disabled={busy} onClick={()=>act({action:'cancel'})}><X size={18}/>Cancel</button>
       </div>
     </>}
     {(busy||error)&&<div className={'notice '+(error?'error':'')} role={error?'alert':'status'}>{error||'Please wait…'}</div>}
     {celebration&&<RoundCelebration outcome={celebration}/>}
-    {help&&<div className="modal-backdrop"><section role="dialog" aria-modal="true" aria-labelledby="help-title" className="modal"><button className="close" aria-label="Close instructions" onClick={()=>setHelp(false)}><X/></button><p className="eyebrow">THE RULES</p><h2 id="help-title">Turn the cards.</h2><p>Tap either side of a card, or its folded corner, to flip it. The computer deals onto your card, slightly offset. Revealing it spreads both cards side by side at the same size, with your left card on top so both score columns remain visible. Tap either card to bring it forward; on a narrow phone you can also slide across the pair.</p><h3>Deal first</h3><p>Turn your card and tap a sin to play it. The computer’s card arrives with its quote showing. Tap to reveal its scores. The winning sin on the winning card is green.</p><h3>Deal second</h3><p>The computer locks one of its top two sins. You see both possible names. Inspect your card, then press Play this card. Tap the computer’s card to reveal its chosen sin.</p><p>Higher score wins. Equal scores draw. The tally beside the logo counts your wins, computer wins and draws on this browser, including after a refresh. Each round is counted once. Play again starts another round in the same mode; Cancel returns to the deal choices.</p><button onClick={()=>setHelp(false)}>Let’s play<ArrowRight size={18}/></button></section></div>}
+    {help&&<div className="modal-backdrop"><section role="dialog" aria-modal="true" aria-labelledby="help-title" className="modal"><button className="close" aria-label="Close instructions" onClick={()=>setHelp(false)}><X/></button><p className="eyebrow">THE RULES</p><h2 id="help-title">Turn the cards.</h2><p>Tap either side of a card, or its folded corner, to flip it. The computer deals onto your card, slightly offset. Revealing it spreads both cards side by side at the same size, with your left card on top so both score columns remain visible. Tap either card to bring it forward; on a narrow phone you can also slide across the pair.</p><div className="sin-legend" aria-label="The six sin symbols">{(game?.categories||SIN_NAMES).map((sin:string)=><SinBadge key={sin} name={sin}/>)}</div><h3>Deal first</h3><p>Turn your card and tap a sin to play it. The computer’s card arrives with its quote showing. Tap to reveal its scores. The winning sin on the winning card is green.</p><h3>Deal second</h3><p>The computer locks one of its top two sins. Both possible sins appear in the Play for panel, with their symbols. Inspect your card, then press that panel to challenge the computer. These are two possible targets, not a choice of sin: one is already locked. Tap the computer’s card to reveal which one it chose.</p><p>Higher score wins. Equal scores draw. The tally beside the logo counts your wins, computer wins and draws on this browser, including after a refresh. Each round is counted once. Play again starts another round in the same mode; Cancel returns to the deal choices.</p><button onClick={()=>setHelp(false)}>Let’s play<ArrowRight size={18}/></button></section></div>}
   </main>;
 }

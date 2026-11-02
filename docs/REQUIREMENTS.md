@@ -373,3 +373,13 @@ Remove the persistent central result ribbon. Highlight only the deciding sin on 
 Restore the tally beside the Top Trumps brand: You wins, Computer wins and Draws. Store it on this browser across refreshes and count each revealed round once. Historical visit-only totals that were never saved cannot be reconstructed. Existing saved rounds remain playable. Each newly dealt round gets a stable unique identity to distinguish later rounds even if the cards and sin repeat.
 
 A new win triggers a brief full-screen confetti shower and a You win message. A loss triggers a warm red/amber ember display with expanding rings, a tilting crown and Round lost message. These effects last approximately three seconds, clear automatically, and do not block card controls. Draws receive a short neutral acknowledgement. Respect reduced-motion preferences by omitting particle motion and shortening the acknowledgement. Restoring an already-counted result must not replay its celebration.
+
+## Sin symbols and Deal-second Play for panel
+
+Replace the plain Deal-second hint text and Play this card / Play card A button with one integrated Play for action panel. Show the two possible sin names in individual icon badges separated by or, with the visible qualifier One locked. On larger screens identify which player card is being played in the panel heading. The whole panel submits the selected card; the two sin badges are not independent sin-choice buttons. The computer's previously locked choice remains authoritative and hidden until reveal.
+
+Every visible sin category label uses the same shared symbol and text label in both modes: Pride = crown; Greed = coins; Lust = heart; Envy = eye; Wrath = flame; Stupidity = brain. This applies to all player/computer score rows, Deal-first sin-choice buttons, Deal-second badges, winning rows and the rules legend. Keep names beside symbols so understanding does not depend on recognising icons or colours. Use the existing vector icon family rather than additional raster artwork.
+
+Place the compact Play for panel beside Cancel below the cards; remove the redundant hint line above the cards. The panel and badges remain legible on phones and in landscape. All existing card flips, green winner markings, tally and celebration flows remain in place.
+
+Sin symbols have coloured fills and darker outlines: Pride royal purple, Greed gold, Lust rose, Envy green, Wrath fiery orange, Stupidity blue. Text and score colours remain unchanged. Winning-row symbols sit on a light backing so their colours remain readable against green.
