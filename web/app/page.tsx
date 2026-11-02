@@ -11,6 +11,9 @@ export default function Home(){
   const [error,setError]=useState('');
   const [help,setHelp]=useState(false);
   const [mobile,setMobile]=useState(false);
+  const [showResult,setShowResult]=useState(false);
+  const rail=useRef<HTMLDivElement>(null);
+  const cardNodes=useRef<Record<string,HTMLDivElement|null>>({});
   const pending=useRef(false);
   useEffect(()=>{
     const media=window.matchMedia('(max-width:1100px)');
@@ -22,8 +25,16 @@ export default function Home(){
     fetch('/api/game').then(async response=>{
       const data=await response.json();if(!response.ok)throw Error(data.error);
       setGame(data);setActiveCard(data?.committed?'computer':data?.cards[0]?.id||'');
+      if(data?.done){setFlipped([data.playedCardId,'computer']);setShowResult(true);}
     }).catch(()=>setError('Could not restore your round. Please try again.')).finally(()=>setReady(true));
   },[]);
+  useEffect(()=>{
+    const frame=requestAnimationFrame(()=>{
+      const node=rail.current;
+      if(node)node.scrollTo({left:Math.max(0,(node.scrollWidth-node.clientWidth)/2),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+    });
+    return()=>cancelAnimationFrame(frame);
+  },[game?.committed,game?.done,mobile]);
   async function act(input:any){
     if(pending.current)return;
     pending.current=true;setBusy(true);setError('');
@@ -31,16 +42,18 @@ export default function Home(){
       const response=await fetch('/api/game',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input.action==='deal'?{...input,playerCardCount:mobile?1:2}:input)});
       const data=await response.json();if(!response.ok)throw Error(data.error);
       setGame(data);
-      if(input.action==='deal'){setFlipped([]);setActiveCard(data.cards[0].id);}
-      if(input.action==='play'){setFlipped([]);setActiveCard('computer');}
-      if(input.action==='reveal')setFlipped(ids=>[...ids.filter(id=>id!=='computer'),'computer']);
-      if(input.action==='cancel'){setFlipped([]);setActiveCard('');}
+      if(input.action==='deal'){setFlipped([]);setActiveCard(data.cards[0].id);setShowResult(false);}
+      if(input.action==='play'){setFlipped([]);setActiveCard('computer');setShowResult(false);}
+      if(input.action==='reveal'){setFlipped([data.playedCardId,'computer']);setShowResult(true);}
+      if(input.action==='cancel'){setFlipped([]);setActiveCard('');setShowResult(false);}
     }catch(e){setError((e as Error).message);}
     finally{pending.current=false;setBusy(false);}
   }
   function turn(key:string){
     if(busy)return;
     setActiveCard(key);
+    setShowResult(false);
+    cardNodes.current[key]?.scrollIntoView({block:'nearest',inline:'center',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
     if(key==='computer'&&!game.done){void act({action:'reveal'});return;}
     setFlipped(ids=>ids.includes(key)?ids.filter(id=>id!==key):[...ids,key]);
   }
@@ -49,14 +62,14 @@ export default function Home(){
     {key:'computer',card:game.opponent||game.opponentFront,label:'COMPUTER'}
   ]:(mobile?game.cards.slice(0,1):game.cards).map((card:any,index:number)=>({key:card.id,card,label:game.cards.length===1||mobile?'YOUR CARD':('YOUR CARD '+(index===0?'A':'B'))}))):[];
   const selected=cards.find((item:any)=>item.key===activeCard)||cards[0];
-  const status=game?.done?(game.result.outcome+' · '+game.result.category+' '+game.result.yours+'–'+game.result.theirs):game?.committed?'The computer’s card':game?.mode==='second'?('Computer plays '+game.hints.join(' or ')+' · one is locked'):'You deal first · choose a sin on the reverse';
   function corner(key:string,isBack:boolean){return <button className="fold-corner" aria-label={isBack?'Turn card to quote':'Turn card to sins'} onClick={()=>turn(key)} disabled={busy}><RotateCcw size={15}/></button>;}
   function cardView(item:any){
     const {card:c,key,label}=item;
     const isBack=flipped.includes(key);
     const canPlay=!game.committed;
-    return <div key={key} className={'card-slot '+(selected?.key===key?'is-active':'')}>
+    return <div key={key} ref={node=>{cardNodes.current[key]=node;}} className={'card-slot '+(selected?.key===key?'is-active':'')}>
       <div className="flip-shell" role="group" tabIndex={0} aria-label={label+'. '+(isBack?'Scores':'Quote')+' side. Press Enter or tap to turn over.'} aria-busy={busy}
+        onFocus={()=>{setActiveCard(key);cardNodes.current[key]?.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});}}
         onClick={event=>{if(!(event.target as HTMLElement).closest('button,a')&&!window.getSelection()?.toString())turn(key);}}
         onKeyDown={event=>{if(event.target===event.currentTarget&&(event.key==='Enter'||event.key===' ')){event.preventDefault();turn(key);}}}>
         <div className={'flip-inner '+(isBack?'is-flipped':'')}>
@@ -90,15 +103,17 @@ export default function Home(){
       </div></div>
       <div className="cover"><img src="/trump-art.png" alt="The Donald deck artwork"/><div><Crown/><h2>Top Trumps</h2><p>SIX SINS. ONE WINNING CHOICE.</p></div></div>
     </section>:<>
-      <div className="round-status" role="status"><p>{status}</p>{game.done&&<span className="status-detail">You – Computer</span>}</div>
-      {cards.length>1&&<nav className="card-tabs" aria-label="Choose a card">{cards.map((item:any)=><button key={item.key} aria-pressed={selected?.key===item.key} onClick={()=>setActiveCard(item.key)}>{item.label==='COMPUTER'?'Computer':item.label.replace('YOUR CARD','Your card')}{game.done&&<strong>{item.key==='computer'?game.result.theirs:game.result.yours}</strong>}</button>)}</nav>}
-      <section className={'card-stage '+(cards.length>1?'two-cards':'')} aria-label="Playing cards">{cards.map(cardView)}</section>
+      {!game.committed&&game.mode==='second'&&<p className="sin-hint">Computer plays <strong>{game.hints.join(' or ')}</strong></p>}
+      <section className={'card-stage '+(game.done?'spread':game.committed?'stacked':cards.length>1?'hand-pair':'single')} aria-label="Playing cards">
+        <div className="card-rail" ref={rail}><div className="card-layout">{cards.map(cardView)}</div></div>
+        {game.done&&showResult&&<button className="result-ribbon" aria-label={game.result.outcome+'. '+game.result.category+': you '+game.result.yours+', computer '+game.result.theirs+'. Dismiss result to inspect cards.'} onClick={()=>setShowResult(false)}><strong>{game.result.outcome}</strong><span>{game.result.category} · You {game.result.yours} — Computer {game.result.theirs}</span></button>}
+      </section>
       <div className="bottom-actions">
-        {game.done?<button onClick={()=>act({action:'deal',mode:game.mode})} disabled={busy}><RotateCcw size={18}/>Play again</button>:!game.committed&&game.mode==='second'?<button onClick={()=>act({action:'play',card:selected.card.id})} disabled={busy}><ArrowRight size={18}/>{cards.length>1?'Play card '+selected.label.slice(-1):'Play this card'}</button>:<span className="action-note">{game.committed?'Reveal the computer’s scores':'Choose a sin on the reverse'}</span>}
+        {game.done?<button onClick={()=>act({action:'deal',mode:game.mode})} disabled={busy}><RotateCcw size={18}/>Play again</button>:!game.committed&&game.mode==='second'?<button onClick={()=>act({action:'play',card:selected.card.id})} disabled={busy}><ArrowRight size={18}/>{cards.length>1?'Play card '+selected.label.slice(-1):'Play this card'}</button>:null}
         <button className="secondary" disabled={busy} onClick={()=>act({action:'cancel'})}><X size={18}/>Cancel</button>
       </div>
     </>}
     {(busy||error)&&<div className={'notice '+(error?'error':'')} role={error?'alert':'status'}>{error||'Please wait…'}</div>}
-    {help&&<div className="modal-backdrop"><section role="dialog" aria-modal="true" aria-labelledby="help-title" className="modal"><button className="close" aria-label="Close instructions" onClick={()=>setHelp(false)}><X/></button><p className="eyebrow">THE RULES</p><h2 id="help-title">Turn the cards.</h2><p>Tap anywhere on either side of a card, or its folded corner, to flip it. Use the card tabs to switch between your card and the computer on a phone. Landscape shows both cards together.</p><h3>Deal first</h3><p>Turn your card and tap a sin to play it. The computer’s card arrives with its quote showing. Tap to reveal its scores and the result.</p><h3>Deal second</h3><p>The computer locks one of its top two sins. You see both possible names. Inspect your card, then press Play this card. Tap the computer’s card to reveal its chosen sin.</p><p>Higher score wins. Equal scores draw. Play again starts another round in the same mode; Cancel returns to the deal choices.</p><button onClick={()=>setHelp(false)}>Let’s play<ArrowRight size={18}/></button></section></div>}
+    {help&&<div className="modal-backdrop"><section role="dialog" aria-modal="true" aria-labelledby="help-title" className="modal"><button className="close" aria-label="Close instructions" onClick={()=>setHelp(false)}><X/></button><p className="eyebrow">THE RULES</p><h2 id="help-title">Turn the cards.</h2><p>Tap either side of a card, or its folded corner, to flip it. The computer deals onto your card, slightly offset. Revealing it spreads both cards side by side at the same size. Tap either card to bring it forward; on a narrow phone you can also slide across the overlapping pair.</p><h3>Deal first</h3><p>Turn your card and tap a sin to play it. The computer’s card arrives with its quote showing. Tap to reveal its scores and the result across the middle. Tap the result or a card to clear the ribbon and inspect the cards.</p><h3>Deal second</h3><p>The computer locks one of its top two sins. You see both possible names. Inspect your card, then press Play this card. Tap the computer’s card to reveal its chosen sin.</p><p>Higher score wins. Equal scores draw. Play again starts another round in the same mode; Cancel returns to the deal choices.</p><button onClick={()=>setHelp(false)}>Let’s play<ArrowRight size={18}/></button></section></div>}
   </main>;
 }

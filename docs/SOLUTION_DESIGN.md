@@ -124,3 +124,11 @@ The initial computer turn is the existing POST reveal transition; subsequent tur
 `cancel` is an added transaction action. It atomically expires the current record with the existing compare-and-set mechanism and returns null. Repeated cancellation is idempotent. GET then treats the record as inactive; the next deal can select either mode. No game-rule calculations are duplicated on the client.
 
 Score surfaces use high-contrast neutral backgrounds; the deciding row adds a dark background with white text, a tick and explicit Played sin wording. Colour is not the only result indicator. Existing deck content and artwork are unchanged.
+
+## Offset stack, spread and central result
+
+The current table uses a horizontally scrollable rail containing a positioned card layout. Shared CSS variables define card width and spread step; card slots keep identical dimensions while left/top positions change between `single`, `hand-pair`, `stacked` and `spread`. The stacked computer card is initially active and sits 16px to the right of, and 12px above, the player card. Reveal invokes the existing server action, turns both cards to their reverses, and spreads their positions without changing their size. A short dealing animation and spread transition respect reduced-motion preferences.
+
+On narrow phones the rail permits horizontal inspection of the overlapping cards. Selecting/focusing a card brings it to the front and scrolls it into view. The result ribbon stays centered on the visible table rather than moving off-screen with the rail; tapping the ribbon or a card removes it for inspection. There are no top instruction headings or card-switch tabs. Only required Deal-second hint names remain above the table. Bottom controls do not change card dimensions when a result appears.
+
+Validation: browser flow through first deal, offset stack, reveal, unchanged measured 440×808px card slots across all three states in the desktop preview, rear-card selection and ribbon clearance; game tests, TypeScript and production build. No physical iPhone test was available.

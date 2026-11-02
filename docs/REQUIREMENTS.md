@@ -355,3 +355,11 @@ This revision replaces the earlier baize frame, large round headings, hint panel
 - Computer quote arrives before any opponent scores. Its first flip invokes the existing server reveal action. Further flips are local and must not change the locked sin or result. Deal-second hint semantics are unchanged.
 
 Validation: game-rule suite (including cancel/reload state), TypeScript and production build; browser checks of quote/reverse flips, first-deal play, computer reveal, replay and cancel. Physical iPhone Safari verification remains outside this environment.
+
+## Offset deal and full-size reveal revision
+
+This revision supersedes the compact top status line and card tabs from the previous screen design. Remove the round title and flip instructions above the cards. Only the two possible computer sin names remain as a short line during Deal second, since they affect the player’s choice.
+
+The computer’s card is dealt on top of the player’s card, offset 16px horizontally and 12px vertically so the card behind remains visible. On reveal, both card reverses spread sideways with an overlap and a result ribbon across the middle. Card width and height must remain the same through the single/stacked/revealed states at a given viewport; no scale-down at reveal. Use wider spacing when space allows, stronger overlap on narrower screens, and horizontal sliding on portrait phones. Tapping either card brings it forward and flips it. Keyboard focus also brings a covered card forward.
+
+The result ribbon can be cleared by tapping it or either card so it cannot permanently obscure the wording or score rows. Play again and Cancel remain below the cards. Keep the folded corners and full, uncropped artwork. Higher-score comparison and Deal-second locking rules remain unchanged.
