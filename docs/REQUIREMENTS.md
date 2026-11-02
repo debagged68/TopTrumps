@@ -1,6 +1,6 @@
 # The Seven Deadly Spins — Product Requirements
 
-Version 1.0 · 2 November 2026 · Requirements baseline, not an implemented product.
+Version 1.1 · 2 November 2026 · Design updated for file-based card content; gameplay and commerce are not implemented.
 
 ## 1. Purpose and scope
 
@@ -15,7 +15,7 @@ This document uses MUST for launch requirements, SHOULD for preferred behaviour 
 | Item | Requirement / status |
 |---|---|
 | Card content | Authentic political quote or statement, with attribution and context. Agreed. |
-| Attributes | All seven deadly sins on every card. Agreed. |
+| Attributes | Donald Deck: six categories — Pride, Greed, Lust, Envy, Wrath and Stupidity. Greed absorbs Gluttony; Stupidity replaces Sloth. Supersedes the original seven-attribute baseline. |
 | Hidden scores | Player chooses before scores are revealed. Agreed. |
 | Hand | Two cards; choose one to play. Agreed. |
 | Opponent | Random computer card compared on the player's chosen sin. Agreed. |
@@ -34,7 +34,7 @@ This document uses MUST for launch requirements, SHOULD for preferred behaviour 
 |---|---|---|
 | Discover | Home page, rules, deck catalogue, previews and prices | Welcome message, brief rules, free-play and shop actions |
 | View cards | Two readable visual cards; stack on narrow phones | Two separately labelled card images, A and B; concise text equivalents |
-| Choose | Select a card, then tap one of seven sin controls | Choose A/B, then choose from a seven-item sin list; text fallback |
+| Choose | Select a card, then tap one of the deck’s category controls (six for Donald) | Choose A/B, then choose from the deck’s category list (six items for Donald); text fallback |
 | Result | Reveal opponent, selected scores, outcome and explanation | Result image plus readable result text and replay button |
 | More detail | Reveal all sins, attribution, context and source | Optional Reveal all sins / source response or website link |
 | Buy | Deck details and provider-hosted checkout | Shop/buy link opens website checkout; no card details collected in chat |
@@ -56,13 +56,13 @@ A deck/pool MUST have at least three eligible cards. Avoid repeats between conse
 
 ### GAME-02: Choice and commitment
 
-Before commitment, show quote, speaker, date/context and artwork but no numeric sin scores, dominant-sin labels or other strong score hints. The player selects A or B, then one of Pride, Greed, Lust, Envy, Gluttony, Wrath or Sloth. Allow Back/change-card before submitting the sin. Choosing the sin commits the round; no separate confirmation is required.
+Before commitment, show quote, speaker, date/context and artwork but no numeric sin scores, dominant-sin labels or other strong score hints. The player selects A or B, then one of the selected deck’s categories: Pride, Greed, Lust, Envy, Wrath or Stupidity for the Donald Deck. Allow Back/change-card before submitting the sin. Choosing the sin commits the round; no separate confirmation is required.
 
 The server MUST atomically validate ownership, round state, card choice and sin, then resolve exactly once. Double taps, retries and duplicate webhooks MUST return the original result without creating additional rounds or statistics. Selecting an already resolved round MUST never permit a different choice.
 
 ### GAME-03: Outcome
 
-Compare the two selected-sin integer scores: player greater = win; smaller = loss; equal = draw. Reveal the computer quote, both selected scores, clear outcome and short editorial explanations for that sin. Never invent the outcome with an LLM. Reveal all sins is optional after resolution and shows both seven-score profiles without altering the outcome.
+Compare the two selected-sin integer scores: player greater = win; smaller = loss; equal = draw. Reveal the computer quote, both selected scores, clear outcome and short editorial explanations for that sin. Never invent the outcome with an LLM. Reveal all sins is optional after resolution and shows both complete category-score profiles without altering the outcome.
 
 Track completed rounds, wins, losses, draws, current winning streak and best winning streak. Proposed default: a win increases the streak; a loss or draw resets it. Abandoned or expired rounds do not count as outcomes. Display the streak rule in help.
 
@@ -76,21 +76,22 @@ Maintain at most one active round per player across channels. An incomplete roun
 
 ### CARD-01: Required fields
 
-Each card MUST have an immutable ID; deck membership; published version; exact quote; speaker; role at the time; date with known precision; event/publication context; original language; any clearly labelled translation; source URL and citation details; image and alt text; seven scores and seven short rationales; content/asset rights notes; editorial status and reviewer record.
+Each card MUST have an immutable ID; deck membership; published version; exact quote; speaker; role at the time; date with known precision; event/publication context; original language; any clearly labelled translation; source URL and citation details; image and alt text; one score and short rationale per configured category (six for Donald); content/asset rights notes; editorial status and reviewer record.
 
 Do not fabricate dates or silently treat paraphrases as quotations. Material omissions MUST be signalled and preserve meaning. Disputed or unverifiable quotes MUST NOT be published as verified cards. Use primary evidence where available, such as transcripts, recordings or official publications.
 
 ### CARD-02: Sin interpretation
 
+The table below defines the Donald Deck’s six categories. Controls, score validation and results MUST use the selected deck’s category definitions. Mixed deck pools require compatible category sets.
+
 | Sin | Editorial interpretation |
 |---|---|
 | Pride | Boasting, vanity, self-importance or personal infallibility |
-| Greed | Desire for wealth, possessions, entitlement or personal advantage |
+| Greed | Desire for wealth, possessions, entitlement or personal advantage; absorbs Gluttony, including excessive acquisition or consumption |
 | Lust | Desire for power, office, control or attraction; interpretation must be clear |
 | Envy | Resentment of another person's success, popularity or status |
-| Gluttony | Consumption, extravagance, excess or an appetite for more |
 | Wrath | Anger, threats, revenge or expressed contempt |
-| Sloth | Indifference, avoidance of responsibility or unwillingness to act |
+| Stupidity | Absurd claims, poor reasoning or lazy thinking; physical inactivity alone does not count |
 
 Scores describe the statement as satirical editorial interpretation, not a factual diagnosis of the speaker's character. Publish a consistent scoring rubric: 1–20 absent/very weak, 21–40 weak, 41–60 moderate, 61–80 strong, 81–100 extreme. Review borderline cases and ensure both quote and context support the explanation. A single quote can score strongly in multiple sins.
 
@@ -122,13 +123,13 @@ Design mobile first for iPhone Safari and Android Chrome, with desktop support. 
 
 Use the official WhatsApp Business Platform or an approved provider. First contact explains the game and links to rules/privacy. Offer Play free, My decks and Shop through supported controls. The first incoming contact can create a WhatsApp player profile; this is distinct from marketing consent.
 
-Send real card images labelled A/B, not text-only substitutes. Provide a short text equivalent so the game remains usable if an image cannot load. Select A/B using reply controls, followed by a seven-item sin list. Maintain short text commands as a fallback: A, B, Pride, etc. Parse these deterministically against the current state, not with a second game engine.
+Send real card images labelled A/B, not text-only substitutes. Provide a short text equivalent so the game remains usable if an image cannot load. Select A/B using reply controls, followed by the deck’s category list (six items for Donald). Maintain short text commands as a fallback: A, B, Pride, etc. Parse these deterministically against the current state, not with a second game engine.
 
 Reveal as a result image and accessible text, then provide Twist Again and optional details actions. Rendering or delivery failure MUST preserve the resolved result and allow retry without re-dealing. Clearly reject stale round controls. Handle free text, invalid commands and incoming non-text messages with brief state-appropriate guidance.
 
 ### WA-02: Platform constraints
 
-Validate current support for image headers, reply-button counts and list interactions against the selected provider before implementation. Baseline design assumes up to three reply buttons and a seven-option list; use separate media and selection messages where needed. Do not depend on custom JavaScript, interactive regions inside an image or an embedded website running within a chat message.
+Validate current support for image headers, reply-button counts and list interactions against the selected provider before implementation. Baseline design assumes up to three reply buttons and a category list (six options for Donald); use separate media and selection messages where needed. Do not depend on custom JavaScript, interactive regions inside an image or an embedded website running within a chat message.
 
 Respect current messaging-window, template, opt-in and opt-out requirements. When the free-form reply window is closed, resume on the user's next message or use an approved, appropriately consented template. Do not silently send promotional reminders. WhatsApp group play is out of launch scope.
 
@@ -166,7 +167,7 @@ Create an opaque, expiring checkout handoff bound to the current player. The web
 
 ## 9. Administration
 
-ADMIN-01: Restricted editorial/admin interface supports draft, review, publish, unpublish and versioned correction of cards/decks. Validate seven scores, rationales, citation, artwork and minimum eligible deck size before publication. Separate draft content from public endpoints.
+ADMIN-01: Restricted editorial/admin interface supports draft, review, publish, unpublish and versioned correction of cards/decks. Validate all configured category scores (six for Donald), rationales, citation, artwork and minimum eligible deck size before publication. Separate draft content from public endpoints.
 
 ADMIN-02: Manage catalogue descriptions, covers, ordering, visibility, prices via the commerce integration, free limits and availability. Price edits must not rewrite historical orders. Disable a deck/card without breaking already persisted result records; block new sales or deals when appropriate and offer an alternative.
 
@@ -184,7 +185,7 @@ Website and WhatsApp adapters call the same application services: Deal round, Se
 |---|---|
 | Player / identity | Internal ID, verified web/WhatsApp aliases, preferences and recovery state |
 | Deck / product / price | Catalogue, content membership, publication and commerce mapping |
-| Card version | Quote, context, sources, asset references, seven scores and explanations |
+| Card version | Quote, context, sources, asset references, configured category scores and explanations |
 | Round | Player, channel origin, state/version, player pair, locked computer card, chosen card/sin, pinned content versions, result and timestamps |
 | Order / payment event | Player, product, trusted price, provider identifiers, status and deduplication |
 | Entitlement | Player, deck, grant source, status and access history |
@@ -193,6 +194,23 @@ Website and WhatsApp adapters call the same application services: Deal round, Se
 | Audit / statistics | Auditable actions and derived player aggregates |
 
 Suggested round states: dealt → card selected → resolved; dealt/card selected → abandoned or expired. Sin commitment and result resolution are atomic. Persist final results before attempting delivery.
+
+### ARCH-04: File-based card content (current decision)
+
+Card content MUST use the default workflow **Markdown → generated JSON → game server**. Supabase is optional for content; no database project is required for this workflow.
+
+- Editorial source: `docs/DONALD_DECK_CANDIDATES.md`.
+- Generate with `python3 scripts/build_content.py`; commit the Markdown and `content/server/donald.json` together.
+- JSON and the optional SQL exporter MUST use the single parser in `scripts/card_content.py`. Do not duplicate parsing or scoring logic.
+- The generated JSON contains stable card IDs, quote text, attribution, context, source links, editorial notes, six scores and available rationales. Generation cross-checks scores against the Markdown matrix and rejects duplicate numbers, empty quotes and scores outside 1–100.
+- The current v0.20 export contains 48 draft cards, 288 scores, eight HOLD cards and 71 source links. HOLD cards are #11, #19, #27, #36, #40, #41, #42 and #44. Counts describe the current snapshot, not fixed deck limits.
+- All exported content remains draft. Candidate status MUST NOT imply publication or verification. HOLD cards MUST never be dealt; production use of any other card requires editorial approval. The exporter does not implement the publication workflow, and missing rationales remain missing.
+- IDs use the deck slug and original card number; never renumber existing cards. Pin quote and score snapshots when dealing so a deployment cannot alter an active round.
+- Read the full JSON only in trusted server code. Never copy it into public/static assets, import it into browser bundles or return full records through pre-choice APIs. Explicitly allowlist player card ID, label, quote, speaker and approved context/artwork. Attribution notes, source Markdown and reveal explanations can contain score hints.
+- The GitHub repository is public and includes scores; server-only delivery prevents accidental disclosure during play, not deliberate repository lookup.
+- Keep Supabase migration and seed files available as an optional future route. Accounts, entitlements, payments, rounds and statistics still need appropriate durable storage when implemented; the content JSON does not replace transactional player-state storage.
+
+See [content handling instructions](../content/README.md). The export pipeline is implemented; the game server, publication controls and player-state storage are not yet implemented.
 
 ### ARCH-03: Security and reliability
 
@@ -215,7 +233,7 @@ WhatsApp tariffs and provider fees are launch dependencies; do not hard-code an 
 | ID | Scenario and expected outcome |
 |---|---|
 | AC-01 | A new round shows exactly two distinct cards without scores or dominant-sin hints; computer card is already persisted and is distinct. |
-| AC-02 | For each of seven sins, known fixture scores produce the correct win/loss/draw; result includes both scores and relevant rationales. |
+| AC-02 | For each configured category (six for Donald), known fixture scores produce the correct win/loss/draw; result includes both scores and relevant rationales. |
 | AC-03 | Inspecting pre-choice network responses/assets cannot retrieve hidden scores or the opponent card. |
 | AC-04 | Double taps, duplicate inbound messages and retries resolve one round once and update statistics once. |
 | AC-05 | Twist Again creates a new round; limits show a clear explanation without charging automatically. |
@@ -231,6 +249,8 @@ WhatsApp tariffs and provider fees are launch dependencies; do not hard-code an 
 | AC-15 | Unpublished/unverified cards cannot be dealt, and inaccessible paid decks cannot be played via direct API requests. |
 | AC-16 | Sources and full context are accessible; satire scoring is distinguished from the verified quotation. |
 | AC-17 | Guest-to-account recovery, refund reconciliation, data backup recovery and support entitlement repair have documented checks. |
+| AC-18 | Regenerating content produces deterministic JSON matching the Markdown scores, card identities, holds and source records; no Supabase project is needed. |
+| AC-19 | Full content JSON and reveal/editorial fields are absent from browser bundles, static assets and pre-choice API responses. |
 
 ## 13. Delivery stages
 
