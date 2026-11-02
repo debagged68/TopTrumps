@@ -1,6 +1,6 @@
 # Top Trumps — Product Requirements
 
-Version 1.1 · 2 November 2026 · Design updated for file-based card content; gameplay and commerce are not implemented.
+Version 1.2 · 2 November 2026 · Design updated for file-based card content; gameplay and commerce are not implemented.
 
 ## 1. Purpose and scope
 
@@ -46,6 +46,15 @@ The two channels MUST use the same rules, published card versions, identity, ent
 
 ## 4. Rules and round lifecycle
 
+### GAME-00: Deal first or second (updated owner decision)
+
+Every new round begins with **Deal first** or **Deal second**.
+
+- **Deal first:** the player receives two cards, selects one and chooses a category. The computer's card is locked before these choices; resolve on the player's selected category.
+- **Deal second:** the computer locks its card and chosen category before the player's choice. Show its two highest-scoring category names, without scores, their ranking or which was chosen. The player receives two cards and chooses one; the computer's locked category decides the outcome. The player does not select a category in this mode.
+- Prototype default: choose the computer's category randomly from its top two. Break tied category rankings using deck category order; present hints in deck order. These defaults can be tuned after playtesting.
+- Both modes share one deal/resolve engine. Higher wins; equal scores draw. Replay offers either mode. This section supersedes older descriptions that assume the player always chooses the category or that no category hint is ever shown.
+
 ### GAME-01: Dealing and fairness
 
 The server MUST select three distinct eligible published cards: two for the player and one for the computer. All MUST come from the same selected deck or explicitly selected deck pool. The player MUST have access to every deck in that pool.
@@ -55,6 +64,8 @@ The computer card MUST be randomly selected and persisted before the player choo
 A deck/pool MUST have at least three eligible cards. Avoid repeats between consecutive rounds when the pool permits; cross-round repeats are allowed and do not change scores. This is a memory/interpretation game, not a claim that previously revealed information can be made secret again.
 
 ### GAME-02: Choice and commitment
+
+The category-selection steps below apply to Deal first. In Deal second, choosing A/B commits immediately against the computer's locked category; only its two-category hint is permitted before commitment.
 
 Before commitment, show quote, speaker, date/context and artwork but no numeric sin scores, dominant-sin labels or other strong score hints. The player selects A or B, then one of the selected deck’s categories: Pride, Greed, Lust, Envy, Wrath or Stupidity for the Donald Deck. Allow Back/change-card before submitting the sin. Choosing the sin commits the round; no separate confirmation is required.
 
@@ -251,6 +262,12 @@ WhatsApp tariffs and provider fees are launch dependencies; do not hard-code an 
 | AC-17 | Guest-to-account recovery, refund reconciliation, data backup recovery and support entitlement repair have documented checks. |
 | AC-18 | Regenerating content produces deterministic JSON matching the Markdown scores, card identities, holds and source records; no Supabase project is needed. |
 | AC-19 | Full content JSON and reveal/editorial fields are absent from browser bundles, static assets and pre-choice API responses. |
+
+### Current private web prototype
+
+A playable mobile-first prototype is deployed at https://toptrumps-play.debagged.chatgpt.site (owner-private; ChatGPT sign-in required). It includes both deal modes, original illustrated gold-and-ivory cards, score reveal, category breakdown, source links, replay and same-browser round restoration. The Site source is versioned by Sites separately from this editorial repository. Card content remains the generated JSON snapshot; Cloudflare D1 stores round state only. No Supabase project is required.
+
+Prototype limits: all cards are editorial drafts; HOLD cards are excluded. Session totals reset on refresh. The same decorative portrait is reused across cards and is independent of scores. No purchases, player accounts, WhatsApp integration, public launch or cross-device continuity are implemented. Database retention cleanup and rate limits remain launch work. Browser tests exercised both modes and refresh restoration; 50 automated round tests and TypeScript/build checks passed.
 
 ## 13. Delivery stages
 
