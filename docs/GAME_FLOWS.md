@@ -64,3 +64,11 @@ Only the player's own scores may be inspected before committing. The manual hous
 - Both card shells have equal width and height at a given breakpoint. Long text remains readable with internal scroll.
 - Refresh: same committed result restored; current reference intentionally presents the house face down again. Totals are page-local.
 - Network error: show an error and preserve the deal. Do not deal a substitute opponent.
+
+## Computer quote and result alignment update — 2 November 2026
+
+After commitment, the computer's card enters the unused slot showing its illustrated quote front, not an anonymous house cover. The user then flips that quote card to reveal its six sins/scores and the result. Precommit responses still omit all opponent data; committed responses include only `opponentFront` (ID, label, quote, speaker), without scores, rationale, locked category or outcome. The reveal action delivers scores/result. This supersedes older descriptions that conceal the computer's identity until the flip itself.
+
+Each revealed score is rendered directly beneath the card it belongs to, in the same slot/container. When the computer is on the left its score is on the left. In the stacked mobile layout, each score follows its own card rather than appearing in a separately ordered summary. The separate summary displays only the deciding sin and outcome.
+
+Deal second prompt explicitly labels the two names as possible sins, with one already locked. Neither is presented as the selected sin. The commit/reveal sequence always compares the locked sin, including after restore or a client supplying a different category.

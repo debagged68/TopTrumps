@@ -106,3 +106,11 @@ The current runnable code is `web/`; the preceding `reference/prototype/` discus
 - AWS SSR compute role grants only GetItem/PutItem for the dedicated rounds table; no long-lived AWS credentials are written into app files. The deploy helper merges the main branch's existing variables and refuses apps linked to another repository.
 
 The old prototype's network-secrecy, snapshot and concurrency gaps are addressed by this implementation and unit tests. Real AWS integration/device validation and public-launch editorial/operational work still require completion. No AWS deployment has been claimed without authenticated execution.
+
+## Computer quote and result alignment update — 2 November 2026
+
+After commitment, the computer's card enters the unused slot showing its illustrated quote front, not an anonymous house cover. The user then flips that quote card to reveal its six sins/scores and the result. Precommit responses still omit all opponent data; committed responses include only `opponentFront` (ID, label, quote, speaker), without scores, rationale, locked category or outcome. The reveal action delivers scores/result. This supersedes older descriptions that conceal the computer's identity until the flip itself.
+
+Each revealed score is rendered directly beneath the card it belongs to, in the same slot/container. When the computer is on the left its score is on the left. In the stacked mobile layout, each score follows its own card rather than appearing in a separately ordered summary. The separate summary displays only the deciding sin and outcome.
+
+Deal second prompt explicitly labels the two names as possible sins, with one already locked. Neither is presented as the selected sin. The commit/reveal sequence always compares the locked sin, including after restore or a client supplying a different category.

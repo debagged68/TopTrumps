@@ -48,3 +48,20 @@
 @media(max-width:560px){.baize{padding:20px 10px 25px;border-width:5px;border-radius:16px}.baize .hand{max-width:330px;gap:24px}.score-back{padding:12px 16px}.back-heading h2{font-size:29px}.sin-rows button,.sin-score{padding:12px;min-height:49px}.house-emblem>span{font-size:32px}}
 @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.departing,.entering{animation:none}}
 .house-flip{max-width:85%;margin-top:26px;padding:14px 12px;font-size:13px;background:#d4ad64;color:#102531;letter-spacing:0}
+
+/* Keep each comparison score attached to its card, including stacked mobile slots. */
+.baize .hand.comparison-hand{grid-auto-rows:auto;align-items:start}
+.comparison-slot{min-width:0;display:flex;flex-direction:column;gap:18px}
+.card-result-score{text-align:center;padding:18px 8px 2px;color:#ecd5a2}
+.card-result-score>span{display:block;font-size:10px;letter-spacing:2px}
+.card-result-score>strong{display:block;font-family:Georgia,serif;font-size:52px;font-weight:400;margin-top:10px}
+@media(max-width:560px){.card-result-score>strong{font-size:44px}.comparison-slot{gap:12px}}
+
+/* Phone layout: readable stacked cards without sideways page scrolling. */
+@media(max-width:560px){
+main{padding:0 12px}.table{padding-top:24px}.round-head h1{font-size:34px;line-height:1.08}.round-head .lede{font-size:13px;line-height:1.6}
+.baize{padding:18px 8px 22px}.baize .hand{width:100%;max-width:330px;grid-auto-rows:580px;gap:20px}.baize .hand.comparison-hand{grid-auto-rows:auto}
+.baize .flip-shell,.baize .hand .playing-card{height:580px}.baize .portrait{height:175px}.baize .quote p{font-size:21px;line-height:1.2}.baize .quote{padding:13px 12px 16px}.baize .card-action{min-height:46px;padding:12px 8px;font-size:13px}
+.score-back{padding:10px 12px}.back-heading{padding:7px 0 12px}.back-heading>svg{width:28px;height:28px}.back-heading h2{font-size:26px;margin:8px 0}.back-heading small{font-size:11px}.sin-rows{gap:6px}.sin-rows button,.sin-score{min-height:44px;padding:9px 11px;font-size:14px}.sin-rows strong{font-size:20px}.back-actions{padding-top:12px}.back-actions button{min-height:44px}.comparison-slot{width:100%}
+.card-result-score{padding-top:8px}.card-result-score>strong{font-size:40px;margin-top:6px}.replay-buttons{flex-wrap:wrap}.replay-buttons>button{min-height:48px;flex:1;min-width:120px}.deal-options button>span{min-width:0;flex:1}.deal-options button>svg{flex-shrink:0}.hint{overflow-wrap:anywhere;padding:14px 12px}.hint strong{font-size:20px;line-height:1.4}.hint p{font-size:12px;line-height:1.6}.mini-back{display:none}
+}

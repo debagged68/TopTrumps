@@ -313,3 +313,13 @@ This implementation improves on the historical prototype: dealt card wording/sco
 Round state: dealt → committed → revealed. Own scores remain visible before commit. All eight HOLD cards remain excluded and other content remains labelled editorial draft. Page-visit totals are not persistent player statistics. Commerce, accounts and WhatsApp are out of version-one scope.
 
 The repository includes an Amplify monorepo build specification, pinned package lock, CloudFormation table/role template and deployment helper. Tests cover 200 random deals plus draws, invalid inputs, content mutation after dealing, concurrent requests, expiry and rejected actions. Local browser play and a production Next.js build passed. AWS infrastructure creation, real DynamoDB validation, actual-device testing and a live AWS URL remain pending authenticated AWS deployment. See [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md).
+
+## Computer quote and result alignment update — 2 November 2026
+
+After commitment, the computer's card enters the unused slot showing its illustrated quote front, not an anonymous house cover. The user then flips that quote card to reveal its six sins/scores and the result. Precommit responses still omit all opponent data; committed responses include only `opponentFront` (ID, label, quote, speaker), without scores, rationale, locked category or outcome. The reveal action delivers scores/result. This supersedes older descriptions that conceal the computer's identity until the flip itself.
+
+Each revealed score is rendered directly beneath the card it belongs to, in the same slot/container. When the computer is on the left its score is on the left. In the stacked mobile layout, each score follows its own card rather than appearing in a separately ordered summary. The separate summary displays only the deciding sin and outcome.
+
+Deal second prompt explicitly labels the two names as possible sins, with one already locked. Neither is presented as the selected sin. The commit/reveal sequence always compares the locked sin, including after restore or a client supplying a different category.
+
+Mobile refinement: below 560px, equal card shells are 580px tall, images are 175px tall, full quotes remain scrollable at readable type sizes, and score rows/buttons have at least 44px touch height. The comparison stacks each card together with its own score and avoids page-level horizontal overflow. Desktop card shells remain 640px tall.

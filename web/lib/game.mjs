@@ -1,5 +1,5 @@
 import { randomInt } from 'node:crypto';
-export const RULES_VERSION='2.1';
+export const RULES_VERSION='2.2';
 export function snapshot(card){return {id:card.id,label:card.label,front:card.front,speaker:card.speaker,scores:{...card.scores},rationale:{...card.rationale},links:card.links.map(x=>[...x])};}
 export function deal(dataset,mode,random=randomInt){
  if(!['first','second'].includes(mode))throw Error('Choose Deal first or Deal second.');
@@ -22,7 +22,7 @@ export function view(round){
  const committed=round.stage!=='dealt';
  const response={mode:round.mode,cards:round.cards.map(playerView),categories:round.categories,committed,done:round.stage==='revealed',contentVersion:round.contentVersion,rulesVersion:round.rulesVersion};
  if(round.mode==='second')response.hints=round.hints;
- if(committed){response.playedCardId=round.result.card;response.played=playerView(round.cards.find(c=>c.id===round.result.card));}
+ if(committed){response.opponentFront={id:round.opponent.id,label:round.opponent.label,front:round.opponent.front,speaker:round.opponent.speaker};response.playedCardId=round.result.card;response.played=playerView(round.cards.find(c=>c.id===round.result.card));}
  if(round.stage==='revealed'){response.result=round.result;response.opponent=round.opponent;response.played=round.cards.find(c=>c.id===round.result.card);}
  return response;
 }
