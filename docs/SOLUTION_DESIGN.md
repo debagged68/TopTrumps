@@ -1,5 +1,7 @@
 # Top Trumps — solution design and independent developer handoff
 
+**Current implementation:** `web/` is the runnable AWS/Next.js source; the initial Site/Vinext/D1 sections below are historical context, superseded by the standalone updates. **Next feature:** [ASYNC_CHALLENGES.md](ASYNC_CHALLENGES.md) specifies asynchronous human challenges for a developer to implement. It does not provision resources or add working multiplayer.
+
 Version 2.0 · 2 November 2026 · Current owner-approved web interaction
 
 ## Start here
@@ -154,3 +156,9 @@ Deal second uses a single semantic Play for button containing the two possible s
 Validation: all 13 rule/tally tests, TypeScript and production build; browser verification of all six icon-bearing Deal-first choice buttons, icon-bearing Deal-second rows, challenge-panel commit and reveal of a hinted locked category. Original artwork and game-rule implementation are unchanged.
 
 The shared badge also owns per-sin ink/fill colour tokens. CSS applies these to the vector symbol; a light backing preserves icon contrast on the green winning row. Labels and scores retain the existing high-contrast text colours.
+
+## Asynchronous friend challenge extension
+
+Use the canonical [asynchronous experience and solution](ASYNC_CHALLENGES.md) for the next implementation. A shared, role-protected challenge record replaces the single-browser/computer assumption only for human challenges. The proposed design adds a dedicated DynamoDB challenge table, guest credentials and private recovery, purpose-separated invitation capabilities, atomic claim/respond/reveal transitions, per-viewer result projections and exactly-once human totals. The current computer round service/table stays intact.
+
+Delivery uses one native sharing utility for WhatsApp, Messages/SMS, email and copy link. Messaging transport does not hold game state and supplies no delivery/read/result notifications to the application. Reuse core card/scoring primitives and existing UI components; do not copy an alternate game engine. See the canonical document for the complete state/record model, API contract, infrastructure work, implementation order and tests.

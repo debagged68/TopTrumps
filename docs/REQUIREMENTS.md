@@ -1,5 +1,7 @@
 # Top Trumps — Product Requirements
 
+**Next feature:** [Asynchronous friend challenges](ASYNC_CHALLENGES.md) is the canonical developer specification for sending a saved card challenge and receiving a response later. It is not implemented. For this feature, WhatsApp/SMS carry ordinary invitation links; earlier live-room or WhatsApp-bot assumptions do not apply.
+
 Version 2.1 · 2 November 2026 · Current card-flip web prototype and independent implementation baseline; commerce and WhatsApp are deferred.
 
 Implementation handoff: [solution design](SOLUTION_DESIGN.md), [game flows](GAME_FLOWS.md), [artwork](ARTWORK.md) and [developer checklist](DEVELOPER_HANDOFF.md). The v2 disclosure/manual-reveal requirements supersede earlier blanket hidden-player-score and automatic-flip assumptions.
@@ -383,3 +385,9 @@ Every visible sin category label uses the same shared symbol and text label in b
 Place the compact Play for panel beside Cancel below the cards; remove the redundant hint line above the cards. The panel and badges remain legible on phones and in landscape. All existing card flips, green winner markings, tally and celebration flows remain in place.
 
 Sin symbols have coloured fills and darker outlines: Pride royal purple, Greed gold, Lust rose, Envy green, Wrath fiery orange, Stupidity blue. Text and score colours remain unchanged. Winning-row symbols sit on a light backing so their colours remain readable against green.
+
+## Asynchronous human challenges — next implementation scope
+
+Add Send a challenge and My challenges alongside computer play. A sender locks their card/sin, shares a saved invitation through the phone's native sharing panel, and may leave the site. A recipient accepts and responds later; both participants can return independently to the same result. WhatsApp, SMS/iMessage, email and copied links deliver that same invitation. User confirmation is required; no messaging-provider subscription or automatic notification is part of this scope.
+
+Implement the roles, per-viewer disclosure, state machine, idempotency, secret links, recovery, expiry, retention, server tally and acceptance criteria in [ASYNC_CHALLENGES.md](ASYNC_CHALLENGES.md). The human hint-pair rule is a proposed selected-sin-plus-decoy design; computer Deal-second's current top-two choice remains unchanged. Proposed v1 durations and one-card-per-human rules are explicitly labelled in that document. Existing card artwork, coloured sin symbols, folded corners and winner/celebration styling are reused.

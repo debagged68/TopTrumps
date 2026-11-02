@@ -1,33 +1,47 @@
-# Independent development checklist
+# Developer handoff — current web app and asynchronous challenges
 
-The GitHub repository contains the authoritative requirements, current interaction flows, solution design, original artwork and a prototype source snapshot. Another developer can work without the private Site or this chat.
+The repository contains the runnable computer game, editorial content, original artwork, current card design and a specification for adding asynchronous human challenges. A developer must be able to implement this work without the private Site or this conversation.
 
-Read in this order:
+## Read in this order
 
-1. [REQUIREMENTS.md](REQUIREMENTS.md) — complete product scope and current disclosure rules.
-2. [GAME_FLOWS.md](GAME_FLOWS.md) — exact Deal first / Deal second / manual reveal sequence.
-3. [SOLUTION_DESIGN.md](SOLUTION_DESIGN.md) — architecture, API, state model, hosting independence and gaps.
-4. [ARTWORK.md](ARTWORK.md) — committed original asset, styling and runtime mapping.
-5. [Prototype reference](../reference/prototype/README.md) — current UI/API/database/test source.
+1. [ASYNC_CHALLENGES.md](ASYNC_CHALLENGES.md) — canonical new feature: experience, sender/recipient process, rules, state, sharing, identity, storage, APIs, implementation order and acceptance tests. **Specification only; not implemented.**
+2. [web/README.md](../web/README.md) and [AWS_DEPLOYMENT.md](AWS_DEPLOYMENT.md) — current runnable app and deployment setup. Use the actual account/app region; the owner's deployment context is Stockholm, not the historical London example.
+3. [REQUIREMENTS.md](REQUIREMENTS.md) — product scope and later owner decisions; the asynchronous specification takes precedence for this feature.
+4. [GAME_FLOWS.md](GAME_FLOWS.md) — computer/reference history plus new asynchronous journey.
+5. [SOLUTION_DESIGN.md](SOLUTION_DESIGN.md) — architecture history and standalone AWS updates.
+6. [ARTWORK.md](ARTWORK.md) — canonical portrait and asset mapping.
 
-## Current owner decisions
+## Current implementation to reuse
 
-- Name: Top Trumps. Deck: The Donald Deck.
-- Six categories: Pride, Greed, Lust, Envy, Wrath, Stupidity.
-- Card fronts show quotes and artwork. Flip to see the player's own sins and scores before commitment.
-- Deal first: select a sin on one reverse. Deal second: computer locks one of its top-two sins, shows only their names, player selects a card after inspection.
-- Remove the unused card from the green baize. Preserve the selected card's slot. The computer takes the vacated slot face down.
-- The player, not a timer, flips the computer's card. Then reveal its sins/scores, highlight the deciding row and show the result.
-- Both physical cards have identical dimensions. Full long quotes remain accessible.
-- Mobile web is the first channel. WhatsApp is deferred; no Brevo premium subscription is needed for the web game.
-- Markdown → generated JSON is the single content workflow. Never duplicate parsing or game rules between channels.
+- Runnable application: `web/`; root `amplify.yml` builds monorepo root `web`.
+- Shared server rules and snapshots: `web/lib/game.mjs`; computer transaction service: `web/lib/service.mjs`; DynamoDB adapter: `web/lib/store.mjs`.
+- Current card UI: `web/app/page.tsx` and `globals.css`. Extract reusable presentation once for the human route instead of copying a second maintained screen.
+- Shared coloured sin names/icons: `web/app/components/SinBadge.tsx`.
+- Win/loss effects: `web/app/components/RoundCelebration.tsx`; make human opponent wording configurable.
+- Existing browser-local computer tally: `web/lib/tally.mjs`. Keep it separate from the proposed server-backed human totals.
+- Canonical editorial Markdown: `docs/DONALD_DECK_CANDIDATES.md`; shared parser: `scripts/card_content.py`; generated server content: `content/server/donald.json`.
+- Original artwork: `assets/artwork/donald-portrait.png`. Preparation scripts generate runtime copies; do not maintain another editorial/asset source.
+- Current infrastructure: `infra/toptrumps-state.yaml`, with one computer-session table and scoped GetItem/PutItem permissions. Human challenge infrastructure is proposed work, not already present.
+- `reference/prototype/` is historical Site/Vinext/D1 reference. Do not implement or maintain a second rules engine there.
 
-## Ready for reuse
+## Current visual/rule baseline
 
-Original portrait PNG; frontend markup/styles; server route demonstrating both rule modes; D1 schema/migration; 50-round reference tests; original editorial Markdown; shared parser and JSON generator; existing generated card dataset.
+Top Trumps / The Donald Deck has six sins: Pride, Greed, Lust, Envy, Wrath and Stupidity. Mobile computer play deals one player card, while desktop retains two. Player reverses expose their own scores before play. Deal first chooses a sin; computer Deal second locks one of its top two sins, shows two possible icon badges and commits through Play for without a player category choice.
 
-## Required before independent public launch
+Cards use full uncropped artwork and readable quotes, folded-corner/full-surface flips, slim equal-sized shells, an offset arriving opponent card and an overlapping reveal. The local left card starts on top so both score columns can be inspected. Green plus Winner/ticks marks the deciding row of the winning card. Brief win/loss effects clear automatically and honour reduced motion. The computer tally beside the logo survives browser refresh and counts each revealed round once.
 
-Editorial verification/publication gating, content snapshot pinning, database ownership/expiry/retention, concurrent-deal idempotency, rate limits, durable statistics if promised, real mobile/keyboard accessibility checks and operational recovery. Add accounts/payments/WhatsApp only in their own subsequent scope.
+These computer features do not constitute a human invitation, shared match, guest recovery or challenge list.
 
-The reference API already returns the computer's scores after the card is committed, while visually holding them behind the manual flip. Implement a separate reveal endpoint if delayed data delivery is required. See the solution design for this deliberate distinction.
+## New work boundaries
+
+Build a saved challenge that can be answered hours/days later, with the sender offline. WhatsApp/SMS only carry user-shared URLs; the game remains in the browser. No live-room assumption, Brevo premium requirement, background message sender, contact import, registration or payment step is required.
+
+The asynchronous specification labels proposed defaults, including selected-sin-plus-decoy human hints and expiry/retention. Do not silently reuse the computer top-two selection for a human sender who can choose any sin. Reuse core selection/comparison primitives; do not duplicate outcome calculations in the client or a new backend path.
+
+Implement and verify atomic claim/respond/reveal, invitation safety, preview-safe links, per-viewer secrecy, stable content snapshots, recovery, deadlines and exactly-once awards before enabling the new entry publicly. Do not replace the existing computer session cookie/record with one shared challenge ID; multiple pending challenges must coexist.
+
+## Developer verification
+
+Run the existing game/tally tests, TypeScript and production build in `web/`. Add the human transition/API/security cases and real DynamoDB concurrency tests specified in the handoff. Record iPhone Safari, WhatsApp/Messages sharing, Android Chrome, keyboard and reduced-motion checks separately from desktop/in-memory tests.
+
+This documentation change ships no human gameplay, message sending, cloud resources or secret configuration.

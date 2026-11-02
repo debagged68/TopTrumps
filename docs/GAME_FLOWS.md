@@ -1,5 +1,7 @@
 # Top Trumps — current game flows
 
+**New human flow, specification only:** [ASYNC_CHALLENGES.md](ASYNC_CHALLENGES.md). This is a saved send-and-respond-later challenge, not a live room. Earlier computer/reference flows remain separate and later UI updates take precedence over the original prototype wording.
+
 2 November 2026 · Supersedes earlier hidden-player-score and automatic-house-flip descriptions.
 
 ## Deal first
@@ -72,3 +74,15 @@ After commitment, the computer's card enters the unused slot showing its illustr
 Each revealed score is rendered directly beneath the card it belongs to, in the same slot/container. When the computer is on the left its score is on the left. In the stacked mobile layout, each score follows its own card rather than appearing in a separately ordered summary. The separate summary displays only the deciding sin and outcome.
 
 Deal second prompt explicitly labels the two names as possible sins, with one already locked. Neither is presented as the selected sin. The commit/reveal sequence always compares the locked sin, including after restore or a client supplying a different category.
+
+## Asynchronous friend challenge flow
+
+1. Sender creates a saved draft, reads/flips their card, selects a sin and explicitly locks the challenge.
+2. Sender taps Share invitation, chooses WhatsApp, Messages/SMS, email or another available share target and confirms sending. Copy link is the fallback. Closing sharing preserves the draft/locked invitation; the game cannot assert delivery.
+3. Sender can close the browser. The recipient later opens the invitation, validates it and explicitly accepts; previewing a link does not claim a seat.
+4. Recipient inspects their own reserved card and all six scores. The Play for panel shows the locked chosen sin mixed with one decoy. They submit their card without choosing a sin.
+5. Server records one immutable result. Recipient sees the sender's quote front and flips it to reveal scores, winning-green row, tally and celebration.
+6. Sender returns later to Result ready, reads the recipient's quote and explicitly reveals their view of that same result. No paid or automatic WhatsApp/SMS alert is assumed; recipient may manually Share reply.
+7. Challenge back creates a new independent draft with roles reversed. The original challenge and its result remain unchanged.
+
+Read [the full specification](ASYNC_CHALLENGES.md) for expiry/cancel/decline paths, simultaneous claims/responses, recovery, disclosure and device tests. The seven-day deadline, 30-day result retention and one-card-per-human format are proposed defaults.

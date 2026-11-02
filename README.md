@@ -1,8 +1,10 @@
 # Top Trumps
 
-A political quote card game for the web and WhatsApp. Choose one of two quote cards, flip your cards to inspect their sins and scores, then select a sin or card, then discover whether you beat the computer. Twist Again deals a new round.
+A political quote card game for mobile browsers. Flip illustrated cards to inspect their sins and scores, play against the computer, and start another round with Play again. Mobile receives one player card; larger computer-play screens retain the two-card hand.
 
-**Status:** standalone AWS-ready first web version implemented under `web/`; production build and local tests pass. AWS publication is pending authenticated account access. Accounts, payments and WhatsApp remain deferred.
+**Status:** the standalone computer game is implemented under `web/` for AWS Amplify. Asynchronous friend challenges are specified for the next implementation stage, not yet built. Invitations will use ordinary user-confirmed sharing through WhatsApp, SMS/iMessage, email or copy link; automated chat gameplay, accounts and payments remain separate future scope.
+
+Start the friend-challenge implementation with [ASYNC_CHALLENGES.md](docs/ASYNC_CHALLENGES.md): the agreed asynchronous experience, proposed defaults, sharing process, architecture, APIs, privacy and developer acceptance criteria.
 
 See [the complete product requirements](docs/REQUIREMENTS.md) for gameplay, channel journeys, commerce, account linking, administration, technical boundaries and acceptance criteria.
 
@@ -26,9 +28,9 @@ its migration and SQL export remain available for a future database workflow.
 
 ## Independent development handoff
 
-Start with [DEVELOPER_HANDOFF.md](docs/DEVELOPER_HANDOFF.md), [SOLUTION_DESIGN.md](docs/SOLUTION_DESIGN.md) and [GAME_FLOWS.md](docs/GAME_FLOWS.md). Original artwork is committed at [assets/artwork/donald-portrait.png](assets/artwork/donald-portrait.png), with its specification in [ARTWORK.md](docs/ARTWORK.md). The current UI/API/database/test snapshot is under `reference/prototype/`. It is reference source, not a complete installation of the Sites runtime; integration instructions are included.
+Start with [DEVELOPER_HANDOFF.md](docs/DEVELOPER_HANDOFF.md), [SOLUTION_DESIGN.md](docs/SOLUTION_DESIGN.md) and [GAME_FLOWS.md](docs/GAME_FLOWS.md). Original artwork is committed at [assets/artwork/donald-portrait.png](assets/artwork/donald-portrait.png), with its specification in [ARTWORK.md](docs/ARTWORK.md). The current runnable UI/API/storage/tests are under `web/`. `reference/prototype/` is a historical Site snapshot, not a second maintained game engine.
 
-Player scores are now visible on their flipped reverses before play. The computer's card enters face down and waits for the user's flip before its sins/scores and result appear. Both deal modes use the same server rules.
+Player scores are now visible on their flipped reverses before play. The computer's illustrated quote front arrives on top of the player's card; the user's explicit flip reveals its sins, scores and result. Both deal modes use the same server rules.
 
 ## Run the standalone web version
 
