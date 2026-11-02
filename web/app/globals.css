@@ -65,3 +65,39 @@ main{padding:0 12px}.table{padding-top:24px}.round-head h1{font-size:34px;line-h
 .score-back{padding:10px 12px}.back-heading{padding:7px 0 12px}.back-heading>svg{width:28px;height:28px}.back-heading h2{font-size:26px;margin:8px 0}.back-heading small{font-size:11px}.sin-rows{gap:6px}.sin-rows button,.sin-score{min-height:44px;padding:9px 11px;font-size:14px}.sin-rows strong{font-size:20px}.back-actions{padding-top:12px}.back-actions button{min-height:44px}.comparison-slot{width:100%}
 .card-result-score{padding-top:8px}.card-result-score>strong{font-size:40px;margin-top:6px}.replay-buttons{flex-wrap:wrap}.replay-buttons>button{min-height:48px;flex:1;min-width:120px}.deal-options button>span{min-width:0;flex:1}.deal-options button>svg{flex-shrink:0}.hint{overflow-wrap:anywhere;padding:14px 12px}.hint strong{font-size:20px;line-height:1.4}.hint p{font-size:12px;line-height:1.6}.mini-back{display:none}
 }
+
+/* Gameplay is one phone viewport. Portrait uses swipeable slots; landscape pairs them. */
+.card-switcher{display:none}
+@media(max-width:1100px){
+.game-active{height:100svh;height:100dvh;min-height:0;overflow:hidden;padding:env(safe-area-inset-top) max(8px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(8px,env(safe-area-inset-left));display:flex;flex-direction:column}
+.game-active>header{height:44px;min-height:44px;flex-shrink:0}.game-active .brand{font-size:17px}.game-active .brand small{display:none}.game-active .brand svg{height:24px;width:24px}.game-active header .quiet{min-height:40px}
+.game-active>.edition,.game-active>footer{display:none}
+.game-active>.table{display:flex;flex-direction:column;flex:1;min-height:0;padding:6px 0;gap:6px}
+.game-active .round-head{display:flex;gap:8px;flex-shrink:0}.game-active .round-head .eyebrow{font-size:8px;margin:0 0 3px}.game-active .round-head h1{font-size:24px;line-height:1.05;margin:0 0 4px}.game-active .round-head .lede{font-size:11px;line-height:1.35;margin:0}.game-active .scoreboard{display:none}
+.game-active .hint{flex-shrink:0;width:100%;padding:7px 10px;margin:0;gap:8px}.game-active .hint small{font-size:8px;margin:0 0 3px}.game-active .hint strong{font-size:17px;line-height:1.1}.game-active .hint p,.game-active .hint>svg,.game-active .mini-back{display:none}
+.game-active .baize{flex:1;min-height:0;display:flex;flex-direction:column;padding:8px;border-width:4px;border-radius:12px}.game-active .baize-caption{font-size:8px;margin:0 0 6px;flex-shrink:0}
+.game-active .baize .hand,.game-active .baize .hand.comparison-hand{flex:1;min-height:0;width:100%;max-width:none;margin:0;display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:100%;grid-template-rows:minmax(0,1fr);grid-auto-rows:unset;gap:12px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none}
+.game-active .hand::-webkit-scrollbar{display:none}
+.game-active .baize .hand>.flip-shell,.game-active .comparison-slot{height:100%;min-height:0;scroll-snap-align:start;scroll-snap-stop:always}
+.game-active .comparison-slot{gap:4px}.game-active .comparison-slot>.flip-shell{height:auto;flex:1;min-height:0}
+.game-active .baize .hand .playing-card{height:100%;min-height:0;padding:7px}
+.game-active .baize .portrait{height:clamp(80px,22dvh,165px)}.game-active .card-top{padding:3px 5px 6px;font-size:9px;flex-shrink:0}.game-active .card-top svg{height:14px}
+.game-active .baize .quote{padding:8px 10px;min-height:0}.game-active .baize .quote p{font-size:clamp(17px,2.8dvh,23px);line-height:1.15;margin:2px 0 10px}.game-active .quote-mark{font-size:26px;height:18px}.game-active .attribution{font-size:8px}
+.game-active .baize .card-action{min-height:40px;padding:9px 6px;font-size:12px;flex-shrink:0}
+.game-active .back-heading{padding:4px 0 6px;flex-shrink:0}.game-active .back-heading>svg,.game-active .back-heading>p{display:none}.game-active .back-heading h2{font-size:23px;margin:0 0 4px}.game-active .back-heading small{font-size:10px;line-height:1.2}
+.game-active .sin-rows{min-height:0;grid-template-rows:repeat(6,minmax(0,1fr));align-content:stretch;gap:5px}.game-active .sin-rows button,.game-active .sin-score{min-height:0;padding:6px 11px;font-size:14px}.game-active .sin-rows strong{font-size:20px}.game-active .back-actions{flex-shrink:0;padding-top:6px;min-height:0;gap:4px}.game-active .back-actions button{min-height:36px;padding:8px;font-size:12px}
+.game-active .card-result-score{flex-shrink:0;padding:3px 0;display:flex;align-items:center;justify-content:center;gap:12px}.game-active .card-result-score>span{font-size:9px}.game-active .card-result-score>strong{font-size:27px;margin:0}
+.game-active .card-switcher{display:flex;gap:6px;flex-shrink:0}.game-active .card-switcher button{flex:1;min-height:36px;padding:7px 12px;font-size:12px;background:#203d36;color:#edd4a1;border-color:#8a784c}
+.game-active .result-banner{flex-shrink:0;border:0;padding:2px;margin:0;max-width:none}.game-active .result-banner svg,.game-active .result-banner small{display:none}.game-active .result-banner p{font-size:12px;margin:0}
+.game-active .replay{flex-shrink:0;margin:0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.game-active .replay h2{display:none}.game-active .replay-buttons{display:flex;gap:6px;margin:0;flex:1}.game-active .replay-buttons>button{min-width:0;min-height:36px;padding:8px 10px;font-size:12px}.game-active .replay>.quiet{font-size:10px;min-height:36px}
+.game-active .details{position:fixed;inset:55px 12px 65px;z-index:10;overflow:auto;margin:0;max-width:none}.game-active>.status,.game-active>.error{position:fixed;bottom:8px;left:10px;right:10px;z-index:15;margin:0;padding:8px;background:#162733;font-size:12px;border-radius:5px}
+}
+@media(max-width:1100px) and (orientation:landscape){
+.game-active>header{height:34px;min-height:34px}.game-active header .quiet{min-height:30px}.game-active>.table{gap:4px;padding:2px 0}.game-active .round-head h1{font-size:20px;margin:0}.game-active .round-head .eyebrow,.game-active .round-head .lede{display:none}.game-active .hint{padding:4px 10px}.game-active .hint small{display:none}.game-active .hint strong{font-size:15px}
+.game-active .card-switcher{display:none}.game-active .baize{padding:5px 8px}.game-active .baize-caption{display:none}
+.game-active .baize .hand,.game-active .baize .hand.comparison-hand{grid-auto-flow:row;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-columns:unset;overflow:hidden;gap:12px}
+.game-active .baize .portrait{height:clamp(42px,16dvh,90px)}.game-active .baize .quote p{font-size:17px;margin-bottom:6px}.game-active .quote-mark{display:none}.game-active .portrait-tag{padding:8px 5px 4px;font-size:7px}.game-active .card-top{padding-bottom:3px}
+.game-active .back-heading h2{font-size:19px}.game-active .back-heading small{display:none}.game-active .sin-rows{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:4px}.game-active .sin-rows button,.game-active .sin-score{padding:5px 8px;font-size:12px}.game-active .sin-rows strong{font-size:17px}.game-active .sin-rows button svg{display:none}
+.game-active .baize .card-action,.game-active .back-actions button{min-height:32px;padding:6px;font-size:11px}.game-active .back-actions{padding-top:4px}.game-active .card-result-score>strong{font-size:22px}
+.game-active .replay-buttons>button,.game-active .replay>.quiet{min-height:30px;padding:5px 10px}.game-active .result-banner{display:none}
+}

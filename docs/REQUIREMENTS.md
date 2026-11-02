@@ -323,3 +323,7 @@ Each revealed score is rendered directly beneath the card it belongs to, in the 
 Deal second prompt explicitly labels the two names as possible sins, with one already locked. Neither is presented as the selected sin. The commit/reveal sequence always compares the locked sin, including after restore or a client supplying a different category.
 
 Mobile refinement: below 560px, equal card shells are 580px tall, images are 175px tall, full quotes remain scrollable at readable type sizes, and score rows/buttons have at least 44px touch height. The comparison stacks each card together with its own score and avoids page-level horizontal overflow. Desktop card shells remain 640px tall.
+
+## Viewport-fit phone play and landscape pairing
+
+Gameplay on screens up to 1100px wide uses a fixed dynamic-viewport-height shell, safe-area padding and a flexible card area, replacing fixed pixel card heights on phones. Header/instructions are compact and nonessential chrome is hidden. Portrait shows one full-height card slot at a time, with Card A/Card B controls (or Your card/Computer after play) and horizontal swipe navigation; no vertical page scroll is needed to reach the flip or play controls. Landscape shows two equally-sized cards side by side, with a compact two-column sins reverse. Each result score stays within its card slot. Long quote text retains its internal readable area; mobile sizing never changes the game rules. Orientation changes use responsive CSS without starting a new round.
