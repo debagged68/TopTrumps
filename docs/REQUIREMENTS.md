@@ -343,3 +343,15 @@ While playing, score reverses also include the quote text above the six sins. Sh
 ## Mobile quote-front clipping correction
 
 Quote fronts on mobile now use an explicit three-row grid: label/header, portrait beside quote, then a separate full-width flip-control row. The complete portrait uses contain sizing in the left column; the quote has the remaining width and middle-row height. Remove the previous stacked 32–36dvh portrait allocation on these fronts. The flip control is static in its own grid row, with no overlay or overlap into the quote. The same layout applies to the computer's quote front. Longer text remains accessible within the quote region; no text is silently truncated. Results retain their separate full-page layout.
+
+## Card-first screen revision — 2 November 2026
+
+This revision replaces the earlier baize frame, large round headings, hint panel, flip banners, and standalone results table.
+
+- The card occupies the main available viewport; keep only a small brand/header and compact round status above it. Mobile portrait displays one card at a time; compact Your card / Computer tabs switch cards after commitment. Landscape displays the two comparison cards together.
+- Use a small folded bottom-right corner as the sole visual flip affordance. Remove all “Flip your card” / “Back to quote” wording and button banners. Tapping either side of either card flips it; keyboard Enter/Space and the labelled folded-corner control also work. Sin-row buttons still play the chosen sin rather than flipping.
+- Card fronts retain the full uncropped portrait and readable quote. Reserve separate space for text and the folded corner; never overlay controls on the quote. Card reverses show all six scores. Neutral cream/dark text and a white-on-navy played-sin row replace the old low-contrast colour coding; mark the played sin with both text and ticks.
+- On completion, keep the large cards and put Play again and Cancel below them. Play again deals in the same mode; Cancel returns to the mode choices and expires the saved round so it does not reappear on refresh. Before completion, Deal second has a bottom Play this card control; Deal first plays via a sin row.
+- Computer quote arrives before any opponent scores. Its first flip invokes the existing server reveal action. Further flips are local and must not change the locked sin or result. Deal-second hint semantics are unchanged.
+
+Validation: game-rule suite (including cancel/reload state), TypeScript and production build; browser checks of quote/reverse flips, first-deal play, computer reveal, replay and cancel. Physical iPhone Safari verification remains outside this environment.

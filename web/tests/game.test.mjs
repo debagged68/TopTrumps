@@ -21,6 +21,17 @@ test('concurrent initial deals, plays and reveal are idempotent',async()=>{const
 test('expired rounds cannot be committed; new deal replaces expired record',async()=>{const store=memory();const d=await transact(store,dataset,'expiry',{action:'deal',mode:'first'},1000);await assert.rejects(transact(store,dataset,'expiry',{action:'play',card:d.cards[0].id,category:'Pride'},1000+86401),/expired/);const next=await transact(store,dataset,'expiry',{action:'deal',mode:'second'},1000+86401);assert.equal(next.mode,'second');});
 test('unknown actions do not resolve a round',async()=>{await assert.rejects(transact(memory(),dataset,'id',{action:'oops'}),/Unknown/);});
 
+test('cancel expires a saved round, is idempotent and permits a different new deal',async()=>{
+ const store=memory(),id='cancel';
+ await transact(store,dataset,id,{action:'deal',mode:'first',playerCardCount:1},1000);
+ const results=await Promise.all([transact(store,dataset,id,{action:'cancel'},1001),transact(store,dataset,id,{action:'cancel'},1001)]);
+ assert.deepEqual(results,[null,null]);assert.equal((await store.read(id)).expiresAt,0);
+ await assert.rejects(transact(store,dataset,id,{action:'play',card:'ignored',category:'Pride'},1002),/expired/);
+ const next=await transact(store,dataset,id,{action:'deal',mode:'second',playerCardCount:1},1003);
+ assert.equal(next.mode,'second');assert.equal(next.cards.length,1);
+});
+
 test('Deal second keeps its locked sin across restore, misleading client category and manual reveal',async()=>{const store=memory();const initial=await transact(store,dataset,'second-lock',{action:'deal',mode:'second'},1000);const saved=await store.read('second-lock');const locked=saved.round.lockedCategory;assert(initial.hints.includes(locked));const other=initial.hints.find(x=>x!==locked);const committed=await transact(store,dataset,'second-lock',{action:'play',card:initial.cards[1].id,category:other},1000);assert(!('result'in committed));const restored=view((await store.read('second-lock')).round);assert.deepEqual(restored.hints,initial.hints);const result=await transact(store,dataset,'second-lock',{action:'reveal'},1000);assert.equal(result.result.category,locked);assert(initial.hints.includes(result.result.category));});
 
 test('mobile gets exactly one player card and keeps both deal modes and manual reveal',async()=>{for(const mode of ['first','second']){const store=memory(),id='mobile-'+mode;const dealt=await transact(store,dataset,id,{action:'deal',mode,playerCardCount:1},1000);assert.equal(dealt.cards.length,1);const record=await store.read(id);assert.notEqual(record.round.opponent.id,dealt.cards[0].id);const played=await transact(store,dataset,id,{action:'play',card:dealt.cards[0].id,category:'Pride'},1000);assert(played.committed);assert.equal(played.cards.length,1);assert(!('result'in played));const result=await transact(store,dataset,id,{action:'reveal'},1000);assert(result.done);assert.equal(result.result.category,mode==='first'?'Pride':record.round.lockedCategory);}});
+

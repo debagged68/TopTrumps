@@ -1,9 +1,15 @@
 import { deal,commit,reveal,view } from './game.mjs';
 const DAY=86400;
 export async function transact(store,dataset,id,input,now=Math.floor(Date.now()/1000)){
- if(!['deal','play','reveal'].includes(input.action))throw Error('Unknown game action.');
+ if(!['deal','play','reveal','cancel'].includes(input.action))throw Error('Unknown game action.');
  for(let attempt=0;attempt<4;attempt++){
   const current=await store.read(id);const active=current&&current.expiresAt>now?current:null;
+  if(input.action==='cancel'){
+   if(!active)return null;
+   // Expire the saved round atomically so Cancel also survives a reload.
+   if(await store.compareAndSet({...current,version:current.version+1,expiresAt:0},current.version))return null;
+   continue;
+  }
   if(input.action!=='deal'&&!active)throw Error('This round has expired. Start a new deal.');
   let round;
   if(input.action==='deal'){
@@ -18,3 +24,4 @@ export async function transact(store,dataset,id,input,now=Math.floor(Date.now()/
  }
  throw Error('The round changed in another request. Refresh and try again.');
 }
+

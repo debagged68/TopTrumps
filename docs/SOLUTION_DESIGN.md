@@ -114,3 +114,13 @@ After commitment, the computer's card enters the unused slot showing its illustr
 Each revealed score is rendered directly beneath the card it belongs to, in the same slot/container. When the computer is on the left its score is on the left. In the stacked mobile layout, each score follows its own card rather than appearing in a separately ordered summary. The separate summary displays only the deciding sin and outcome.
 
 Deal second prompt explicitly labels the two names as possible sins, with one already locked. Neither is presented as the selected sin. The commit/reveal sequence always compares the locked sin, including after restore or a client supplying a different category.
+
+## Card-first UI and folded-corner interaction
+
+The current `web/app/page.tsx` uses one shared card renderer for unplayed player cards, the committed player card and the computer. Each card has a local front/back state. An inert hidden face prevents off-side controls from receiving focus. The whole card surface handles pointer and keyboard flips except semantic sin and source controls; each side also has a labelled 44px folded-corner button. There are no flip-text banners.
+
+The initial computer turn is the existing POST reveal transition; subsequent turns only toggle local state. Reaching a result no longer unmounts the cards into a separate result page. A compact outcome/category/score line remains above them with Play again and Cancel below. Portrait phone layouts switch active cards with compact tabs; landscape and desktop display both comparison cards. A single viewport flex shell gives remaining height to the card grid. The portrait is contained, quote text has its own intrinsic row, and the corner has reserved space. Longer text remains scrollable within the quote rather than being truncated.
+
+`cancel` is an added transaction action. It atomically expires the current record with the existing compare-and-set mechanism and returns null. Repeated cancellation is idempotent. GET then treats the record as inactive; the next deal can select either mode. No game-rule calculations are duplicated on the client.
+
+Score surfaces use high-contrast neutral backgrounds; the deciding row adds a dark background with white text, a tick and explicit Played sin wording. Colour is not the only result indicator. Existing deck content and artwork are unchanged.
