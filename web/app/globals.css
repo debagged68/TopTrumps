@@ -122,3 +122,17 @@ button.live-ask{background:#69e6a8;border-color:#69e6a8;animation:live-ask-pulse
 .sin-score strong{line-height:1}
 button.sin-score.winning:hover,button.sin-score.winning:focus-visible{background:#14653f;color:#fff;border-color:#14653f}
 @media(hover:none){button.sin-score:not(.winning):hover{background:#fffdf7;border-color:#9c9d92}}
+
+/* Score rows always fit their box. Sizes follow the height the rows actually get (container
+   query units), so the sin name, icon and score shrink together on short phone screens
+   instead of spilling out; the card heading gives way when the screen is short. */
+.sin-rows{container-type:size}
+.sin-score{padding-block:0}
+.sin-score strong{font-size:clamp(14px,calc(100cqh / 6 - 12px),25px)}
+.sin-score .sin-badge{font-size:clamp(13px,calc(100cqh / 6 - 18px),18px)}
+.sin-score .sin-icon{width:clamp(15px,calc(100cqh / 6 - 16px),22px);height:clamp(15px,calc(100cqh / 6 - 16px),22px)}
+@media(max-height:640px){.score-back .back-heading{display:none}.score-back .sin-rows{padding-top:4px}}
+
+/* One card, so "Deal second" has a single action: play it. The two possible sins are a note. */
+.bottom-actions>.play-mine{flex:1;max-width:380px;min-height:52px;justify-content:center;gap:10px;text-align:left}
+.play-mine small{display:block;font-size:12px;font-weight:400;margin-top:3px;letter-spacing:0}

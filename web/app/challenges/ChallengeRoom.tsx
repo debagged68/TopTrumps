@@ -207,10 +207,9 @@ export default function ChallengeRoom({ id }: { id: string }) {
           <button className="secondary" onClick={share} disabled={busy}><Send size={18} />Other apps or copy</button>
         </>}
         {view.status === 'your_turn' && (
-          <button className="play-for" onClick={() => act('respond', { card: view.card.id })} disabled={busy}
-            aria-label={`Play your card for ${view.hints.join(' or ')}. ${opponent} has already locked one of these sins.`}>
-            <span className="play-for-label">Play for<span className="play-for-lock"> · one locked</span></span>
-            <span className="possible-sins"><SinBadge name={view.hints[0]} /><span className="sin-or">or</span><SinBadge name={view.hints[1]} /></span>
+          <button className="play-mine" onClick={() => act('respond', { card: view.card.id })} disabled={busy}
+            aria-label={`Play your card. ${opponent} locked ${view.hints.join(' or ')}.`}>
+            <ArrowRight size={18} /><span>Play my card<small>{opponent} locked {view.hints[0]} or {view.hints[1]}</small></span>
           </button>
         )}
         {view.status === 'result_ready' && <button onClick={reveal} disabled={busy}><ArrowRight size={18} />Reveal result</button>}
