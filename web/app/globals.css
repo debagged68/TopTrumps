@@ -136,3 +136,7 @@ button.sin-score.winning:hover,button.sin-score.winning:focus-visible{background
 /* One card, so "Deal second" has a single action: play it. The two possible sins are a note. */
 .bottom-actions>.play-mine{flex:1;max-width:380px;min-height:52px;justify-content:center;gap:10px;text-align:left}
 .play-mine small{display:block;font-size:12px;font-weight:400;margin-top:3px;letter-spacing:0}
+.sound-toggle{display:none}
+button.sound-toggle{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:3px 10px;margin:2px 0 6px;font:600 12px Arial,sans-serif;background:transparent;border:1px solid rgba(255,248,233,.45);border-radius:999px;color:#fff8e9;opacity:.8;box-shadow:none}
+button.sound-toggle:hover{opacity:1;background:rgba(255,248,233,.08)}
+.challenge-actions>button:not(.secondary):first-child:nth-last-child(3){flex:1 1 100%;max-width:none}

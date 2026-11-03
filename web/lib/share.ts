@@ -6,6 +6,13 @@ export function inviteText(senderName: string, url: string) {
   return `${senderName} sent you a Top Trumps challenge. Play whenever you're ready: ${url}`;
 }
 
+// A nudge goes to someone who is already in the game, so the plain challenge page is enough.
+export function nudgeText(kind: 'your_turn' | 'played', from: string, url: string) {
+  return kind === 'your_turn'
+    ? `${from} here: it's your turn on our Top Trumps challenge. ${url}`
+    : `${from} here: I've played my card on our Top Trumps challenge. Come and see who won: ${url}`;
+}
+
 export async function copyText(text: string): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(text);

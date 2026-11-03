@@ -2,15 +2,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Copy, Crown, MessageCircle, Send, X } from 'lucide-react';
+import { ArrowRight, Bell, BellOff, Copy, Crown, MessageCircle, Send, X } from 'lucide-react';
 import PlayingCard from '../components/PlayingCard';
 import SinBadge from '../components/SinBadge';
 import RoundCelebration from '../components/RoundCelebration';
 import { api, daysLeft, STATUS_TEXT } from '../../lib/challenge-client';
-import { inviteText, shareText, copyText, openWhatsApp } from '../../lib/share';
+import { inviteText, nudgeText, shareText, copyText, openWhatsApp } from '../../lib/share';
+import { alertUser, setSound, soundOn, unlockAudio } from '../../lib/alert';
 
 const POLL_MS = 15000;
 const WAITING = new Set(['awaiting_reply', 'accepted', 'waiting_for_sender']);
+const HIDDEN_POLL_EVERY = 2; // a background tab checks every other poll, so alerts still arrive
 const LIVE_MS = 5000; // heartbeat while both players are on a finished challenge
 
 export default function ChallengeRoom({ id }: { id: string }) {
@@ -27,20 +29,43 @@ export default function ChallengeRoom({ id }: { id: string }) {
   const router = useRouter();
   const [live, setLive] = useState<any>(null);
   const lastRematch = useRef('');
+  const lastStatus = useRef('');
+  const [sound, setSoundState] = useState(true);
+
+  useEffect(() => {
+    setSoundState(soundOn());
+    // Browsers only allow sound after a tap, so unlock audio on the first interaction.
+    const unlock = () => unlockAudio();
+    window.addEventListener('pointerdown', unlock, { once: true });
+    window.addEventListener('keydown', unlock, { once: true });
+    return () => { window.removeEventListener('pointerdown', unlock); window.removeEventListener('keydown', unlock); };
+  }, []);
 
   const load = useCallback(async () => {
     const r = await api('GET', `/api/challenges/${id}`);
-    if (r.ok) { setView(r.data); setError(''); }
+    if (r.ok) {
+      // Alert only when polling discovers that the other player moved, never for your own taps.
+      const before = lastStatus.current, now = r.data.status;
+      lastStatus.current = now;
+      if (before && before !== now) {
+        if (r.data.role === 'sender' && before === 'awaiting_reply' && now === 'accepted') alertUser(`${r.data.opponentName ?? 'Your friend'} accepted`);
+        else if (r.data.role === 'sender' && before === 'accepted' && now === 'result_ready') alertUser(`${r.data.opponentName ?? 'Your friend'} has played`);
+        else if (r.data.role === 'recipient' && before === 'waiting_for_sender' && now === 'your_turn') alertUser('Your turn');
+      }
+      setView(r.data); setError('');
+    }
     else setError(r.status === 404 ? 'This challenge is unavailable on this browser.' : r.data.error);
   }, [id]);
 
   useEffect(() => { void load(); }, [load]);
+  useEffect(() => { if (view?.status) lastStatus.current = view.status; }, [view?.status]);
 
   // Poll only while waiting on the other person and only while the tab is visible.
   useEffect(() => {
     if (!view || !WAITING.has(view.status)) return;
     let timer = 0;
-    const tick = () => { if (document.visibilityState === 'visible') void load(); };
+    let n = 0;
+    const tick = () => { if (document.visibilityState === 'visible' || ++n % HIDDEN_POLL_EVERY === 0) void load(); };
     const start = () => { window.clearInterval(timer); timer = window.setInterval(tick, POLL_MS); };
     const onVisible = () => { if (document.visibilityState === 'visible') { tick(); start(); } };
     start();
@@ -111,6 +136,16 @@ export default function ChallengeRoom({ id }: { id: string }) {
     setNotice('WhatsApp is opening with your invitation. Pick your friend and tap send.');
   }
 
+  function nudge(kind: 'your_turn' | 'played') {
+    openWhatsApp(nudgeText(kind, view.yourName, new URL(`/challenges/${id}`, window.location.origin).toString()));
+  }
+
+  function toggleSound() {
+    const next = !sound;
+    setSound(next); setSoundState(next);
+    if (next) unlockAudio();
+  }
+
   async function share() {
     setError('');
     const i = await invite();
@@ -177,6 +212,7 @@ export default function ChallengeRoom({ id }: { id: string }) {
       <section className="challenge-panel room-status" aria-live="polite">
         <p className="eyebrow">{view.role === 'sender' ? `YOU v ${view.opponentName ?? 'A FRIEND'}` : `${view.opponentName} v YOU`}{left && <span className="muted"> · {left}</span>}</p>
         <h1>{status}</h1>
+        {WAITING.has(view.status) && <button type="button" className="sound-toggle" onClick={toggleSound} aria-pressed={sound}>{sound ? <Bell size={14} /> : <BellOff size={14} />}{sound ? 'Sound alert on' : 'Sound alert off'}</button>}
         {view.role === 'sender' && view.chosen && !revealed && <p>You locked <SinBadge name={view.chosen} />.</p>}
         {view.status === 'cancelled' && <p>{view.role === 'sender' ? 'You cancelled this challenge.' : 'The sender cancelled this challenge. Nobody wins or loses.'}</p>}
         {view.status === 'declined' && <p>{view.role === 'sender' ? `${opponent} declined this challenge. No result was recorded.` : 'You declined this challenge. No result was recorded.'}</p>}
@@ -213,6 +249,8 @@ export default function ChallengeRoom({ id }: { id: string }) {
           </button>
         )}
         {view.status === 'result_ready' && <button onClick={reveal} disabled={busy}><ArrowRight size={18} />Reveal result</button>}
+        {view.role === 'sender' && view.status === 'accepted' && <button onClick={() => nudge('your_turn')}><MessageCircle size={18} />Tell {opponent} it’s their turn</button>}
+        {view.role === 'recipient' && view.status === 'result_ready' && <button className="secondary" onClick={() => nudge('played')}><MessageCircle size={18} />Tell {opponent} you’ve played</button>}
         {view.status === 'completed' && (rematch?.state === 'accepted'
           ? <Link className="button-link" href={`/challenges/${rematch.challengeId}`}><ArrowRight size={18} />Go to the rematch</Link>
           : <button className={askedByThem ? 'live-ask' : ''} onClick={askedByThem ? () => void liveAct('accept') : challengeBack}
