@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { CHALLENGE_DEFAULTS } from '../lib/challenge-config.mjs';
 import { memoryStore } from '../lib/challenge-store.mjs';
 import * as svc from '../lib/challenge-service.mjs';
-import { sign } from '../lib/capability.mjs';
+import { sign, signCompact } from '../lib/capability.mjs';
 import { hashCredential } from '../lib/guest.mjs';
 
 const dataset = JSON.parse(readFileSync(new URL('../data/donald.json', import.meta.url)));
@@ -28,7 +28,7 @@ async function sendInvite(w, sender, id) {
   return (await svc.invitation(w.ctx, sender, id)).path;
 }
 
-const tokenOf = path => path.split('#invite=')[1];
+const tokenOf = path => path.split('#')[1];
 const idOf = path => path.split('/')[2].split('#')[0];
 
 test('full flow: draft, lock, invite, accept, respond, reveal both sides with one award each', async () => {
@@ -247,4 +247,30 @@ test('challenge back is only for the two players and only after the result', asy
   const stranger = (await startDraft(w, 'Eve', 'eve')).sender;
   assert.equal(await reason(() => svc.livePing(w.ctx, stranger, f.id)), 'unavailable');
   assert.equal(await reason(() => svc.requestRematch(w.ctx, null, f.id)), 'unavailable');
+});
+
+test('invite links are short: /c/<id>#<22-char key>, and older long links still work', async () => {
+  const w = world();
+  const d = await startDraft(w);
+  const path = await sendInvite(w, d.sender, d.id);
+  assert.match(path, /^\/c\/[A-Za-z0-9_-]{22}#[A-Za-z0-9_-]{22}$/);
+  assert.ok(path.length <= 49, path);
+  const legacy = sign({ secret: SECRET, purpose: 'invite', subject: d.id, generation: 1, expiresAt: T0 + 3600 });
+  assert.equal((await svc.inspectInvitation(w.ctx, null, d.id, { invite: legacy })).availability, 'available');
+  const acc = await svc.accept(w.ctx, null, d.id, { invite: tokenOf(path), nickname: 'Bob' });
+  assert.equal(acc.view.status, 'your_turn');
+});
+
+test('short keys are bound to one challenge and expire with it', async () => {
+  const w = world();
+  const a = await startDraft(w, 'Ann', 'k1');
+  const b = await startDraft(w, 'Ann', 'k2');
+  const pathA = await sendInvite(w, a.sender, a.id);
+  await sendInvite(w, b.sender, b.id);
+  assert.equal(await reason(() => svc.accept(w.ctx, null, b.id, { invite: tokenOf(pathA), nickname: 'Bob' })), 'unavailable');
+  const wrongSecret = signCompact({ secret: 'z'.repeat(48), purpose: 'invite', subject: a.id, generation: 1 });
+  assert.equal(await reason(() => svc.accept(w.ctx, null, a.id, { invite: wrongSecret, nickname: 'Bob' })), 'unavailable');
+  const late = w.at(T0 + CHALLENGE_DEFAULTS.inviteSeconds + 10);
+  assert.notEqual(await reason(() => svc.accept(late, null, a.id, { invite: tokenOf(pathA), nickname: 'Bob' })), null);
+  assert.notEqual((await svc.inspectInvitation(late, null, a.id, { invite: tokenOf(pathA) }).catch(() => ({ availability: 'gone' }))).availability, 'available');
 });

@@ -45,6 +45,31 @@ export function verify({ secret, purpose, subject, generation, token, now }) {
   return matches && now < expiresAt;
 }
 
+// Compact invitation key for short links (/c/<id>#<key>): 128 bits of the HMAC, 22 characters.
+// It carries no expiry because the challenge record's own deadline is enforced on every use;
+// bumping the generation still revokes it. Long v1 tokens remain valid for links already sent.
+const COMPACT = 'c1';
+const COMPACT_BYTES = 16;
+function compactMac(secret, purpose, subject, generation) {
+  return createHmac('sha256', secret).update([COMPACT, purpose, subject, generation].join('\n')).digest().subarray(0, COMPACT_BYTES);
+}
+
+export function signCompact({ secret, purpose, subject, generation }) {
+  checkSecret(secret);
+  checkPurpose(purpose);
+  return compactMac(secret, purpose, subject, generation).toString('base64url');
+}
+
+export function verifyCompact({ secret, purpose, subject, generation, token }) {
+  checkSecret(secret);
+  checkPurpose(purpose);
+  if (typeof token !== 'string' || !/^[A-Za-z0-9_-]{22}$/.test(token)) return false;
+  const given = Buffer.from(token, 'base64url');
+  if (given.toString('base64url') !== token) return false; // canonical encoding only
+  const expected = compactMac(secret, purpose, subject, generation);
+  return given.length === expected.length && timingSafeEqual(given, expected);
+}
+
 // Fails closed. In production the loader must read Secrets Manager; tests and local
 // development inject a loader (or set TOPTRUMPS_CHALLENGE_SIGNING_SECRET outside production).
 let cached;
@@ -72,5 +97,6 @@ export async function signingSecret({ loader = undefined, env = process.env } = 
 export function redact(text) {
   return String(text)
     .replace(/#(invite|access)=[^\s&"']+/g, '#$1=[redacted]')
+    .replace(/(\/c\/[A-Za-z0-9_-]+)#[A-Za-z0-9_-]+/g, '$1#[redacted]')
     .replace(/\bv1\.\d{1,12}\.[A-Za-z0-9_-]{20,}/g, 'v1.[redacted]');
 }

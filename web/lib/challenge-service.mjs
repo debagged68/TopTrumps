@@ -7,7 +7,7 @@
 // as the tt_guest cookie; it is undefined when the caller already had a valid guest.
 import { GameError } from './game.mjs';
 import { newGuest, hashCredential, validNickname } from './guest.mjs';
-import { sign, verify } from './capability.mjs';
+import { sign, verify, signCompact, verifyCompact } from './capability.mjs';
 import { key, op, isId, unwrap } from './challenge-store.mjs';
 import * as S from './challenge-state.mjs';
 import { projectChallenge, summarizeChallenge } from './challenge-view.mjs';
@@ -155,11 +155,9 @@ export async function invitation(ctx, credential, id) {
   if (S.effectiveState(record, ctx.now) !== 'open') {
     throw new GameError('Lock your challenge before sharing it.', 409, 'not_shareable');
   }
-  const token = sign({
-    secret: await ctx.secret(), purpose: 'invite', subject: record.id,
-    generation: record.inviteGeneration, expiresAt: record.deadline,
-  });
-  return { path: `/challenge/${record.id}#invite=${token}`, expiresAt: record.deadline, senderName: record.senderName };
+  // Short link: the key stays in the fragment, so it never reaches the server or its logs.
+  const token = signCompact({ secret: await ctx.secret(), purpose: 'invite', subject: record.id, generation: record.inviteGeneration });
+  return { path: `/c/${record.id}#${token}`, expiresAt: record.deadline, senderName: record.senderName };
 }
 
 export async function cancel(ctx, credential, id) {
@@ -174,11 +172,12 @@ export function preview() {
   return { title: 'A Top Trumps challenge', description: 'Someone sent you a political quote card challenge. Open the link to play.' };
 }
 
+// Accepts the short key from /c/ links and the long v1 token from links sent earlier.
+// Expiry of a short key is the record's deadline, checked by the state machine on accept.
 async function inviteIsValid(ctx, record, token) {
-  return verify({
-    secret: await ctx.secret(), purpose: 'invite', subject: record.id,
-    generation: record.inviteGeneration, token, now: ctx.now,
-  });
+  const proof = { secret: await ctx.secret(), purpose: 'invite', subject: record.id, generation: record.inviteGeneration, token };
+  if (typeof token === 'string' && token.startsWith('v1.')) return verify({ ...proof, now: ctx.now });
+  return verifyCompact(proof);
 }
 
 // Read-only. An invalid proof is indistinguishable from a missing challenge.

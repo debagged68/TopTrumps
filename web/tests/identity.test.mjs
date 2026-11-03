@@ -55,6 +55,7 @@ test('redact hides capabilities in URLs and tokens', () => {
   assert(!redact(`/challenge/a#invite=${token}`).includes(token));
   assert(!redact(`failed ${token}`).includes(token.split('.')[2]));
   assert(!redact('/challenges#access=g.abc').includes('abc'));
+  assert(!redact('https://x.example/c/AbCdEfGhIjKlMnOpQrStUv#k3yK3yK3yK3yK3yK3yK3yA').includes('k3yK3y'));
 });
 
 test('guest credentials are random, stored only as hashes and compared safely', () => {

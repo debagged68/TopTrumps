@@ -20,7 +20,9 @@ export default function Landing({ id }: { id: string }) {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    const token = new URLSearchParams(window.location.hash.slice(1)).get('invite') ?? '';
+    // Short links are /c/<id>#<key>; older links are /challenge/<id>#invite=<token>.
+    const hash = window.location.hash.slice(1);
+    const token = new URLSearchParams(hash).get('invite') ?? (/^[A-Za-z0-9_-]+$/.test(hash) ? hash : '');
     setName(rememberedNickname());
     // Remove the capability from the address bar and history once read.
     history.replaceState(null, '', window.location.pathname);
