@@ -103,3 +103,12 @@ main{padding:0 10px}.game-screen header{height:44px}.brand{font-size:18px;letter
 .copy-row{display:flex;gap:8px}.copy-row input{flex:1}.tally-line{font-size:17px}.friend-options{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px}
 .button-link{background:var(--gold);color:#14242c;font:700 16px Arial,sans-serif;border:1px solid var(--gold)}.header-link{color:#fff8e9;font-size:14px;padding:10px 4px;min-height:44px;display:inline-flex;align-items:center}
 .challenge-room .bottom-actions{flex-wrap:wrap}.challenge-room .bottom-actions>.play-for{flex:1 1 220px}.friend-options .button-link{margin-top:0;justify-content:space-between;gap:25px;text-align:left}.friend-options small{display:block;font-size:12px;font-weight:400;margin-top:6px}
+
+/* Live challenge back */
+.live-presence{align-self:center;font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.live-presence::before{content:'';width:8px;height:8px;border-radius:50%;background:#6f8790}
+.live-presence.here::before{background:#69e6a8}
+button.live-ask{background:#69e6a8;border-color:#69e6a8;animation:live-ask-pulse 1.4s ease-in-out infinite}
+@keyframes live-ask-pulse{0%,100%{box-shadow:0 0 0 0 #69e6a880}50%{box-shadow:0 0 0 8px #69e6a800}}
+.rematch-modal{max-width:380px}.rematch-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.rematch-actions button{flex:1}
+@media(prefers-reduced-motion:reduce){button.live-ask{animation:none}}

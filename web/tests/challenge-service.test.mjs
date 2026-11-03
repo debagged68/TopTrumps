@@ -166,3 +166,85 @@ test('stored hashes, not credentials, appear in the table', async () => {
   assert(!dump.includes(d.sender));
   assert(hashCredential(d.sender).length === 64);
 });
+
+// ---------- live challenge back ----------
+
+async function finished(w) {
+  const d = await startDraft(w);
+  const path = await sendInvite(w, d.sender, d.id);
+  const acc = await svc.accept(w.ctx, null, d.id, { invite: tokenOf(path), nickname: 'Bob' });
+  await svc.respond(w.ctx, acc.issuedCredential, d.id, { card: acc.view.card.id });
+  return { id: d.id, ann: d.sender, bob: acc.issuedCredential };
+}
+
+test('challenge back needs both players present and seats the accepter without a link', async () => {
+  const w = world();
+  const f = await finished(w);
+  // Bob is not on the page: a request is refused.
+  assert.equal(await reason(() => svc.requestRematch(w.ctx, f.ann, f.id)), 'opponent_left');
+  await svc.livePing(w.ctx, f.bob, f.id);
+  const asked = await svc.requestRematch(w.ctx, f.ann, f.id);
+  assert.deepEqual(asked.rematch, { from: 'you', state: 'pending' });
+  const bobSees = await svc.livePing(w.ctx, f.bob, f.id);
+  assert.deepEqual(bobSees.rematch, { from: 'them', state: 'pending' });
+  const done = await svc.answerRematch(w.ctx, f.bob, f.id, { accept: true });
+  assert.equal(done.rematch.state, 'accepted');
+  const next = done.rematch.challengeId;
+  // Ann is the sender of the new challenge; Bob is already seated and waits for her lock.
+  const annView = await svc.getChallenge(w.ctx, f.ann, next);
+  assert.equal(annView.role, 'sender'); assert.equal(annView.status, 'draft'); assert.equal(annView.opponentName, 'Bob');
+  const bobView = await svc.getChallenge(w.ctx, f.bob, next);
+  assert.equal(bobView.role, 'recipient'); assert.equal(bobView.status, 'waiting_for_sender');
+  assert(!('chosen' in bobView));
+  // Locking goes straight to Bob's turn: no invitation, no accept step.
+  await svc.lock(w.ctx, f.ann, next, { category: 'Pride' });
+  const turn = await svc.getChallenge(w.ctx, f.bob, next);
+  assert.equal(turn.status, 'your_turn'); assert.equal(turn.hints.length, 2); assert(!('chosen' in turn));
+  assert.equal(await reason(() => svc.invitation(w.ctx, f.ann, next)), 'not_shareable');
+  // Both players' lists include it, and only one rematch can be made.
+  assert((await svc.list(w.ctx, f.bob)).challenges.some(c => c.id === next));
+  assert.equal((await svc.answerRematch(w.ctx, f.bob, f.id, { accept: true })).rematch.challengeId, next);
+});
+
+test('a request lapses when either player leaves, and can be declined', async () => {
+  const w = world();
+  const f = await finished(w);
+  await svc.livePing(w.ctx, f.bob, f.id);
+  await svc.requestRematch(w.ctx, f.ann, f.id);
+  // Bob stops sending heartbeats (closed the page); Ann keeps hers.
+  const later = w.at(T0 + svc.LIVE.presentSeconds + 1);
+  await svc.livePing(later, f.ann, f.id);
+  assert.equal((await svc.livePing(later, f.ann, f.id)).rematch.state, 'lapsed');
+  assert.equal(await reason(() => svc.answerRematch(later, f.bob, f.id, { accept: true })), 'lapsed');
+  // Both back on the page: a fresh request works and Bob can say no.
+  await svc.livePing(later, f.bob, f.id);
+  await svc.requestRematch(later, f.ann, f.id);
+  const no = await svc.answerRematch(later, f.bob, f.id, { accept: false });
+  assert.equal(no.rematch.state, 'declined');
+  assert.equal((await svc.livePing(later, f.ann, f.id)).rematch.state, 'declined');
+  // Ann may ask again after a refusal.
+  assert.equal((await svc.requestRematch(later, f.ann, f.id)).rematch.state, 'pending');
+});
+
+test('if both press challenge back, the second joins the first instead of making two', async () => {
+  const w = world();
+  const f = await finished(w);
+  await svc.livePing(w.ctx, f.ann, f.id);
+  await svc.livePing(w.ctx, f.bob, f.id);
+  await svc.requestRematch(w.ctx, f.ann, f.id);
+  const bob = await svc.requestRematch(w.ctx, f.bob, f.id);
+  assert.equal(bob.rematch.state, 'accepted');
+  const lists = (await svc.list(w.ctx, f.ann)).challenges.filter(c => c.id !== f.id);
+  assert.equal(lists.length, 1);
+  assert.equal(await reason(() => svc.answerRematch(w.ctx, f.ann, f.id, { accept: true })), 'no_request');
+});
+
+test('challenge back is only for the two players and only after the result', async () => {
+  const w = world();
+  const d = await startDraft(w);
+  assert.equal(await reason(() => svc.livePing(w.ctx, d.sender, d.id)), 'not_ready');
+  const f = await finished(w);
+  const stranger = (await startDraft(w, 'Eve', 'eve')).sender;
+  assert.equal(await reason(() => svc.livePing(w.ctx, stranger, f.id)), 'unavailable');
+  assert.equal(await reason(() => svc.requestRematch(w.ctx, null, f.id)), 'unavailable');
+});

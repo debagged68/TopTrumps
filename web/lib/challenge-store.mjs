@@ -8,6 +8,7 @@
 //                   GUEST#<id>  | OP#<key>    idempotency record
 //                   CHAL#<cid>  | META        challenge record (version-checked)
 //                   CHAL#<cid>  | AWARD#<gid> one tally award per guest per challenge
+//                   CHAL#<cid>  | LIVE#<name> presence heartbeat per role, and the one rematch request
 //
 // All multi-item changes go through commit(ops), which is atomic and returns false when
 // any condition fails (a lost race), so callers re-read and decide.
@@ -21,14 +22,18 @@ export const key = {
   op: (guestId, name) => ({ pk: `GUEST#${guestId}`, sk: `OP#${name}` }),
   challenge: id => ({ pk: `CHAL#${id}`, sk: 'META' }),
   award: (challengeId, guestId) => ({ pk: `CHAL#${challengeId}`, sk: `AWARD#${guestId}` }),
+  // Live "challenge back" state: LIVE#sender / LIVE#recipient presence, LIVE#rematch request.
+  live: (challengeId, name) => ({ pk: `CHAL#${challengeId}`, sk: `LIVE#${name}` }),
 };
 
 // Ops understood by commit():
+//   { type: 'put',       item }                        unconditional write (presence heartbeats)
 //   { type: 'create',    item }                        fails if the key exists
 //   { type: 'replace',   item, expectedVersion }       fails unless stored version matches
 //   { type: 'delete',    key }
 //   { type: 'increment', key, field }                  stats.<field> += 1 on an existing item
 export const op = {
+  put: item => ({ type: 'put', item }),
   create: item => ({ type: 'create', item }),
   replace: (item, expectedVersion) => ({ type: 'replace', item, expectedVersion }),
   delete: key => ({ type: 'delete', key }),
@@ -84,6 +89,7 @@ export function dynamoStore({ table = process.env.TOPTRUMPS_CHALLENGE_TABLE_NAME
     && (e.CancellationReasons ?? []).some(r => r?.Code === 'ConditionalCheckFailed' || r?.Code === 'TransactionConflict');
 
   function toTransactItem(o) {
+    if (o.type === 'put') return { Put: { TableName: table, Item: o.item } };
     if (o.type === 'create') {
       return { Put: { TableName: table, Item: o.item, ConditionExpression: 'attribute_not_exists(pk)' } };
     }

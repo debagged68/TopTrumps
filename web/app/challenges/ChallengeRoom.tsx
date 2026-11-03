@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, Copy, Crown, MessageCircle, Send, X } from 'lucide-react';
 import PlayingCard from '../components/PlayingCard';
 import SinBadge from '../components/SinBadge';
@@ -9,7 +10,8 @@ import { api, daysLeft, STATUS_TEXT } from '../../lib/challenge-client';
 import { inviteText, shareText, copyText, openWhatsApp } from '../../lib/share';
 
 const POLL_MS = 15000;
-const WAITING = new Set(['awaiting_reply', 'accepted']);
+const WAITING = new Set(['awaiting_reply', 'accepted', 'waiting_for_sender']);
+const LIVE_MS = 5000; // heartbeat while both players are on a finished challenge
 
 export default function ChallengeRoom({ id }: { id: string }) {
   const [view, setView] = useState<any>(null);
@@ -22,6 +24,9 @@ export default function ChallengeRoom({ id }: { id: string }) {
   const [shareUrl, setShareUrl] = useState('');
   const [front, setFront] = useState<'own' | 'other'>('own');
   const pending = useRef(false);
+  const router = useRouter();
+  const [live, setLive] = useState<any>(null);
+  const lastRematch = useRef('');
 
   const load = useCallback(async () => {
     const r = await api('GET', `/api/challenges/${id}`);
@@ -42,6 +47,35 @@ export default function ChallengeRoom({ id }: { id: string }) {
     document.addEventListener('visibilitychange', onVisible);
     return () => { window.clearInterval(timer); document.removeEventListener('visibilitychange', onVisible); };
   }, [view?.status, load]);
+
+  // Live challenge back: only while this tab is visible on a result you have revealed.
+  const applyLive = useCallback((data: any, mine = false) => {
+    setLive(data);
+    const state = data?.rematch ? `${data.rematch.from}:${data.rematch.state}` : '';
+    const before = lastRematch.current;
+    lastRematch.current = state;
+    // Move both players into the new game, but only when it was accepted while they were here.
+    if (data?.rematch?.state === 'accepted' && (mine || (before && !before.endsWith('accepted')))) {
+      router.push(`/challenges/${data.rematch.challengeId}`);
+    }
+  }, [router]);
+
+  const liveAct = useCallback(async (action: string) => {
+    const r = await api('POST', `/api/challenges/${id}/live`, { action });
+    if (r.ok) { applyLive(r.data, action !== 'ping'); return r.data; }
+    if (action !== 'ping') setError(r.data.error ?? 'Something went wrong.');
+    return null;
+  }, [id, applyLive]);
+
+  useEffect(() => {
+    if (view?.status !== 'completed') return;
+    let timer = 0;
+    const tick = () => { if (document.visibilityState === 'visible') void liveAct('ping'); };
+    tick();
+    timer = window.setInterval(tick, LIVE_MS);
+    document.addEventListener('visibilitychange', tick);
+    return () => { window.clearInterval(timer); document.removeEventListener('visibilitychange', tick); };
+  }, [view?.status, liveAct]);
 
   useEffect(() => {
     if (!celebrate) return;
@@ -87,10 +121,17 @@ export default function ChallengeRoom({ id }: { id: string }) {
       : outcome === 'cancelled' ? '' : 'Copy the link below and send it yourself.');
   }
 
-  // Locking is the moment the sender wants to invite, so go straight to WhatsApp.
+  // Locking is the moment the sender wants to invite, so go straight to WhatsApp. A live
+  // rematch already has its opponent seated, so locking simply hands them the turn.
   async function lockAndInvite() {
     const data = await act('lock', { category: picked });
-    if (data) await whatsapp();
+    if (data && data.status === 'awaiting_reply') await whatsapp();
+  }
+
+  async function challengeBack() {
+    setError(''); setNotice('');
+    const data = await liveAct('request');
+    if (data?.rematch?.state === 'pending') setNotice(`Challenge sent. Waiting for ${view?.opponentName ?? 'your friend'} to answer…`);
   }
 
   async function reveal() {
@@ -122,6 +163,10 @@ export default function ChallengeRoom({ id }: { id: string }) {
     : view.status === 'your_turn' ? `${view.opponentName} locked one of two sins. Higher score wins.`
     : revealed ? (view.result.outcome === 'draw' ? 'Equal scores. Round drawn.' : 'The winning sin is marked in green.') : undefined;
 
+  const seated = view.status === 'draft' && !!view.opponentName; // live rematch: no link needed
+  const rematch = live?.rematch;
+  const askedByThem = rematch?.from === 'them' && rematch.state === 'pending';
+  const waitingOnThem = rematch?.from === 'you' && rematch.state === 'pending';
   const otherCard = view.opponent ?? view.opponentFront;
   // Like the computer game, the friend's quote card arrives on top until the result is revealed.
   const ownOnTop = !otherCard || (revealed && front === 'own');
@@ -136,6 +181,7 @@ export default function ChallengeRoom({ id }: { id: string }) {
         {view.status === 'cancelled' && <p>{view.role === 'sender' ? 'You cancelled this challenge.' : 'The sender cancelled this challenge. Nobody wins or loses.'}</p>}
         {view.status === 'declined' && <p>{view.role === 'sender' ? `${opponent} declined this challenge. No result was recorded.` : 'You declined this challenge. No result was recorded.'}</p>}
         {view.status === 'expired' && <p>This challenge ran out of time. No result was recorded.</p>}
+        {view.status === 'waiting_for_sender' && <p>{opponent} challenged you back and is choosing a sin. Your card is ready.</p>}
         {view.status === 'result_ready' && <p>{view.role === 'sender' ? `${opponent} has played.` : 'You played.'} Turn the cards to see who won.</p>}
         {revealed && <p className="result-line">{view.result.outcome === 'win' ? 'You win' : view.result.outcome === 'loss' ? `${opponent} wins` : 'Draw'} on <SinBadge name={view.result.category} />: you {view.result.yours}, {opponent} {view.result.theirs}.</p>}
       </section>
@@ -155,7 +201,7 @@ export default function ChallengeRoom({ id }: { id: string }) {
       </section>
 
       <div className="bottom-actions challenge-actions">
-        {view.status === 'draft' && <button onClick={lockAndInvite} disabled={busy || !picked}><Crown size={18} />{picked ? `Lock ${picked} & send on WhatsApp` : 'Choose a sin first'}</button>}
+        {view.status === 'draft' && <button onClick={lockAndInvite} disabled={busy || !picked}><Crown size={18} />{!picked ? 'Choose a sin first' : seated ? `Lock ${picked} for ${opponent}` : `Lock ${picked} & send on WhatsApp`}</button>}
         {view.status === 'awaiting_reply' && view.role === 'sender' && <>
           <button onClick={whatsapp} disabled={busy}><MessageCircle size={18} />Send on WhatsApp</button>
           <button className="secondary" onClick={share} disabled={busy}><Send size={18} />Other apps or copy</button>
@@ -168,9 +214,14 @@ export default function ChallengeRoom({ id }: { id: string }) {
           </button>
         )}
         {view.status === 'result_ready' && <button onClick={reveal} disabled={busy}><ArrowRight size={18} />Reveal result</button>}
-        {(view.status === 'completed' || ['cancelled', 'declined', 'expired'].includes(view.status)) && (
-          <Link className="button-link" href={`/challenges/new${view.status === 'completed' ? `?back=${view.id}` : ''}`}><Send size={18} />{view.status === 'completed' ? 'Challenge back' : 'New challenge'}</Link>
-        )}
+        {view.status === 'completed' && (rematch?.state === 'accepted'
+          ? <Link className="button-link" href={`/challenges/${rematch.challengeId}`}><ArrowRight size={18} />Go to the rematch</Link>
+          : <button className={askedByThem ? 'live-ask' : ''} onClick={askedByThem ? () => void liveAct('accept') : challengeBack}
+              disabled={busy || waitingOnThem || (!askedByThem && !live?.opponentHere)}>
+              <Send size={18} />{askedByThem ? `${opponent} challenged you back · Play` : waitingOnThem ? `Waiting for ${opponent}…` : 'Challenge back'}
+            </button>)}
+        {view.status === 'completed' && !rematch?.challengeId && <span className={'live-presence' + (live?.opponentHere ? ' here' : '')}>{live?.opponentHere ? `${opponent} is here` : `${opponent} isn’t on this page`}</span>}
+        {['cancelled', 'declined', 'expired'].includes(view.status) && <Link className="button-link" href="/challenges/new"><Send size={18} />New challenge</Link>}
         {view.role === 'sender' && ['draft', 'awaiting_reply', 'accepted'].includes(view.status) && <button className="secondary" onClick={() => { if (confirm('Cancel this challenge? Nobody wins or loses.')) void act('cancel'); }} disabled={busy}><X size={18} />Cancel challenge</button>}
         {view.role === 'recipient' && view.status === 'your_turn' && <button className="secondary" onClick={() => { if (confirm('Decline this challenge? It does not count as a loss.')) void act('decline'); }} disabled={busy}><X size={18} />Decline</button>}
       </div>
@@ -184,6 +235,19 @@ export default function ChallengeRoom({ id }: { id: string }) {
         </section>
       )}
       {(busy || error || notice) && <div className={'notice ' + (error ? 'error' : '')} role={error ? 'alert' : 'status'}>{error || notice || 'Please wait…'}</div>}
+      {view.status === 'completed' && !askedByThem && rematch?.state === 'declined' && rematch.from === 'you' && <div className="notice" role="status">{opponent} said not now.</div>}
+      {view.status === 'completed' && rematch?.state === 'lapsed' && <div className="notice" role="status">The challenge back lapsed because someone left. Ask again while you are both here.</div>}
+      {askedByThem && !celebrate && (
+        <div className="modal-backdrop"><section role="dialog" aria-modal="true" aria-labelledby="rematch-title" className="modal rematch-modal">
+          <p className="eyebrow">CHALLENGE BACK</p>
+          <h2 id="rematch-title">{opponent} wants a rematch</h2>
+          <p>{opponent} will deal a new card and lock a sin, then it’s your turn. No link needed.</p>
+          <div className="rematch-actions">
+            <button autoFocus onClick={() => void liveAct('accept')}><Crown size={18} />Accept</button>
+            <button className="secondary" onClick={() => void liveAct('decline')}><X size={18} />Not now</button>
+          </div>
+        </section></div>
+      )}
       {celebrate && <RoundCelebration outcome={celebrate} opponent={opponent} />}
     </main>
   );

@@ -56,7 +56,8 @@ function requireLive(record, now) {
   if (state === 'declined') throw new GameError('This challenge was declined.', 410, 'declined');
 }
 
-export function createDraft({ dataset, senderId, senderName, now, config, random, parentId = null }) {
+// `recipient` seats a known opponent up front (a live rematch); otherwise the seat opens at lock.
+export function createDraft({ dataset, senderId, senderName, recipient = null, now, config, random, parentId = null }) {
   const { senderCard, recipientCard } = drawPair(dataset, random);
   return {
     id: newChallengeId(),
@@ -67,8 +68,8 @@ export function createDraft({ dataset, senderId, senderName, now, config, random
     categories: dataset.categories.map(c => c.name),
     senderId,
     senderName,
-    recipientId: null,
-    recipientName: null,
+    recipientId: recipient?.id ?? null,
+    recipientName: recipient?.name ?? null,
     senderCard,
     recipientCard,
     chosen: null,
@@ -95,7 +96,12 @@ export function lock(record, guestId, category, now, config) {
   }
   requireLive(record, now);
   const hints = pickHints(record.senderCard, category, record.categories);
-  return next(record, { state: 'open', chosen: category, hints, lockedAt: now, deadline: now + config.inviteSeconds });
+  // A pre-seated opponent (live rematch) needs no invitation: locking goes straight to Accepted.
+  const seated = Boolean(record.recipientId);
+  return next(record, {
+    state: seated ? 'accepted' : 'open', chosen: category, hints, lockedAt: now,
+    acceptedAt: seated ? now : null, deadline: now + config.inviteSeconds,
+  });
 }
 
 // The invitation capability is checked by the service before this runs.

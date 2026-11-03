@@ -19,7 +19,7 @@ function revealedAt(record, role) {
 // Status labels for the challenge page and My challenges.
 export function statusFor(record, role, now) {
   const state = effectiveState(record, now);
-  if (state === 'draft') return 'draft';
+  if (state === 'draft') return role === 'recipient' ? 'waiting_for_sender' : 'draft';
   if (state === 'open') return 'awaiting_reply';
   if (state === 'accepted') return role === 'sender' ? 'accepted' : 'your_turn';
   if (state === 'responded') return revealedAt(record, role) ? 'completed' : 'result_ready';
@@ -72,7 +72,7 @@ export function summarizeChallenge(record, role, now) {
     status,
     opponentName: role === 'sender' ? record.recipientName : record.senderName,
     createdAt: record.createdAt,
-    deadline: ['draft', 'awaiting_reply', 'accepted', 'your_turn'].includes(status) ? record.deadline : null,
+    deadline: ['draft', 'waiting_for_sender', 'awaiting_reply', 'accepted', 'your_turn'].includes(status) ? record.deadline : null,
   };
   if (status === 'completed') {
     summary.category = record.result.category;

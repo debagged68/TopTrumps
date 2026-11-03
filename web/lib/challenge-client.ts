@@ -25,10 +25,16 @@ export const rememberNickname = (name: string) => {
   try { localStorage.setItem(NICKNAME_KEY, name); } catch { /* private mode */ }
 };
 
-export const newRequestKey = () => crypto.randomUUID();
+// crypto.randomUUID only exists on HTTPS and localhost; getRandomValues works everywhere,
+// including a phone testing against the dev server over plain http on the local network.
+export function newRequestKey() {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+}
 
 export const STATUS_TEXT: Record<string, string> = {
   draft: 'Draft — choose your sin',
+  waiting_for_sender: 'Rematch on — waiting for their sin',
   awaiting_reply: 'Waiting for your friend',
   accepted: 'Accepted — waiting for their play',
   your_turn: 'Your turn',

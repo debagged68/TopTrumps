@@ -83,6 +83,6 @@ Deal second prompt explicitly labels the two names as possible sins, with one al
 4. Recipient inspects their own reserved card and all six scores. The Play for panel shows the locked chosen sin mixed with one decoy. They submit their card without choosing a sin.
 5. Server records one immutable result. Recipient sees the sender's quote front and flips it to reveal scores, winning-green row, tally and celebration.
 6. Sender returns later to Result ready, reads the recipient's quote and explicitly reveals their view of that same result. No paid or automatic WhatsApp/SMS alert is assumed; recipient may manually Share reply.
-7. Challenge back creates a new independent draft with roles reversed. The original challenge and its result remain unchanged.
+7. Challenge back only works while both players are on the result page together. One player presses Challenge back and the other sees a pop-up with Accept or Not now. Accepting moves both players into a new challenge with the requester as sender. The requester locks a sin and the accepter takes their turn, with no link to send. If either player leaves, the request lapses. The original challenge and its result remain unchanged.
 
 Read [the full specification](ASYNC_CHALLENGES.md) for expiry/cancel/decline paths, simultaneous claims/responses, recovery, disclosure and device tests. The seven-day deadline, 30-day result retention and one-card-per-human format are proposed defaults.

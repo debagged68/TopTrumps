@@ -254,6 +254,138 @@ export async function list(ctx, credential) {
   return { challenges, totals: { ...guest.stats } };
 }
 
+// ---------- live challenge back ----------
+//
+// Challenge back only works while both players are on the finished challenge at the same
+// time. Each open result page sends a heartbeat; a request needs the opponent present,
+// pops up on their screen and lapses as soon as either person leaves. Accepting creates a
+// fresh challenge with the requester as sender and the accepter already seated, so no
+// invitation link is needed. One accepted rematch per finished challenge.
+
+export const LIVE = Object.freeze({ presentSeconds: 15, requestSeconds: 60 });
+
+async function readLive(ctx, id) {
+  const items = await ctx.store.query(`CHAL#${id}`, 'LIVE#', 5);
+  return Object.fromEntries(items.map(item => [item.sk.slice('LIVE#'.length), item]));
+}
+
+// Authorises a participant, checks the result is in, and records their heartbeat. A pending
+// request is judged on the heartbeats as they were BEFORE this one, and a lapse is saved, so
+// someone who left and came back cannot revive an old request.
+async function liveParticipant(ctx, credential, id) {
+  const guest = await requireGuest(ctx, credential);
+  const record = await loadRecord(ctx, id);
+  const role = S.roleOf(record, guest.guestId);
+  if (!role) throw unavailable();
+  if (S.effectiveState(record, ctx.now) !== 'responded') {
+    throw new GameError('Challenge back opens once the result is in.', 409, 'not_ready');
+  }
+  const before = await readLive(ctx, id);
+  const ops = [op.put({ ...key.live(id, role), at: ctx.now, purgeAt: S.purgeAt(record, ctx.config) })];
+  const request = before.rematch;
+  if (request?.state === 'pending' && rematchState(ctx, before) === 'lapsed') {
+    ops.push(op.replace({ ...request, state: 'lapsed', version: request.version + 1 }, request.version));
+  }
+  if (!(await ctx.store.commit(ops))) {
+    await ctx.store.commit(ops.slice(0, 1)); // someone else changed the request first; keep the heartbeat
+  }
+  return { record, role, live: await readLive(ctx, id) };
+}
+
+const otherOf = role => (role === 'sender' ? 'recipient' : 'sender');
+
+function rematchState(ctx, live) {
+  const request = live.rematch;
+  if (!request) return null;
+  if (request.state !== 'pending') return request.state; // accepted | declined | lapsed
+  const here = role => live[role] && ctx.now - live[role].at <= LIVE.presentSeconds;
+  const fresh = ctx.now - request.requestedAt <= LIVE.requestSeconds;
+  return fresh && here('sender') && here('recipient') ? 'pending' : 'lapsed';
+}
+
+function liveView(ctx, role, live) {
+  const opponent = live[otherOf(role)];
+  const state = rematchState(ctx, live);
+  const view = { opponentHere: Boolean(opponent && ctx.now - opponent.at <= LIVE.presentSeconds), rematch: null };
+  if (state) {
+    view.rematch = { from: live.rematch.fromRole === role ? 'you' : 'them', state };
+    if (state === 'accepted') view.rematch.challengeId = live.rematch.challengeId;
+  }
+  return view;
+}
+
+export async function livePing(ctx, credential, id) {
+  const { role, live } = await liveParticipant(ctx, credential, id);
+  return liveView(ctx, role, live);
+}
+
+export async function requestRematch(ctx, credential, id) {
+  const { record, role, live: first } = await liveParticipant(ctx, credential, id);
+  const opponentName = role === 'sender' ? record.recipientName : record.senderName;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const live = attempt === 0 ? first : await readLive(ctx, id);
+    const view = liveView(ctx, role, live);
+    const state = view.rematch?.state;
+    if (state === 'accepted') return view;
+    if (state === 'pending') {
+      if (view.rematch.from === 'you') return view;
+      return answerRematch(ctx, credential, id, { accept: true }); // both pressed: join theirs
+    }
+    if (!view.opponentHere) {
+      throw new GameError(`${opponentName} has left. Challenge back only works while you are both here.`, 409, 'opponent_left');
+    }
+    const previous = live.rematch;
+    const request = {
+      ...key.live(id, 'rematch'), fromRole: role, requestedAt: ctx.now, state: 'pending', challengeId: null,
+      version: (previous?.version ?? 0) + 1, purgeAt: S.purgeAt(record, ctx.config),
+    };
+    if (await ctx.store.commit([previous ? op.replace(request, previous.version) : op.create(request)])) {
+      return liveView(ctx, role, { ...live, rematch: request });
+    }
+  }
+  throw new GameError('Please try again.', 409, 'conflict');
+}
+
+export async function answerRematch(ctx, credential, id, input) {
+  const { record, role, live } = await liveParticipant(ctx, credential, id);
+  const request = live.rematch;
+  const state = rematchState(ctx, live);
+  if (!request || request.fromRole === role || state === 'declined') {
+    throw new GameError('There is no challenge back to answer.', 409, 'no_request');
+  }
+  if (state === 'accepted') return liveView(ctx, role, live);
+  if (state === 'lapsed') {
+    const name = request.fromRole === 'sender' ? record.senderName : record.recipientName;
+    throw new GameError(`${name} has left, so the challenge back has lapsed.`, 409, 'lapsed');
+  }
+  if (!input?.accept) {
+    const declined = { ...request, state: 'declined', version: request.version + 1 };
+    if (!(await ctx.store.commit([op.replace(declined, request.version)]))) throw new GameError('Please try again.', 409, 'conflict');
+    return liveView(ctx, role, { ...live, rematch: declined });
+  }
+  const asker = request.fromRole === 'sender'
+    ? { id: record.senderId, name: record.senderName }
+    : { id: record.recipientId, name: record.recipientName };
+  const me = role === 'sender'
+    ? { id: record.senderId, name: record.senderName }
+    : { id: record.recipientId, name: record.recipientName };
+  const draft = S.createDraft({
+    dataset: ctx.dataset, senderId: asker.id, senderName: asker.name, recipient: me,
+    now: ctx.now, config: ctx.config, random: ctx.random, parentId: record.id,
+  });
+  const accepted = { ...request, state: 'accepted', challengeId: draft.id, version: request.version + 1 };
+  const saved = await ctx.store.commit([
+    op.replace(accepted, request.version),
+    op.create(challengeItem(ctx, draft)),
+    op.create(entryItem(ctx, asker.id, draft, 'sender')),
+    op.create(entryItem(ctx, me.id, draft, 'recipient')),
+  ]);
+  if (saved) return liveView(ctx, role, { ...live, rematch: accepted });
+  const now = await readLive(ctx, id); // lost a race: report whatever won
+  if (rematchState(ctx, now) === 'accepted') return liveView(ctx, role, now);
+  throw new GameError('Please try again.', 409, 'conflict');
+}
+
 // ---------- recovery ----------
 
 export async function recoveryLink(ctx, credential) {
