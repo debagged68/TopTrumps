@@ -38,6 +38,9 @@ export function verify({ secret, purpose, subject, generation, token, now }) {
   const expiresAt = Number(expiry);
   const expected = mac(secret, purpose, subject, generation, expiresAt);
   const given = Buffer.from(tag, 'base64url');
+  // Reject non-canonical encodings: the final character carries spare bits, so several
+  // different strings would otherwise decode to the same valid signature.
+  if (given.toString('base64url') !== tag) return false;
   const matches = given.length === expected.length && timingSafeEqual(given, expected);
   return matches && now < expiresAt;
 }

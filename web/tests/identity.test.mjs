@@ -26,6 +26,16 @@ test('tampering, wrong purpose, subject, generation or secret are all rejected',
   }
 });
 
+test('non-canonical encodings of a valid signature are rejected', () => {
+  const token = sign(base);
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+  const head = token.slice(0, -1);
+  for (const ch of alphabet) {
+    const variant = head + ch;
+    assert.equal(check({ token: variant }), variant === token, variant);
+  }
+});
+
 test('short secrets and unknown purposes are refused', () => {
   assert.throws(() => sign({ ...base, secret: 'short' }));
   assert.throws(() => sign({ ...base, purpose: 'admin' }));
