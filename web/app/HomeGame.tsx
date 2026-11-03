@@ -70,7 +70,7 @@ export default function HomeGame({challenges=false}:{challenges?:boolean}){
     if(pending.current)return;
     pending.current=true;setBusy(true);setError('');
     try{
-      const response=await fetch('/api/game',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input.action==='deal'?{...input,playerCardCount:mobile?1:2}:input)});
+      const response=await fetch('/api/game',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input)});
       const data=await response.json();if(!response.ok)throw Error(data.error);
       setGame(data);
       if(input.action==='deal'){setFlipped([]);setActiveCard(data.cards[0].id);setCelebration(null);}
@@ -90,7 +90,7 @@ export default function HomeGame({challenges=false}:{challenges?:boolean}){
   const cards=game?(game.committed?[
     {key:game.playedCardId,card:game.played,label:'YOUR CARD'},
     {key:'computer',card:game.opponent||game.opponentFront,label:'COMPUTER'}
-  ]:(mobile?game.cards.slice(0,1):game.cards).map((card:any,index:number)=>({key:card.id,card,label:game.cards.length===1||mobile?'YOUR CARD':('YOUR CARD '+(index===0?'A':'B'))}))):[];
+  ]:game.cards.map((card:any,index:number)=>({key:card.id,card,label:game.cards.length===1?'YOUR CARD':('YOUR CARD '+(index===0?'A':'B'))}))):[];
   const selected=cards.find((item:any)=>item.key===activeCard)||cards[0];
   function corner(key:string,isBack:boolean){return <button className="fold-corner" aria-label={isBack?'Turn card to quote':'Turn card to sins'} onClick={()=>turn(key)} disabled={busy}><RotateCcw size={15}/></button>;}
   function cardView(item:any){

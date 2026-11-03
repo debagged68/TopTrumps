@@ -8,7 +8,7 @@
 
 1. Player presses Deal first.
 2. Server locks three distinct cards; two appear quote-side up on the baize.
-3. Player presses Flip card A/B to rotate a card to its six sins and scores. Both may be inspected and flipped back without committing.
+3. Player flips their card to its six sins and scores. It may be flipped back without committing.
 4. Player taps one sin row on the chosen reverse. That card/category commits; input is disabled during submission.
 5. Server stores the original result exactly once.
 6. Unused player card slides off; selected card stays in its original slot, score-side up.
@@ -19,11 +19,11 @@
 ## Deal second
 
 1. Player presses Deal second.
-2. Server locks three distinct cards and a computer category. Current default randomly chooses one of the computer card's top two, using stable deck order to break ranking ties.
-3. Show both top-category names, without rank, chosen category or computer scores. Deal two player quote cards.
-4. Player flips either/both and inspects their own six scores.
-5. Player presses Play card A/B on the chosen reverse. They do not choose a category. Server resolves using its previously locked category.
-6. Remove the unused card, replace it with the face-down house card, then wait for the user's Flip computer's card action.
+2. Server locks two distinct cards (player and computer) and a computer category. Current default randomly chooses one of the computer card's top two, using stable deck order to break ranking ties.
+3. Show both top-category names, without rank, chosen category or computer scores. Deal one player quote card.
+4. Player flips their card and inspects its six scores.
+5. Player presses Play on their card's reverse. They do not choose a category. Server resolves using its previously locked category.
+6. Place the face-down house card beside the player's card, then wait for the user's Flip computer's card action.
 7. Reveal sins/scores and the locked deciding category; higher wins, equal draws. Offer either replay mode.
 
 ```mermaid

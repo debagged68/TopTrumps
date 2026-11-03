@@ -10,7 +10,7 @@ Implementation handoff: [solution design](SOLUTION_DESIGN.md), [game flows](GAME
 
 Create a humorous political quote card game playable on a mobile website and through a one-to-one WhatsApp conversation. The website also presents all decks, prices, previews, secure payments and the player's collection. No installed mobile app is required.
 
-The central challenge is interpreting a genuine political statement: choose one of two cards and nominate a deadly sin, after flipping the player's cards to inspect their own scores. The computer's scores remain hidden until the comparison reveal. The computer's random card is revealed, the selected sin scores are compared, and the player wins, loses or draws. A prominent **Twist Again** action starts the next round.
+The central challenge is interpreting a genuine political statement: nominate a deadly sin with the single dealt card, after flipping it to inspect its scores. The computer's scores remain hidden until the comparison reveal. The computer's random card is revealed, the selected sin scores are compared, and the player wins, loses or draws. A prominent **Twist Again** action starts the next round.
 
 This document uses MUST for launch requirements, SHOULD for preferred behaviour and LATER for deferred features. Product choices introduced to fill gaps are identified as proposed defaults. They are implementation baselines that can be adjusted before launch, rather than claims that the owner expressly approved every detail.
 
@@ -21,7 +21,7 @@ This document uses MUST for launch requirements, SHOULD for preferred behaviour 
 | Card content | Authentic political quote or statement, with attribution and context. Agreed. |
 | Attributes | Donald Deck: six categories — Pride, Greed, Lust, Envy, Wrath and Stupidity. Greed absorbs Gluttony; Stupidity replaces Sloth. Supersedes the original seven-attribute baseline. |
 | Score disclosure | Player flips either card to see its own six scores before commitment. Computer identity/scores stay unavailable before commitment and visually hidden until the user flips its house card. |
-| Hand | Two cards; choose one to play. Agreed. |
+| Hand | One card per player on every screen size. Agreed. |
 | Opponent | Random computer card compared on the player's chosen sin. Agreed. |
 | Replay | Twist Again starts a fresh round. Agreed. |
 | Visuals | Designed card images in WhatsApp; visual cards on the website. Agreed. |
@@ -54,8 +54,8 @@ The two channels MUST use the same rules, published card versions, identity, ent
 
 Every new round begins with **Deal first** or **Deal second**.
 
-- **Deal first:** the player receives two cards, selects one and chooses a category. The computer's card is locked before these choices; resolve on the player's selected category.
-- **Deal second:** the computer locks its card and chosen category before the player's choice. Show its two highest-scoring category names, without scores, their ranking or which was chosen. The player receives two cards and chooses one; the computer's locked category decides the outcome. The player does not select a category in this mode.
+- **Deal first:** the player receives one card and chooses a category. The computer's card is locked before these choices; resolve on the player's selected category.
+- **Deal second:** the computer locks its card and chosen category before the player's choice. Show its two highest-scoring category names, without scores, their ranking or which was chosen. The player receives one card and plays it; the computer's locked category decides the outcome. The player does not select a category in this mode.
 - Prototype default: choose the computer's category randomly from its top two. Break tied category rankings using deck category order; present hints in deck order. These defaults can be tuned after playtesting.
 - Both modes share one deal/resolve engine. Higher wins; equal scores draw. Replay offers either mode. This section supersedes older descriptions that assume the player always chooses the category or that no category hint is ever shown.
 
@@ -69,9 +69,9 @@ A deck/pool MUST have at least three eligible cards. Avoid repeats between conse
 
 ### GAME-02: Choice and commitment
 
-The category-selection steps below apply to Deal first. In Deal second, Play card A/B on the reverse commits against the computer's locked category; the player may inspect their own six scores, while only two category names are disclosed about the computer.
+The category-selection steps below apply to Deal first. In Deal second, Play on the reverse commits against the computer's locked category; the player may inspect their own six scores, while only two category names are disclosed about the computer.
 
-Player fronts show quote, speaker, date/context and artwork. Flipping either or both cards reveals their own six sins and numeric scores. Deal first: tap a sin row on the chosen reverse to commit the card/category immediately. Deal second: inspect either reverse, then tap Play card A/B to commit against the computer's locked category; the player does not choose a sin. Allow free flipping back to quotes before commitment. Never expose the computer's identity, scores or selected category before commitment.
+Player fronts show quote, speaker, date/context and artwork. Flipping the card reveals its six sins and numeric scores. Deal first: tap a sin row on the chosen reverse to commit the card/category immediately. Deal second: inspect the reverse, then tap Play to commit against the computer's locked category; the player does not choose a sin. Allow free flipping back to quotes before commitment. Never expose the computer's identity, scores or selected category before commitment.
 
 The server MUST atomically validate ownership, round state, card choice and sin, then resolve exactly once. Double taps, retries and duplicate webhooks MUST return the original result without creating additional rounds or statistics. Selecting an already resolved round MUST never permit a different choice.
 
@@ -126,7 +126,7 @@ Home: explain the game, show sample cards, Play free and Browse decks. How to pl
 
 Support guest free play on the web; explain that durable cross-device history and purchases require an account. Preserve an anonymous session securely and offer an explicit verified merge on registration. Proposed authentication: email magic link with persistent sessions. Final provider is an implementation decision. Purchased access must be recoverable without relying solely on cookies.
 
-My collection shows accessible decks, purchase status and channel launch buttons. The play screen shows selected deck, two cards, choice controls and clear progress. Result shows both quotes and selected scores, explanation, Reveal all sins and Twist Again. Provide source/context access without accidentally committing a play. Offer history and statistics for signed-in players.
+My collection shows accessible decks, purchase status and channel launch buttons. The play screen shows selected deck, the dealt card, choice controls and clear progress. Result shows both quotes and selected scores, explanation, Reveal all sins and Twist Again. Provide source/context access without accidentally committing a play. Offer history and statistics for signed-in players.
 
 ### WEB-03: Mobile and accessibility
 
@@ -249,7 +249,7 @@ WhatsApp tariffs and provider fees are launch dependencies; do not hard-code an 
 |---|---|
 | AC-01 | A new round shows exactly two distinct quote fronts. Either flips to its own six scores. The computer card is already persisted and distinct; Deal second may show its two category-name hints only. |
 | AC-02 | For each configured category (six for Donald), known fixture scores produce the correct win/loss/draw; result includes both scores and relevant rationales. |
-| AC-03 | Precommit responses contain only the two player cards/scores and permitted hints; no opponent identity, scores or selected category. Full deck is absent from browser bundles. |
+| AC-03 | Precommit responses contain only the one player card/scores and permitted hints; no opponent identity, scores or selected category. Full deck is absent from browser bundles. |
 | AC-04 | Double taps, duplicate inbound messages and retries resolve one round once and update statistics once. |
 | AC-05 | Twist Again creates a new round; limits show a clear explanation without charging automatically. |
 | AC-06 | Website and WhatsApp given the same round produce identical results and entitlements. Switching channels resumes rather than rerolls. |
@@ -328,11 +328,11 @@ Mobile refinement: below 560px, equal card shells are 580px tall, images are 175
 
 ## Viewport-fit phone play and landscape pairing
 
-Gameplay on screens up to 1100px wide uses a fixed dynamic-viewport-height shell, safe-area padding and a flexible card area, replacing fixed pixel card heights on phones. Header/instructions are compact and nonessential chrome is hidden. Portrait shows one full-height card slot at a time, with Card A/Card B controls (or Your card/Computer after play) and horizontal swipe navigation; no vertical page scroll is needed to reach the flip or play controls. Landscape shows two equally-sized cards side by side, with a compact two-column sins reverse. Each result score stays within its card slot. Long quote text retains its internal readable area; mobile sizing never changes the game rules. Orientation changes use responsive CSS without starting a new round.
+Gameplay on screens up to 1100px wide uses a fixed dynamic-viewport-height shell, safe-area padding and a flexible card area, replacing fixed pixel card heights on phones. Header/instructions are compact and nonessential chrome is hidden. Portrait shows one full-height card slot at a time (Your card, then Your card/Computer after play) and horizontal swipe navigation; no vertical page scroll is needed to reach the flip or play controls. Landscape shows two equally-sized cards side by side, with a compact two-column sins reverse. Each result score stays within its card slot. Long quote text retains its internal readable area; mobile sizing never changes the game rules. Orientation changes use responsive CSS without starting a new round.
 
 ## Single-player-card mobile flow and complete portrait
 
-Mobile layouts (up to 1100px) now request exactly one player card per new round, in either deal mode. This replaces the mobile A/B choice: Deal first flips that card to select its sin; Deal second inspects it and presses Play against the locked computer sin. Desktop keeps two player cards. The same server deal/commit/reveal engine accepts a validated one- or two-card count; it does not fork scoring logic. Existing unresolved rounds are preserved; on mobile only the first unplayed card is presented until that round completes.
+Every screen size, phone or desktop, deals exactly one player card per new round in either deal mode. Deal first flips that card to select its sin; Deal second inspects it and presses Play against the locked computer sin. One server deal/commit/reveal engine is used everywhere; there is no per-device rule. (Rules version 2.4 removed the earlier desktop two-card hand.)
 
 After mobile commitment, the comparison contains Your card and Computer, rather than treating a second player card as mandatory. Portrait uses comparison navigation; landscape pairs the two comparison cards. Donald's complete source artwork uses object-fit contain and its original aspect ratio, without cover cropping or distortion. Short landscape fronts position the tall portrait beside the quote instead of compressing it into a wide image strip. These rules supersede earlier mobile two-player-card designs.
 

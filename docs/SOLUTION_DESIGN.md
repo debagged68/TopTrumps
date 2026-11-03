@@ -30,10 +30,10 @@ The current prototype is React with Vinext/Next-style routes on a Cloudflare Wor
 
 1. Configure category order from the deck: Pride, Greed, Lust, Envy, Wrath, Stupidity. Greed absorbs Gluttony; Stupidity replaces Sloth.
 2. Uniformly draw three distinct eligible cards without replacement using server-side secure random selection. Two belong to the player; one to the computer. Lock all three before any choice. The reference excludes eight HOLD cards but otherwise uses draft candidates for private testing only.
-3. Deal first: the player flips either/both cards, sees all of their scores, then selects a category row on one reverse. This commits that card and category immediately.
-4. Deal second: rank the computer's six categories descending by score; ties use deck category order. Take the first two. Reference default: randomly choose one of those two and lock it before player choice. Show the two hint names in deck order, without relative rank, selected category, computer identity or scores. The player inspects either/both cards and presses Play card A/B on one reverse. The locked computer category controls resolution; ignore any player-supplied category in this mode.
+3. Deal first: the player flips their card, sees all of its scores, then selects a category row on the reverse. This commits that card and category immediately.
+4. Deal second: rank the computer's six categories descending by score; ties use deck category order. Take the first two. Reference default: randomly choose one of those two and lock it before player choice. Show the two hint names in deck order, without relative rank, selected category, computer identity or scores. The player inspects their card and presses Play on the reverse. The locked computer category controls resolution; ignore any player-supplied category in this mode.
 5. Resolve once: higher selected-category score wins; lower loses; equal draws. The server persists the result before any animation.
-6. Presentation then removes the unused card, places a face-down house card in that exact slot, and waits. Only the user's Flip computer's card action turns the house card to its sins/scores and displays the outcome.
+6. Presentation then places a face-down house card beside the player's card and waits. Only the user's Flip computer's card action turns the house card to its sins/scores and displays the outcome.
 7. Replay offers either deal mode. Never overwrite an unresolved round merely because a deal request is repeated.
 
 The computer's random top-two choice and tie handling are explicit prototype defaults. Do not silently replace them with selecting a best counter-card or adapting to the user's chosen category.
@@ -42,7 +42,7 @@ The computer's random top-two choice and tie handling are explicit prototype def
 
 Recommended production records:
 
-- Round: opaque random ID, browser/player owner, mode, state/version, two player card-version snapshots, locked opponent snapshot, locked computer category, two hints, chosen player card/category, final scores/outcome, created/committed/revealed timestamps and expiry.
+- Round: opaque random ID, browser/player owner, mode, state/version, one player card-version snapshot, locked opponent snapshot, locked computer category, two hints, chosen player card/category, final scores/outcome, created/committed/revealed timestamps and expiry.
 - Snapshot: stable card ID, content version, exact quote, speaker/context, six scores/rationales, artwork reference and source links.
 - Session: opaque server-issued identity or authenticated player identity; entitlements when commerce is added.
 
@@ -56,7 +56,7 @@ The current prototype has no separate durable revealed field; refresh of a resol
 
 `GET /api/game` restores the cookie's round, or null. All game responses use `Cache-Control: no-store`.
 
-`POST /api/game` with `{action:"deal",mode:"first"|"second"}` returns two player cards, category definitions, mode and (second only) two hint names. Each player card now intentionally includes its own six scores so the reverse can display them. Never include the opponent ID/quote/scores or locked computer category before commitment.
+`POST /api/game` with `{action:"deal",mode:"first"|"second"}` returns one player card, category definitions, mode and (second only) two hint names. Each player card now intentionally includes its own six scores so the reverse can display them. Never include the opponent ID/quote/scores or locked computer category before commitment.
 
 `POST /api/game` with `{action:"play",card:<dealt player card ID>,category:<name>}` commits Deal first. Deal second uses `{action:"play",card:<ID>}`; the server uses its previously locked category. Reject non-dealt cards and invalid categories; repeated commit returns the original result. The reference route is in `reference/prototype/app/api/game/route.ts`.
 
@@ -69,7 +69,7 @@ Current cookie: `tt_round`, a random UUID, HttpOnly, SameSite=Lax, Secure on HTT
 - Green felt baize, wood/gold rim, ivory quote fronts, midnight-blue/gold score reverses. See the committed original portrait.
 - Identical 640px-tall reference shells; two columns on desktop, stacked below 560px. Long quotes scroll within the same fixed card instead of shrinking text or changing its height.
 - Player flip is a 3D Y rotation (~720ms), with separate front and reverse. Use native buttons; inert/aria-hidden must remove the inactive side from keyboard and screen-reader navigation.
-- Deal first reverse: six selectable sin rows with visible scores and arrows; each commits the containing card. Deal second reverse: six score rows plus Play card A/B; no player category choice.
+- Deal first reverse: six selectable sin rows with visible scores and arrows; each commits the containing card. Deal second reverse: six score rows plus Play; no player category choice.
 - Keep the selected card in its original A/B slot. Slide the other off-table (~550ms), slide the house cover into that slot (~650ms), then stop. Its only available action is Flip computer's card.
 - User flip rotates house cover to score reverse (~750ms). Highlight the deciding category on both cards and show scores/outcome/replay only after the flip. Do not leak outcome through heading, totals or highlight while waiting.
 - Respect prefers-reduced-motion: skip timing/motion but still require the manual house flip. Prevent interaction while committing/transitions are in progress. An error must leave the game recoverable, never silently reroll.
