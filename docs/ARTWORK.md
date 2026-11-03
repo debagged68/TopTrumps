@@ -34,3 +34,17 @@ Vertical collectible political satire illustration. Recognizable Donald Trump ca
 The quote text, gold frame, reverse, house cover and baize are code-rendered UI, not additional raster files. Their full source styles and markup are committed under `reference/prototype/app/`. Keep UI text separate from imagery so long quotes stay readable.
 
 The earlier three-phone WhatsApp concept board is a visual inspiration from an earlier stage, not an implemented WhatsApp interface. This handoff's committed PNG and code-rendered cards are the current web design. WhatsApp delivery remains deferred.
+
+## Pack artwork briefs
+
+One portrait per pack, in the same house style as the Donald portrait so the packs read as a set: vertical 1024 × 1536 PNG, engraved editorial illustration meets hand-painted luxury tarot, midnight navy, antique gold, ivory and vermilion, warm dramatic light, fine detail. No embedded text, letters, logos or card border (the UI renders those). The art is decorative and must not hint at scores. Each pack keeps the gold crown and floating gilded playing cards from the Donald portrait, which ties the packs together.
+
+Save each file as `assets/artwork/packs/<pack-id>.png` (ids come from `web/lib/packs.ts`). `npm run prepare:content` copies them to `web/public/packs/`, and the packs page shows each one automatically.
+
+| File | Pack | Brief |
+|---|---|---|
+| `donald-extended.png` | The Donald Deck: Extended | Optional. Without a file this pack uses the Donald portrait. A variation on the original: same caricature, a wider scene with more gilded cards and a grander stage. |
+| `westminster.png` | The Westminster Pack | The Palace of Westminster by the Thames at dusk, shown as a ruined grand theatre set. The Elizabeth Tower (Big Ben) is cracked and leaning, its clock face split with the hands hanging loose, stone falling into the river. Union-flag-coloured bunting torn and flying. A gold crown hangs over the tower with gilded playing cards swirling in the sky. No real people. |
+| `unreality-tv.png` | Un-Reality TV | A dazzling reality-TV studio that is falling apart. A huge gilded TV set stands in a spotlit arena with a cracked screen, snapped cameras on cranes, a ring of ring-lights and a vermilion curtain half torn down, confetti and gold cards raining over a podium with a toppled trophy. A gold crown floats over the stage. No real people, no logos. |
+
+Generic caricature figures can be added later for either pack, but avoid recognisable real individuals unless the quote cards for that pack depict them, so the art and the licensing story stay consistent with REQUIREMENTS.md.

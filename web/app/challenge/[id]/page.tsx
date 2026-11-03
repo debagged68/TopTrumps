@@ -10,8 +10,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const h = await headers();
   const host = h.get('x-forwarded-host') ?? h.get('host');
   const proto = h.get('x-forwarded-proto') ?? (host?.startsWith('localhost') ? 'http' : 'https');
-  const title = 'A Top Trumps challenge';
-  const description = 'Someone sent you a political quote card challenge. Open the link to play.';
+  const title = 'Your move: play your card';
+  const description = 'A friend has dealt you a Top Trumps card. Open the link, accept and play.';
   const image = host ? [{ url: `${proto}://${host}/og.jpg`, width: 1200, height: 630, alt: 'Top Trumps' }] : undefined;
   return {
     title,
