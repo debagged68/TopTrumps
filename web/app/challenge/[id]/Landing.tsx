@@ -72,5 +72,7 @@ export default function Landing({ id }: { id: string }) {
         {error && <p role="alert" className="form-error">{error}</p>}
         <button disabled={busy || !name.trim()}>Accept challenge<ArrowRight size={18} /></button>
       </form>}
-    </section></main>;
+    </section>
+    <p className="landing-home"><Link className="text-link" href="/">Explore the Top Trumps front page</Link><Link className="text-link" href="/packs">Card packs</Link></p>
+  </main>;
 }

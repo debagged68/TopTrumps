@@ -291,5 +291,5 @@ export default function ChallengeRoom({ id }: { id: string }) {
 }
 
 export function Header() {
-  return <header><div className="brand-group"><Link className="brand" href="/" aria-label="Top Trumps home"><Crown /><span>TOP TRUMPS</span></Link></div><Link className="header-link" href="/challenges">My challenges</Link></header>;
+  return <header><div className="brand-group"><Link className="brand" href="/" aria-label="Top Trumps home"><Crown /><span>TOP TRUMPS</span></Link></div><nav className="header-links"><Link className="header-link" href="/">Home</Link><Link className="header-link" href="/challenges">My challenges</Link></nav></header>;
 }

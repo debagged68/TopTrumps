@@ -3,14 +3,14 @@
 export type ShareOutcome = 'shared' | 'copied' | 'cancelled' | 'failed';
 
 export function inviteText(senderName: string, url: string) {
-  return `${senderName} sent you a Top Trumps challenge. Play whenever you're ready: ${url}`;
+  return `👑 ${senderName} sent you a Top Trumps challenge. Play whenever you're ready:\n${url}`;
 }
 
 // A nudge goes to someone who is already in the game, so the plain challenge page is enough.
 export function nudgeText(kind: 'your_turn' | 'played', from: string, url: string) {
   return kind === 'your_turn'
-    ? `${from} here: it's your turn on our Top Trumps challenge. ${url}`
-    : `${from} here: I've played my card on our Top Trumps challenge. Come and see who won: ${url}`;
+    ? `👑 ${from} here: it's your turn on our Top Trumps challenge.\n${url}`
+    : `👑 ${from} here: I've played my card on our Top Trumps challenge. Come and see who won:\n${url}`;
 }
 
 export async function copyText(text: string): Promise<boolean> {

@@ -3,6 +3,7 @@ import {useEffect,useRef,useState} from 'react';
 import {ArrowRight,Check,Crown,RotateCcw,Send,Shuffle,X} from 'lucide-react';
 import {emptyTally,parseTally,recordResult} from '../lib/tally.mjs';
 import Link from 'next/link';
+import { PACKS } from '../lib/packs';
 import RoundCelebration from './components/RoundCelebration';
 import SinBadge,{SIN_NAMES} from './components/SinBadge';
 const TALLY_KEY='toptrumps-tally-v1';
@@ -128,11 +129,11 @@ export default function HomeGame({challenges=false}:{challenges?:boolean}){
   return <main className={game?'game-screen':'home-screen'}>
     <header><div className="brand-group"><a className="brand" href="/" aria-label="Top Trumps home"><Crown/><span>TOP TRUMPS</span></a><div className="tally" aria-label="Win tally on this browser" aria-live="polite"><span aria-label={'Your wins: '+tally.wins}><strong>{tally.wins}</strong><small>You</small></span><span aria-label={'Computer wins: '+tally.losses}><strong>{tally.losses}</strong><small>Computer</small></span><span aria-label={'Draws: '+tally.draws}><strong>{tally.draws}</strong><small>Draws</small></span></div></div><button className="help-button" aria-label="How to play" onClick={()=>setHelp(true)}><span className="help-label">How to play</span><span className="help-symbol" aria-hidden="true">?</span></button></header>
     {!game?<section className="welcome">
-      <div className="intro"><p className="eyebrow">THE DONALD DECK</p><h1>Big words.<br/>Bigger sins.</h1><p className="lede">Turn the card. Choose your sin.<br/>Let the baize decide.</p><div className="deal-options">
+      <div className="intro"><h1>Big words.<br/>Bigger sins.</h1><p className="lede">Turn the card. Choose your sin.<br/>Let the baize decide.</p><div className="deal-options">
         <button disabled={busy||!ready} onClick={()=>act({action:'deal',mode:'first'})}><span>Deal first<small>You choose the sin</small></span><ArrowRight/></button>
         <button className="secondary" disabled={busy||!ready} onClick={()=>act({action:'deal',mode:'second'})}><span>Deal second<small>The computer chooses</small></span><Shuffle/></button>
-      </div>{challenges&&<div className="friend-options"><Link className="button-link" href="/challenges/new"><span>Challenge a friend<small>Send a card by WhatsApp, text or email</small></span><Send/></Link><Link className="text-link" href="/challenges">My challenges</Link></div>}</div>
-      <div className="cover"><img src="/trump-art.png" alt="The Donald deck artwork"/><div><Crown/><h2>Top Trumps</h2><p>SIX SINS. ONE WINNING CHOICE.</p></div></div>
+      </div>{challenges&&<div className="friend-options"><Link className="button-link" href="/challenges/new"><span>Challenge a friend<small>Send a card by WhatsApp, text or email</small></span><Send/></Link><Link className="text-link" href="/challenges">My challenges</Link></div>}<ul className="pack-chips" aria-label="Card packs">{PACKS.filter(p=>p.id!=='donald-extended').map(p=><li key={p.id} className={p.owned?'on':''}>{p.short}{!p.owned&&<small>Soon</small>}</li>)}</ul><Link className="packs-link" href="/packs"><span>Card packs<small>Buy more packs for your deck</small></span><ArrowRight/></Link></div>
+      <div className="cover"><img src="/trump-art.png" alt="Top Trumps artwork"/><div><Crown/><h2>Top Trumps</h2><p>SIX SINS. ONE WINNING CHOICE.</p></div></div>
     </section>:<>
       <section className={'card-stage '+(game.done?'spread':game.committed?'stacked':cards.length>1?'hand-pair':'single')} aria-label="Playing cards">
         <div className="card-rail" ref={rail}><div className="card-layout">{cards.map(cardView)}</div></div>

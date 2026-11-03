@@ -17,7 +17,7 @@ const nextConfig = {
   async headers() {
     return [
       { source: '/(.*)', headers: base },
-      ...['/challenge/:path*', '/challenges', '/challenges/:path*', '/api/challenges/:path*', '/api/challenges', '/api/guests/:path*']
+      ...['/challenge/:path*', '/c/:path*', '/challenges', '/challenges/:path*', '/api/challenges/:path*', '/api/challenges', '/api/guests/:path*']
         .map(source => ({ source, headers: privateHeaders })),
     ];
   },
