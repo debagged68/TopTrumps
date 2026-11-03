@@ -112,3 +112,13 @@ button.live-ask{background:#69e6a8;border-color:#69e6a8;animation:live-ask-pulse
 @keyframes live-ask-pulse{0%,100%{box-shadow:0 0 0 0 #69e6a880}50%{box-shadow:0 0 0 8px #69e6a800}}
 .rematch-modal{max-width:380px}.rematch-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.rematch-actions button{flex:1}
 @media(prefers-reduced-motion:reduce){button.live-ask{animation:none}}
+
+/* Score rows on short phone cards: labels sit beside the sin name, never under it, so a row
+   can't outgrow its box; a chosen row keeps its green background when tapped. */
+.sin-description{display:flex;align-items:center;flex-wrap:nowrap;gap:8px;min-width:0}
+.sin-description>.sin-badge{flex:0 1 auto}
+.sin-description>small{margin:0;white-space:nowrap;flex-shrink:0}
+.sin-score{overflow:hidden}
+.sin-score strong{line-height:1}
+button.sin-score.winning:hover,button.sin-score.winning:focus-visible{background:#14653f;color:#fff;border-color:#14653f}
+@media(hover:none){button.sin-score:not(.winning):hover{background:#fffdf7;border-color:#9c9d92}}
