@@ -13,10 +13,10 @@ The standalone source has been built and tested locally. AWS deployment requires
 3. On a machine with AWS CLI v2 authenticated to that account, run from the repository root:
 
    ```bash
-   AWS_PROFILE=oast-cottage bash scripts/deploy-aws.sh <NEW-AMPLIFY-APP-ID> eu-west-2
+   AWS_PROFILE=oast-cottage bash scripts/deploy-aws.sh <NEW-AMPLIFY-APP-ID> eu-north-1
    ```
 
-   Use the correct existing profile and region for your account. This command creates a dedicated DynamoDB rounds table and limited IAM compute role, configures the new app's main branch, starts a release and prints the real mobile URL only after AWS reports success. It refuses to modify apps connected to other repositories.
+   The region is required; use the region of your Amplify app (Stockholm is `eu-north-1`). Use the correct existing profile for your account. This command creates a dedicated DynamoDB rounds table and limited IAM compute role, configures the new app's main branch, starts a release and prints the real mobile URL only after AWS reports success. It refuses to modify apps connected to other repositories.
 
 The script creates AWS resources subject to your account's normal Amplify/DynamoDB charges. The DynamoDB table uses on-demand requests and automatic TTL cleanup. It is retained if the CloudFormation stack is deleted. No Brevo, Supabase, payment provider or ChatGPT login is required to play on the resulting AWS site.
 
@@ -35,6 +35,26 @@ Create a CloudFormation stack from `infra/toptrumps-state.yaml`, acknowledging i
 | Build specification | Root `amplify.yml` |
 
 Attach the role to **main**, not untrusted preview branches. Keep pull-request previews off for this stateful environment. `scripts/amplify-env.mjs` makes only table/region identifiers available to the runtime; it never writes AWS credentials to build files. Redeploy main after setting these values.
+
+## Friend challenges (feature flag)
+
+Asynchronous friend challenges (docs/ASYNC_CHALLENGES.md) are off unless `TOPTRUMPS_CHALLENGES=1`. With the flag off, challenge pages and APIs return 404 and the computer game is unaffected.
+
+The state stack also creates `ChallengeTable` and `ChallengeSigningSecret` and grants the compute role access to them. Before switching the flag on:
+
+1. Install the runtime dependency in `web/` and commit the lockfile: `npm install --save-exact @aws-sdk/client-secrets-manager@<same version as @aws-sdk/client-dynamodb>`. Without it the secret cannot be read and challenge routes fail closed.
+2. Deploy the stack (the deploy script does this) and copy the outputs into the Amplify main branch:
+
+| Variable | Value |
+|---|---|
+| `TOPTRUMPS_CHALLENGE_TABLE_NAME` | ChallengeTableName output |
+| `TOPTRUMPS_CHALLENGE_SECRET_ARN` | ChallengeSecretArn output |
+| `TOPTRUMPS_CHALLENGES` | `1`, set last, once the two above are in place |
+| `TOPTRUMPS_CHALLENGE_INVITE_DAYS`, `TOPTRUMPS_CHALLENGE_RESULT_DAYS`, `TOPTRUMPS_GUEST_INACTIVITY_DAYS` | Optional, 1–365 (defaults 7, 30, 30) |
+
+`scripts/deploy-aws.sh` sets the table and secret variables automatically. Run it with `ENABLE_CHALLENGES=1` to switch the flag on, or `ENABLE_CHALLENGES=0` to remove it. The build fails early if the flag is on but either identifier is missing. The secret value is read into server memory only and is never written to build files.
+
+Recommended: add an AWS WAF rate-based rule on `/api/challenges*` and `/api/guests*` in addition to the app's own limits.
 
 ## Local development
 
