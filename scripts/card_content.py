@@ -55,6 +55,8 @@ def parse(text):
             notes.append("Who it is about: " + who.group(1).strip())
 
         sm = re.search(r"Hidden scores[^:\n]*:\*\*\s*(.+)", sec)
+        if not sm:
+            sys.exit(f"#{n}: missing a 'Hidden scores:' line")
         scores = {c: int(v) for c, v in re.findall(r"(" + "|".join(CATS) + r") (\d+)", sm.group(1))}
         if list(scores) != CATS:
             sys.exit(f"#{n}: expected six scores in order, got {scores}")
@@ -73,12 +75,13 @@ def parse(text):
                 other.append(b)
 
         # Source record bullets: "- **Label:** value" (possibly several records, e.g. paired card #27).
+        bullets = re.findall(r"^- \*\*([^*]+?):\*\*\s*(.+)$", sec, re.M)
         fields = {}
-        for label, val in re.findall(r"^- \*\*([^*]+?):\*\*\s*(.+)$", sec, re.M):
+        for label, val in bullets:
             fields[label] = (fields[label] + "\n" + val) if label in fields else val
 
         links, seen = [], set()
-        for label, val in re.findall(r"^- \*\*([^*]+?):\*\*\s*(.+)$", sec, re.M):
+        for label, val in bullets:
             for title, url in re.findall(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", val):
                 if url not in seen:
                     seen.add(url)

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { deal,commit,reveal,view } from '../lib/game.mjs';
+import { deal,commit,reveal,view,GameError } from '../lib/game.mjs';
 import { transact } from '../lib/service.mjs';
 const dataset=JSON.parse(readFileSync(new URL('../data/donald.json',import.meta.url)));
 function memory(){const records=new Map();return {async read(id){return structuredClone(records.get(id)||null)},async compareAndSet(record,version){if((records.get(record.id)?.version??null)!==version)return false;records.set(record.id,structuredClone(record));return true;}}}
@@ -25,7 +25,7 @@ test('cancel expires a saved round, is idempotent and permits a different new de
  const store=memory(),id='cancel';
  await transact(store,dataset,id,{action:'deal',mode:'first',playerCardCount:1},1000);
  const results=await Promise.all([transact(store,dataset,id,{action:'cancel'},1001),transact(store,dataset,id,{action:'cancel'},1001)]);
- assert.deepEqual(results,[null,null]);assert.equal((await store.read(id)).expiresAt,0);
+ assert.deepEqual(results,[null,null]);assert.equal((await store.read(id)).expiresAt,1001);
  await assert.rejects(transact(store,dataset,id,{action:'play',card:'ignored',category:'Pride'},1002),/expired/);
  const next=await transact(store,dataset,id,{action:'deal',mode:'second',playerCardCount:1},1003);
  assert.equal(next.mode,'second');assert.equal(next.cards.length,1);
@@ -35,3 +35,16 @@ test('Deal second keeps its locked sin across restore, misleading client categor
 
 test('mobile gets exactly one player card and keeps both deal modes and manual reveal',async()=>{for(const mode of ['first','second']){const store=memory(),id='mobile-'+mode;const dealt=await transact(store,dataset,id,{action:'deal',mode,playerCardCount:1},1000);assert.equal(dealt.cards.length,1);const record=await store.read(id);assert.notEqual(record.round.opponent.id,dealt.cards[0].id);const played=await transact(store,dataset,id,{action:'play',card:dealt.cards[0].id,category:'Pride'},1000);assert(played.committed);assert.equal(played.cards.length,1);assert(!('result'in played));const result=await transact(store,dataset,id,{action:'reveal'},1000);assert(result.done);assert.equal(result.result.category,mode==='first'?'Pride':record.round.lockedCategory);}});
 
+
+test('a replayed round gets a fresh 24h window, not the previous expiry',async()=>{
+ const store=memory(),id='fresh';const d=await transact(store,dataset,id,{action:'deal',mode:'first'},1000);
+ await transact(store,dataset,id,{action:'play',card:d.cards[0].id,category:'Pride'},1000);await transact(store,dataset,id,{action:'reveal'},1000);
+ const late=1000+86399;await transact(store,dataset,id,{action:'deal',mode:'first'},late);
+ assert.equal((await store.read(id)).expiresAt,late+86400);
+ const again=await transact(store,dataset,id,{action:'play',card:(await store.read(id)).round.cards[0].id,category:'Pride'},late+60);
+ assert(again.committed);
+});
+test('invalid bodies and rule violations raise GameError, not server faults',async()=>{
+ for(const bad of [null,'x',[],42])await assert.rejects(transact(memory(),dataset,'id',bad),e=>e instanceof GameError&&e.status===400);
+ await assert.rejects(transact(memory(),dataset,'id',{action:'deal',mode:'bad'}),e=>e instanceof GameError);
+});

@@ -92,3 +92,14 @@ main{padding:0 10px}.game-screen header{height:44px}.brand{font-size:18px;letter
 .sin-icon{color:var(--sin-ink);fill:var(--sin-fill)}
 .sin-icon circle{fill:var(--sin-ink)}
 .sin-score.winning .sin-icon{background:#fff5df;border-radius:5px;outline:3px solid #fff5df}
+.challenge-page{min-height:100dvh;display:flex;flex-direction:column;gap:12px;padding:0 max(14px,env(safe-area-inset-right)) 40px max(14px,env(safe-area-inset-left))}
+.challenge-room .room-status{margin:2px auto 6px;padding:8px 14px}.challenge-room .room-status h1{font-size:22px;margin:2px 0}.challenge-room .room-status p{margin:2px 0;font-size:14px}.challenge-room .room-status .eyebrow{margin:0}
+.challenge-panel{max-width:560px;width:100%;margin:8px auto;padding:20px 22px;background:#112d39;border:1px solid #8fa9b4;border-radius:14px;color:#fff8e9}
+.challenge-panel h1{font-size:clamp(28px,6vw,40px);line-height:1.1;margin:10px 0 12px}.challenge-panel h2{font-size:22px;margin:0 0 10px}.challenge-panel p{line-height:1.5;color:#e1e9ec}
+.challenge-panel label{display:block;margin:16px 0 6px;font-weight:700}.challenge-panel input{width:100%;box-sizing:border-box;min-height:48px;padding:10px 12px;font-size:18px;border-radius:8px;border:2px solid #9db1ba;background:#fff8e9;color:#142832}
+.challenge-panel form>button,.challenge-panel>button,.button-link{display:inline-flex;align-items:center;gap:10px;justify-content:center;margin-top:18px;min-height:48px;padding:12px 18px;font-size:18px;border-radius:8px;text-decoration:none}
+.muted{color:#b9c9cf!important;font-size:14px}.form-error{color:#ffb4a8!important;font-weight:700}.result-line{font-size:18px}.text-link{color:#fff8e9;align-self:center;padding:12px}
+.challenge-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}.challenge-list a{display:block;padding:14px;background:#0b212b;border-radius:10px;color:inherit;text-decoration:none;min-height:48px}.challenge-list small{display:block;margin-top:4px;color:#b9c9cf}
+.copy-row{display:flex;gap:8px}.copy-row input{flex:1}.tally-line{font-size:17px}.friend-options{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.button-link{background:var(--gold);color:#14242c;font:700 16px Arial,sans-serif;border:1px solid var(--gold)}.header-link{color:#fff8e9;font-size:14px;padding:10px 4px;min-height:44px;display:inline-flex;align-items:center}
+.challenge-room .bottom-actions{flex-wrap:wrap}.challenge-room .bottom-actions>.play-for{flex:1 1 220px}.friend-options .button-link{margin-top:0;justify-content:space-between;gap:25px;text-align:left}.friend-options small{display:block;font-size:12px;font-weight:400;margin-top:6px}
