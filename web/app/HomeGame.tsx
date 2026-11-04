@@ -245,6 +245,7 @@ export default function HomeGame({
             />
           ) : (
             <CardHand
+              overlap={game.committed}
               owners={game.committed ? ["you", "computer"] : undefined}
               key={game.roundId + ":" + game.committed + ":" + game.done}
               cards={

@@ -4,7 +4,7 @@ export type ShareOutcome = "shared" | "copied" | "cancelled" | "failed";
 
 // The quote is already on the shared image/preview; keep its caption short.
 export function inviteText(url: string) {
-  return `Click to play\n${url}`;
+  return `YOU HAVE BEEN CHALLENGED\n\nClick to play\n${url}`;
 }
 
 // A nudge goes to someone who is already in the game, so the plain challenge page is enough.

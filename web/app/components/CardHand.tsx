@@ -98,6 +98,7 @@ type Props = {
   tags?: string[];
   result?: { category: string; outcome: string };
   heading?: string;
+  overlap?: boolean;
 };
 export default function CardHand({
   cards,
@@ -110,9 +111,12 @@ export default function CardHand({
   tags,
   result,
   heading,
+  overlap = false,
 }: Props) {
   const rail = useRef<HTMLDivElement>(null);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(overlap ? cards.length - 1 : 0);
+  const gesture = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
   const [flipped, setFlipped] = useState<Record<string, boolean>>(() =>
     result ? Object.fromEntries(cards.map((c) => [c.id, true])) : {},
   );
@@ -121,12 +125,13 @@ export default function CardHand({
   const current = cards[index] || cards[0];
   const ids = cards.map((c) => c.id).join(":");
   useEffect(() => {
-    setIndex(0);
+    setIndex(overlap ? cards.length - 1 : 0);
     rail.current?.scrollTo({ left: 0 });
-  }, [ids]);
+  }, [ids, overlap]);
   function select(next: number) {
     setIndex(next);
     onActive?.(cards[next]);
+    if (overlap) return;
     const child = rail.current?.children[next] as HTMLElement;
     rail.current?.scrollTo({
       left: child
@@ -143,6 +148,7 @@ export default function CardHand({
     });
   }
   function onScroll() {
+    if (overlap) return;
     const node = rail.current;
     if (!node) return;
     const children = Array.from(node.children) as HTMLElement[];
@@ -195,9 +201,52 @@ export default function CardHand({
           </button>
         </div>
       </div>
-      <div className="hand-rail" ref={rail} onScroll={onScroll}>
+      <div
+        className={"hand-rail " + (overlap ? "overlap-rail" : "")}
+        ref={rail}
+        onScroll={onScroll}
+        onPointerDown={(e) => {
+          swiped.current = false;
+          gesture.current = null;
+          if (overlap && !(e.target as HTMLElement).closest("button,a")) {
+            gesture.current = { x: e.clientX, y: e.clientY };
+            swiped.current = false;
+          }
+        }}
+        onPointerUp={(e) => {
+          const start = gesture.current;
+          gesture.current = null;
+          if (!overlap || !start) return;
+          const dx = e.clientX - start.x,
+            dy = e.clientY - start.y;
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+            swiped.current = true;
+            select(index === 0 ? 1 : 0);
+          }
+        }}
+        onPointerCancel={() => {
+          gesture.current = null;
+        }}
+        onClickCapture={(e) => {
+          if (swiped.current) {
+            swiped.current = false;
+            if (e.detail > 0) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          }
+        }}
+      >
         {cards.map((card, i) => (
-          <div className="hand-page" key={card.id}>
+          <div
+            className={
+              "hand-page " +
+              (overlap ? (i === index ? "is-front" : "is-behind") : "")
+            }
+            key={card.id}
+            inert={overlap && i !== index}
+            aria-hidden={overlap && i !== index ? true : undefined}
+          >
             <PlayingCard
               card={card}
               owner={owners?.[i] ?? "you"}
@@ -238,12 +287,19 @@ export default function CardHand({
             />
           </div>
         ))}
+        {overlap && (
+          <button
+            className="overlap-peek"
+            onClick={() => select(index === 0 ? 1 : 0)}
+            aria-label={`Bring ${tags?.[index === 0 ? 1 : 0] || "other card"} to the front`}
+          />
+        )}
       </div>
       <div className="hand-nav">
         <button
           className="text-control"
-          disabled={index === 0}
-          onClick={() => select(index - 1)}
+          disabled={!overlap && index === 0}
+          onClick={() => select(overlap ? (index === 0 ? 1 : 0) : index - 1)}
           aria-label="Previous card"
         >
           <ChevronLeft />
@@ -260,12 +316,16 @@ export default function CardHand({
           ))}
         </div>
         <span>
-          {flipped[current.id] ? "Tap corner for quote" : "Tap card for sins"}
+          {overlap
+            ? "Swipe to switch cards"
+            : flipped[current.id]
+              ? "Tap corner for quote"
+              : "Tap card for sins"}
         </span>
         <button
           className="text-control"
-          disabled={index === cards.length - 1}
-          onClick={() => select(index + 1)}
+          disabled={!overlap && index === cards.length - 1}
+          onClick={() => select(overlap ? (index === 0 ? 1 : 0) : index + 1)}
           aria-label="Next card"
         >
           <ChevronRight />

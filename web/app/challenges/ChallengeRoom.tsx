@@ -277,6 +277,7 @@ export default function ChallengeRoom({ id }: { id: string }) {
         </section>
       ) : resultCards.length > 0 ? (
         <CardHand
+          overlap={view.status === "result_ready"}
           owners={
             view.status === "result_ready" ? ["you", "friend"] : undefined
           }
