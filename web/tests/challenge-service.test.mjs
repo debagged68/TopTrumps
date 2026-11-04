@@ -309,3 +309,26 @@ test('a new friend hand uses stored recency weights rather than uniform card ind
  const next=await svc.createDraft({...w.ctx,random:()=>32},first.sender,{nickname:'Ann',idempotencyKey:'weighted'});
  assert.deepEqual(next.view.cards.map(c=>c.id),[eligible[8].id,eligible[9].id]);
 });
+
+test('friend labels identify pending invites and actual accepted nicknames remain separate',async()=>{
+ const w=world();const d=await svc.createDraft(w.ctx,null,{nickname:'Ann',friendName:'Alice',idempotencyKey:'label'});
+ const id=d.view.id,sender=d.issuedCredential;
+ let row=(await svc.list(w.ctx,sender)).challenges[0];assert.equal(row.friendLabel,'Alice');assert.equal(row.opponentName,null);
+ const original=d.view.cards.map(c=>c.id);
+ await svc.nameFriend(w.ctx,sender,id,{friendName:'Alice Smith'});
+ assert.deepEqual((await svc.getChallenge(w.ctx,sender,id)).cards.map(c=>c.id),original);
+ const path=await sendInvite(w,sender,id);
+ const inspection=await svc.inspectInvitation(w.ctx,null,id,{invite:tokenOf(path)});
+ assert(!('friendLabel' in inspection));assert(!JSON.stringify(inspection).includes('Alice Smith'));
+ const acc=await svc.accept(w.ctx,null,id,{invite:tokenOf(path),nickname:'Bob'});
+ row=(await svc.list(w.ctx,sender)).challenges[0];assert.equal(row.opponentName,'Bob');assert.equal(row.friendLabel,'Alice Smith');
+ const theirRow=(await svc.list(w.ctx,acc.issuedCredential)).challenges[0];assert.equal(theirRow.opponentName,'Ann');assert(!('friendLabel' in theirRow));
+ assert.equal(await reason(()=>svc.nameFriend(w.ctx,acc.issuedCredential,id,{friendName:'Changed'})),'unavailable');
+ await svc.nameFriend(w.ctx,sender,id,{friendName:''});row=(await svc.list(w.ctx,sender)).challenges[0];assert(!('friendLabel' in row));assert.equal(row.opponentName,'Bob');
+});
+test('friend label edits reject invalid values and non-participants',async()=>{
+ const w=world(),d=await startDraft(w),other=await startDraft(w,'Eve','eve');
+ assert.equal(await reason(()=>svc.nameFriend(w.ctx,other.sender,d.id,{friendName:'Bob'})),'unavailable');
+ for(const friendName of ['x'.repeat(25),'<script>',null])assert.notEqual(await reason(()=>svc.nameFriend(w.ctx,d.sender,d.id,{friendName})),null);
+ assert.notEqual(await reason(()=>svc.nameFriend(w.ctx,d.sender,d.id,{})),null);
+});

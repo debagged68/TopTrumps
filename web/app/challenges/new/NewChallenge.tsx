@@ -15,6 +15,7 @@ function Form() {
   const router = useRouter();
   const back = useSearchParams().get("back");
   const [name, setName] = useState("");
+  const [friendName, setFriendName] = useState("");
   const [packs, setPacks] = useState(DEFAULT_PACKS);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -28,6 +29,7 @@ function Form() {
     setError("");
     const r = await api("POST", "/api/challenges/draft", {
       nickname: name,
+      friendName,
       packs,
       idempotencyKey: key,
       ...(back ? { parentId: back } : {}),
@@ -63,6 +65,19 @@ function Form() {
         />
         <small id="nick-help" className="muted">
           Shown to your friend. Up to 24 letters or numbers.
+        </small>
+        <label htmlFor="friend-name">Friend’s name (optional)</label>
+        <input
+          id="friend-name"
+          value={friendName}
+          onChange={(e) => setFriendName(e.target.value)}
+          maxLength={24}
+          placeholder="e.g. Alex"
+          aria-describedby="friend-name-help"
+        />
+        <small id="friend-name-help" className="muted">
+          A private label for My challenges. You choose the recipient when
+          sharing.
         </small>
         {error && (
           <p role="alert" className="form-error">

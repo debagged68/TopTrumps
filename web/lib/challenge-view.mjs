@@ -112,6 +112,8 @@ export function summarizeChallenge(record, role, now) {
       ? record.deadline
       : null,
   };
+  if (role === "sender" && record.invitedName)
+    summary.friendLabel = record.invitedName;
   if (status === "completed") {
     summary.category = record.result.category;
     summary.outcome = outcomeFor(record.result, role);
