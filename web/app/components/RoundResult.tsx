@@ -1,11 +1,13 @@
 import { Crown, ShieldX, Equal } from "lucide-react";
 import SinBadge from "./SinBadge";
+import type { CardOwner } from "./CardKey";
 import type { CardData } from "./PlayingCard";
 
 type Props = {
   yours: CardData;
   theirs: CardData;
   opponent: string;
+  opponentOwner: Exclude<CardOwner, "you">;
   result: {
     category: string;
     yours: number;
@@ -19,6 +21,7 @@ export default function RoundResult({
   yours,
   theirs,
   opponent,
+  opponentOwner,
   result,
 }: Props) {
   const Icon =
@@ -75,15 +78,22 @@ export default function RoundResult({
       </div>
       <div className="result-quotes">
         {[
-          { card: yours, name: "Your card", winner: result.outcome === "win" },
+          {
+            card: yours,
+            name: "Your card",
+            winner: result.outcome === "win",
+            owner: "you",
+          },
           {
             card: theirs,
+            owner: opponentOwner,
             name: `${opponent}’s card`,
             winner: result.outcome === "loss",
           },
-        ].map(({ card, name, winner }) => (
+        ].map(({ card, name, winner, owner }) => (
           <article
             className={`result-quote ${winner ? "winner" : ""}`}
+            data-card-owner={owner}
             key={name}
             style={{ flexGrow: card.front.length + 100 }}
           >

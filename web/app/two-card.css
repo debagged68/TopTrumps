@@ -902,3 +902,73 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* One ownership palette across card faces, opponent previews, reading views and results. */
+[data-card-owner="you"] {
+  --owner-paper: #fff0c7;
+  --owner-line: #c69a3d;
+}
+[data-card-owner="computer"] {
+  --owner-paper: #d7ecff;
+  --owner-line: #568bb5;
+}
+[data-card-owner="friend"] {
+  --owner-paper: #edddff;
+  --owner-line: #9a70bd;
+}
+.card-owner-key {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  padding: 4px 0 6px;
+  margin: 0;
+  min-height: 28px;
+  font-size: 12px;
+  color: #fff8e9;
+}
+.card-owner-key li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-owner-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--owner-paper);
+  border: 1px solid var(--owner-line);
+}
+.card-slot[data-card-owner] .playing-card,
+.result-quote[data-card-owner] {
+  background: var(--owner-paper);
+}
+.card-slot[data-card-owner] .playing-card {
+  border-color: var(--owner-line);
+}
+.card-slot[data-card-owner] .sin-score:not(.winning) {
+  background: color-mix(in srgb, var(--owner-paper) 65%, white);
+}
+.card-slot[data-card-owner] .sin-score:not(.winning):hover {
+  background: color-mix(in srgb, var(--owner-paper) 85%, white);
+}
+.opponent-strip[data-card-owner],
+.reading-dialog[data-card-owner] {
+  background: var(--owner-paper);
+  color: var(--ink);
+  border-color: var(--owner-line);
+}
+.reading-dialog[data-card-owner] .muted {
+  color: #51495c !important;
+}
+.result-quote[data-card-owner]:not(.winner) {
+  border-color: var(--owner-line);
+}
+@media (max-width: 350px) {
+  .card-owner-key {
+    gap: 15px;
+    font-size: 11px;
+  }
+}

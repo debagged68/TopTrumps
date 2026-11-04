@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import CardHand, { OpponentCard } from "../components/CardHand";
 import PackPicker, { DEFAULT_PACKS } from "../components/PackPicker";
+import CardKey from "../components/CardKey";
 import RoundResult from "../components/RoundResult";
 import RoundCelebration from "../components/RoundCelebration";
 import { api, daysLeft, STATUS_TEXT } from "../../lib/challenge-client";
@@ -209,6 +210,7 @@ export default function ChallengeRoom({ id }: { id: string }) {
       }
     >
       <Header />
+      <CardKey />
       {!revealed && (
         <div className="turn-banner" aria-live="polite">
           <button
@@ -251,13 +253,18 @@ export default function ChallengeRoom({ id }: { id: string }) {
         </div>
       )}
       {view.role === "recipient" && choosing && view.opponentFront && (
-        <OpponentCard card={view.opponentFront} name={opponent} />
+        <OpponentCard
+          card={view.opponentFront}
+          name={opponent}
+          owner="friend"
+        />
       )}
       {revealed ? (
         <RoundResult
           yours={view.card}
           theirs={view.opponent}
           opponent={opponent}
+          opponentOwner="friend"
           result={view.result}
         />
       ) : needsHand ? (
@@ -270,6 +277,9 @@ export default function ChallengeRoom({ id }: { id: string }) {
         </section>
       ) : resultCards.length > 0 ? (
         <CardHand
+          owners={
+            view.status === "result_ready" ? ["you", "friend"] : undefined
+          }
           key={id + ":" + view.status}
           cards={resultCards}
           categories={view.categories}

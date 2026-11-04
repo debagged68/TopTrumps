@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Crown, RotateCcw, Send, X } from "lucide-react";
 import { emptyTally, parseTally, recordResult } from "../lib/tally.mjs";
+import CardKey from "./components/CardKey";
 import RoundResult from "./components/RoundResult";
 import RoundCelebration from "./components/RoundCelebration";
 import CardHand, { OpponentCard, ReadingDialog } from "./components/CardHand";
@@ -138,6 +139,7 @@ export default function HomeGame({
           ?
         </button>
       </header>
+      {game && <CardKey />}
       {!game ? (
         <>
           <div className="home-intro">
@@ -227,17 +229,23 @@ export default function HomeGame({
             </div>
           )}
           {game.mode === "second" && !game.committed && game.opponentFront && (
-            <OpponentCard card={game.opponentFront} name="Computer" />
+            <OpponentCard
+              card={game.opponentFront}
+              name="Computer"
+              owner="computer"
+            />
           )}
           {game.done ? (
             <RoundResult
               yours={game.played}
               theirs={game.opponent}
               opponent="Computer"
+              opponentOwner="computer"
               result={result!}
             />
           ) : (
             <CardHand
+              owners={game.committed ? ["you", "computer"] : undefined}
               key={game.roundId + ":" + game.committed + ":" + game.done}
               cards={
                 game.committed

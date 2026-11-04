@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { CHALLENGE_DEFAULTS } from '../lib/challenge-config.mjs';
-import { memoryStore } from '../lib/challenge-store.mjs';
+import { memoryStore, key } from '../lib/challenge-store.mjs';
 import * as svc from '../lib/challenge-service.mjs';
 import { sign, signCompact } from '../lib/capability.mjs';
 import { hashCredential } from '../lib/guest.mjs';
@@ -267,4 +267,45 @@ test('public card preview contains only the locked quote front and cannot claim 
 test('unowned pack requests are rejected on the server',async()=>{
  const w=world();
  assert.equal(await reason(()=>svc.createDraft(w.ctx,null,{nickname:'Ann',idempotencyKey:'packs',packs:['donald','westminster']})),'invalid');
+});
+
+test('friend recency history is per guest, private and idempotent across draft and hand retries',async()=>{
+ const w=world(),d=await startDraft(w),ann=await svc.authenticate(w.ctx,d.sender);
+ const h1=await w.store.get(key.recent(ann.guestId));assert.equal(h1.ids.length,2);
+ await svc.createDraft(w.ctx,d.sender,{nickname:'Ann',idempotencyKey:'k1'});
+ assert.deepEqual(await w.store.get(key.recent(ann.guestId)),h1);
+ const path=await sendInvite(w,d.sender,d.id),acc=await svc.accept(w.ctx,null,d.id,{invite:tokenOf(path),nickname:'Bob'});
+ const bob=await svc.authenticate(w.ctx,acc.issuedCredential);
+ const hands=await Promise.all([svc.dealHand(w.ctx,acc.issuedCredential,d.id,{packs:['donald','donald']}),svc.dealHand(w.ctx,acc.issuedCredential,d.id,{packs:['donald','donald']})]);
+ assert.deepEqual(hands[0].cards,hands[1].cards);
+ const hb=await w.store.get(key.recent(bob.guestId));assert.equal(hb.ids.length,3);
+ assert(hb.ids.includes(hands[0].opponentFront.id));
+ assert.deepEqual(await w.store.get(key.recent(ann.guestId)),h1);
+ assert(!JSON.stringify(hands[0]).includes('RECENT'));assert(!('recentCards' in hands[0]));
+ await svc.respond(w.ctx,acc.issuedCredential,d.id,{card:hands[0].cards[0].id});
+ await svc.reveal(w.ctx,d.sender,d.id);
+ const revealed=await w.store.get(key.recent(ann.guestId));assert(revealed.ids.includes(hands[0].cards[0].id));
+ await svc.reveal(w.ctx,d.sender,d.id);assert.deepEqual(await w.store.get(key.recent(ann.guestId)),revealed);
+});
+test('competing friend drafts cannot overwrite each other’s recent history',async()=>{
+ const w=world(),first=await startDraft(w);
+ const inputs=['second','third'].map(idempotencyKey=>({nickname:'Ann',idempotencyKey}));
+ const results=await Promise.allSettled(inputs.map(input=>svc.createDraft(w.ctx,first.sender,input)));
+ const dealt=[first.view];
+ for(let i=0;i<results.length;i++){
+  if(results[i].status==='fulfilled')dealt.push(results[i].value.view);
+  else {assert.equal(results[i].reason.code,'conflict');dealt.push((await svc.createDraft(w.ctx,first.sender,inputs[i])).view);}
+ }
+ const guest=await svc.authenticate(w.ctx,first.sender);
+ const ids=(await w.store.get(key.recent(guest.guestId))).ids;
+ assert(dealt.every(view=>view.cards.every(c=>ids.includes(c.id))));
+ await svc.cancel(w.ctx,first.sender,first.id);
+ assert.deepEqual((await w.store.get(key.recent(guest.guestId))).ids,ids);
+});
+test('a new friend hand uses stored recency weights rather than uniform card indexes',async()=>{
+ const w=world(),first=await startDraft(w),guest=await svc.authenticate(w.ctx,first.sender);
+ const eligible=dataset.cards.filter(c=>c.status==='candidate');
+ await w.store.touch(key.recent(guest.guestId),{ids:eligible.slice(0,8).map(c=>c.id)});
+ const next=await svc.createDraft({...w.ctx,random:()=>32},first.sender,{nickname:'Ann',idempotencyKey:'weighted'});
+ assert.deepEqual(next.view.cards.map(c=>c.id),[eligible[8].id,eligible[9].id]);
 });

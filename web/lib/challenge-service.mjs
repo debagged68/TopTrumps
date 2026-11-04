@@ -5,7 +5,7 @@
 // ctx = { store, dataset, config, secret: async () => string, now, random? }
 // Functions that may mint a guest return { ..., issuedCredential } for the route to set
 // as the tt_guest cookie; it is undefined when the caller already had a valid guest.
-import { GameError } from "./game.mjs";
+import { GameError, rememberCards } from "./game.mjs";
 import { newGuest, hashCredential, validNickname } from "./guest.mjs";
 import { sign, verify, signCompact, verifyCompact } from "./capability.mjs";
 import { key, op, isId, unwrap } from "./challenge-store.mjs";
@@ -126,7 +126,7 @@ function entryItem(ctx, guestId, record, role) {
 async function mutate(ctx, id, apply) {
   for (let attempt = 0; attempt < 4; attempt++) {
     const record = await loadRecord(ctx, id);
-    const { record: updated, extra = [] } = apply(record);
+    const { record: updated, extra = [] } = await apply(record);
     if (updated === record) return record;
     if (
       await ctx.store.commit([
@@ -143,6 +143,24 @@ function viewFor(ctx, record, guestId) {
   const role = S.roleOf(record, guestId);
   if (!role) throw unavailable();
   return projectChallenge(record, role, ctx.now);
+}
+
+// A versioned per-guest recency record is saved in the same transaction as the deal.
+// Concurrent challenges cannot overwrite history, and retries do not count a deal twice.
+async function recentHistory(ctx, guestId) {
+  const item = await ctx.store.get(key.recent(guestId));
+  return { item, ids: item && ctx.now < item.purgeAt ? (item.ids ?? []) : [] };
+}
+function historyOp(ctx, guestId, history, ids) {
+  const item = {
+    ...key.recent(guestId),
+    ids: rememberCards(history.ids, ids),
+    version: (history.item?.version ?? 0) + 1,
+    purgeAt: guestPurgeAt(ctx),
+  };
+  return history.item
+    ? op.replace(item, history.item.version)
+    : op.create(item);
 }
 
 // ---------- sender ----------
@@ -166,6 +184,7 @@ export async function createDraft(ctx, credential, input) {
     };
   if (input.parentId !== undefined)
     await requireParticipant(ctx, input.parentId, who.guestId);
+  const history = await recentHistory(ctx, who.guestId);
   const record = S.createDraft({
     dataset: ctx.dataset,
     senderId: who.guestId,
@@ -175,9 +194,16 @@ export async function createDraft(ctx, credential, input) {
     random: ctx.random,
     parentId: input.parentId ?? null,
     packs: input.packs,
+    recent: history.ids,
   });
   const saved = await ctx.store.commit([
     ...who.ops,
+    historyOp(
+      ctx,
+      who.guestId,
+      history,
+      record.senderCards.map((card) => card.id),
+    ),
     op.create(challengeItem(ctx, record)),
     op.create(entryItem(ctx, who.guestId, record, "sender")),
     op.create({ ...opKey, challengeId: record.id, purgeAt: guestPurgeAt(ctx) }),
@@ -362,11 +388,13 @@ export async function getChallenge(ctx, credential, id) {
 // transaction as the reveal timestamp, so retries and double taps cannot double count.
 export async function reveal(ctx, credential, id) {
   const guest = await requireGuest(ctx, credential);
-  const record = await mutate(ctx, id, (r) => {
+  const record = await mutate(ctx, id, async (r) => {
     const updated = S.reveal(r, guest.guestId, ctx.now);
     if (updated === r) return { record: r };
     const role = S.roleOf(r, guest.guestId);
     const outcome = outcomeFor(r.result, role);
+    const history = await recentHistory(ctx, guest.guestId);
+    const other = role === "sender" ? r.recipientCard : r.senderCard;
     const award = {
       ...key.award(r.id, guest.guestId),
       role,
@@ -377,6 +405,7 @@ export async function reveal(ctx, credential, id) {
     return {
       record: updated,
       extra: [
+        historyOp(ctx, guest.guestId, history, [other.id]),
         op.create(award),
         op.increment(key.guest(guest.guestId), STAT_FIELD[outcome]),
       ],
@@ -475,16 +504,38 @@ export async function answerRematch(ctx, credential, id, input) {
 }
 export async function dealHand(ctx, credential, id, input) {
   const guest = await requireGuest(ctx, credential);
-  const record = await mutate(ctx, id, (r) => ({
-    record: S.dealHand(
+  const record = await mutate(ctx, id, async (r) => {
+    const history = await recentHistory(ctx, guest.guestId);
+    const recent =
+      r.recipientId === guest.guestId && r.senderCard
+        ? rememberCards(history.ids, [r.senderCard.id])
+        : history.ids;
+    const updated = S.dealHand(
       r,
       guest.guestId,
       ctx.dataset,
       input?.packs,
       ctx.now,
       ctx.random,
-    ),
-  }));
+      recent,
+    );
+    if (updated === r) return { record: r };
+    const cards =
+      S.roleOf(r, guest.guestId) === "sender"
+        ? updated.senderCards
+        : updated.recipientCards;
+    return {
+      record: updated,
+      extra: [
+        historyOp(
+          ctx,
+          guest.guestId,
+          { ...history, ids: recent },
+          cards.map((card) => card.id),
+        ),
+      ],
+    };
+  });
   return viewFor(ctx, record, guest.guestId);
 }
 

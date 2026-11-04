@@ -73,8 +73,11 @@ export function createDraft({
   parentId = null,
   packs,
   deferDeal = false,
+  recent = [],
 }) {
-  const senderCards = deferDeal ? [] : drawHand(dataset, packs, random);
+  const senderCards = deferDeal
+    ? []
+    : drawHand(dataset, packs, random, [], recent);
   const senderCard = senderCards[0] ?? null;
   const recipientCard = null;
   return {
@@ -230,7 +233,15 @@ export function decline(record, guestId, now) {
 }
 
 // Each participant chooses packs once; refresh/retries never produce another hand.
-export function dealHand(record, guestId, dataset, packs, now, random) {
+export function dealHand(
+  record,
+  guestId,
+  dataset,
+  packs,
+  now,
+  random,
+  recent = [],
+) {
   const role = roleOf(record, guestId);
   if (!role) throw unavailable();
   requireLive(record, now);
@@ -250,6 +261,7 @@ export function dealHand(record, guestId, dataset, packs, now, random) {
           .filter(Boolean)
           .map((card) => card.id)
       : [],
+    recent,
   );
   return next(record, {
     [field]: cards,
