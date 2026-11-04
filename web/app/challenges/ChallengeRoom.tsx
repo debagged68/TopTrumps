@@ -26,6 +26,7 @@ import {
   copyText,
   openWhatsApp,
 } from "../../lib/share";
+import { challengeUpdateMessage } from "../../lib/challenge-notifications.mjs";
 import { alertUser, unlockAudio, soundOn, setSound } from "../../lib/alert";
 
 export default function ChallengeRoom({ id }: { id: string }) {
@@ -50,8 +51,11 @@ export default function ChallengeRoom({ id }: { id: string }) {
   const load = useCallback(async () => {
     const r = await api("GET", `/api/challenges/${id}`);
     if (r.ok) {
-      if (lastStatus.current && lastStatus.current !== r.data.status)
-        alertUser("Your challenge has an update");
+      const update = challengeUpdateMessage(
+        lastStatus.current ? { status: lastStatus.current } : null,
+        r.data,
+      );
+      if (update) alertUser(update);
       lastStatus.current = r.data.status;
       setView(r.data);
       setError("");

@@ -90,6 +90,29 @@ function cleanName(value) {
   return name;
 }
 
+function optionalFriendName(value) {
+  return value === undefined || (typeof value === "string" && !value.trim())
+    ? null
+    : cleanName(value);
+}
+// The sender's private label never claims a recipient seat or changes their nickname.
+export async function nameFriend(ctx, credential, id, input) {
+  if (typeof input?.friendName !== "string")
+    throw new GameError("Enter a friend name or an empty label.");
+  const guest = await requireGuest(ctx, credential);
+  const label = optionalFriendName(input?.friendName);
+  const record = await mutate(ctx, id, (r) => {
+    if (S.roleOf(r, guest.guestId) !== "sender") throw unavailable();
+    return {
+      record:
+        r.invitedName === label
+          ? r
+          : { ...r, invitedName: label, version: r.version + 1 },
+    };
+  });
+  return summarizeChallenge(record, "sender", ctx.now);
+}
+
 // ---------- records ----------
 
 async function loadRecord(ctx, id) {
@@ -189,6 +212,7 @@ export async function createDraft(ctx, credential, input) {
     dataset: ctx.dataset,
     senderId: who.guestId,
     senderName: name,
+    invitedName: optionalFriendName(input?.friendName),
     now: ctx.now,
     config: ctx.config,
     random: ctx.random,

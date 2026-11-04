@@ -1031,3 +1031,48 @@
     transition: none;
   }
 }
+.challenge-friend-row {
+  border: 1px solid #617b83;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.friend-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.friend-main > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.friend-main strong {
+  font-size: 21px;
+}
+.friend-avatar {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--owner-paper);
+  color: #192b33;
+  font-weight: 700;
+  font-size: 20px;
+}
+.friend-label-form {
+  padding: 0 14px 14px;
+}
+.friend-label-form > div {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.friend-label-form > small {
+  display: block;
+  margin-top: 8px;
+}
+.challenge-friend-row > button.text-control {
+  margin: 0 6px;
+}
