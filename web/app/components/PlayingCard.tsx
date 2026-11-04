@@ -42,7 +42,7 @@ export default function PlayingCard({ card, tag, categories, flipped, onFlip, he
           <article className="playing-card quote-front" aria-hidden={showBack} inert={showBack}>
             <div className="card-top"><span>{tag}</span><Crown size={17} /><span>{card.label.replace('Donald ', '')}</span></div>
             <div className="portrait"><img src="/trump-art.png" alt="Satirical portrait of Donald Trump with a floating crown" draggable={false} /></div>
-            <blockquote className="quote" tabIndex={showBack ? -1 : 0} aria-label="Complete quote"><p>“{card.front}”</p><cite>Donald Trump</cite></blockquote>
+            <blockquote className="quote" tabIndex={showBack ? -1 : 0} aria-label="Complete quote"><p>“{card.front}”</p><cite>{card.speaker || 'Donald Trump'}</cite></blockquote>
             {corner(false)}
           </article>
           {hasScores && (

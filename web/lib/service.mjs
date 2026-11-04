@@ -17,7 +17,7 @@ export async function transact(store,dataset,id,input,now=Math.floor(Date.now()/
   if(input.action==='deal'){
    if(active&&active.round.stage!=='revealed')return view(active.round);
    // Retries/double taps after replay return the already-created active round.
-   round=deal(dataset,input.mode);
+   round=deal(dataset,input.mode,undefined,input.packs);
   }else if(input.action==='play')round=commit(active.round,input.card,input.category);
   else round=reveal(active.round);
   if(active&&round===active.round)return view(round);

@@ -1,10 +1,10 @@
 # Top Trumps
 
-A political quote card game for mobile browsers. Flip illustrated cards to inspect their sins and scores, play against the computer, and start another round with Play again. Mobile receives one player card; larger computer-play screens retain the two-card hand.
+A political quote card game for mobile browsers. Choose packs, draw two cards, and play one card with a hidden sin against the computer or a friend. Swipe between readable cards, flip to inspect scores, enlarge to read, or compare both cards.
 
-**Status:** the standalone computer game is implemented under `web/` for AWS Amplify. Asynchronous friend challenges are specified for the next implementation stage, not yet built. Invitations will use ordinary user-confirmed sharing through WhatsApp, SMS/iMessage, email or copy link; automated chat gameplay, accounts and payments remain separate future scope.
+**Status:** computer play and asynchronous friend challenges are implemented under `web/` for AWS Amplify. Friend play requires `TOPTRUMPS_CHALLENGES=1` and the existing challenge storage/signing configuration. Donald is included; other packs remain visible and locked, with purchases not yet connected.
 
-Start the friend-challenge implementation with [ASYNC_CHALLENGES.md](docs/ASYNC_CHALLENGES.md): the agreed asynchronous experience, proposed defaults, sharing process, architecture, APIs, privacy and developer acceptance criteria.
+Start with [TWO_CARD_EXPERIENCE.md](docs/TWO_CARD_EXPERIENCE.md) for the current flow, storage compatibility, sharing and verification. [ASYNC_CHALLENGES.md](docs/ASYNC_CHALLENGES.md) remains a historical architecture handoff; its one-card, two-hint and live-only rematch rules are superseded.
 
 See [the complete product requirements](docs/REQUIREMENTS.md) for gameplay, channel journeys, commerce, account linking, administration, technical boundaries and acceptance criteria.
 
