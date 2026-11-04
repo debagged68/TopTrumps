@@ -2,14 +2,17 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import PlayingCard, { CardData } from "./PlayingCard";
+import type { CardOwner } from "./CardKey";
 import SinBadge from "./SinBadge";
 
 export function ReadingDialog({
   title,
   onClose,
   children,
+  owner,
 }: {
   title: string;
+  owner?: CardOwner;
   onClose: () => void;
   children: React.ReactNode;
 }) {
@@ -22,6 +25,7 @@ export function ReadingDialog({
   return (
     <dialog
       ref={dialog}
+      data-card-owner={owner}
       className="reading-dialog"
       onCancel={onClose}
       onClick={(e) => {
@@ -43,12 +47,21 @@ export function ReadingDialog({
     </dialog>
   );
 }
-export function OpponentCard({ card, name }: { card: CardData; name: string }) {
+export function OpponentCard({
+  card,
+  name,
+  owner,
+}: {
+  card: CardData;
+  name: string;
+  owner: "computer" | "friend";
+}) {
   const [open, setOpen] = useState(false);
   return (
     <>
       <button
         className="opponent-strip secondary"
+        data-card-owner={owner}
         onClick={() => setOpen(true)}
       >
         <img src="/trump-art.png" alt="" />
@@ -59,7 +72,11 @@ export function OpponentCard({ card, name }: { card: CardData; name: string }) {
         <span>View</span>
       </button>
       {open && (
-        <ReadingDialog title={`${name}’s card`} onClose={() => setOpen(false)}>
+        <ReadingDialog
+          owner={owner}
+          title={`${name}’s card`}
+          onClose={() => setOpen(false)}
+        >
           <img className="reading-portrait" src="/trump-art.png" alt="" />
           <blockquote>“{card.front}”</blockquote>
           <p>{card.speaker || "Donald Trump"}</p>
@@ -72,6 +89,7 @@ export function OpponentCard({ card, name }: { card: CardData; name: string }) {
 
 type Props = {
   cards: CardData[];
+  owners?: CardOwner[];
   categories: string[];
   onActive?: (card: CardData) => void;
   onPick?: (sin: string) => void;
@@ -83,6 +101,7 @@ type Props = {
 };
 export default function CardHand({
   cards,
+  owners,
   categories,
   onActive,
   onPick,
@@ -181,6 +200,7 @@ export default function CardHand({
           <div className="hand-page" key={card.id}>
             <PlayingCard
               card={card}
+              owner={owners?.[i] ?? "you"}
               tag={tags?.[i] || `YOUR CARD ${i + 1}`}
               categories={categories}
               flipped={!!flipped[card.id]}
@@ -253,6 +273,7 @@ export default function CardHand({
       </div>
       {enlarged && (
         <ReadingDialog
+          owner={owners?.[index] ?? "you"}
           title={tags?.[index] || `Card ${index + 1}`}
           onClose={() => setEnlarged(false)}
         >

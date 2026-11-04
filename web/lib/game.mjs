@@ -1,6 +1,6 @@
 import { randomInt, randomUUID } from "node:crypto";
 import { PACKS } from "./packs.mjs";
-export const RULES_VERSION = "3.0";
+export const RULES_VERSION = "3.1";
 // Player-facing rule violations. Anything else thrown is treated as a server fault.
 export class GameError extends Error {
   constructor(message, status = 400, code = "invalid") {
@@ -50,7 +50,33 @@ export function validatePacks(packs = ["donald", "donald"]) {
     throw new GameError("Choose two available packs.");
   return [...packs];
 }
-export function drawHand(dataset, packs, random = randomInt, excluded = []) {
+// Newest first, bounded and unique. All weights stay positive: recent cards are
+// discouraged rather than banned, so small packs can never become undealable.
+export const RECENT_CARD_LIMIT = 24;
+export function rememberCards(recent = [], ids = []) {
+  return [
+    ...new Set([...ids, ...recent].filter((id) => typeof id === "string")),
+  ].slice(0, RECENT_CARD_LIMIT);
+}
+export function selectWeighted(cards, recent = [], random = randomInt) {
+  const weights = cards.map((card) => {
+    const index = recent.indexOf(card.id);
+    return index < 0 ? 32 : index < 8 ? 1 : index < 16 ? 4 : 8;
+  });
+  let ticket = random(weights.reduce((sum, weight) => sum + weight, 0));
+  for (let i = 0; i < cards.length; i++) {
+    ticket -= weights[i];
+    if (ticket < 0) return cards[i];
+  }
+  throw new Error("Invalid random ticket.");
+}
+export function drawHand(
+  dataset,
+  packs,
+  random = randomInt,
+  excluded = [],
+  recent = [],
+) {
   const nominated = validatePacks(packs);
   const remaining = eligibleCards(dataset).filter(
     (c) => !excluded.includes(c.id),
@@ -59,7 +85,7 @@ export function drawHand(dataset, packs, random = randomInt, excluded = []) {
     const eligible = remaining.filter((c) => (c.packId || "donald") === pack);
     if (!eligible.length)
       throw new GameError("Not enough cards in this pack.", 503);
-    const selected = eligible[random(eligible.length)];
+    const selected = selectWeighted(eligible, recent, random);
     remaining.splice(
       remaining.findIndex((c) => c.id === selected.id),
       1,
@@ -72,15 +98,16 @@ const COMPUTER_OUTCOME = {
   loss: "Computer wins",
   draw: "Draw",
 };
-export function deal(dataset, mode, random = randomInt, packs) {
+export function deal(dataset, mode, random = randomInt, packs, recent = []) {
   if (!["first", "second"].includes(mode))
     throw new GameError("Choose who takes the deal.");
-  const cards = drawHand(dataset, packs, random);
+  const cards = drawHand(dataset, packs, random, [], recent);
   const computerCards = drawHand(
     dataset,
     packs,
     random,
     cards.map((c) => c.id),
+    recent,
   );
   const categories = dataset.categories.map((c) => c.name);
   // A responding computer chooses without access to the player's eventual hidden sin.

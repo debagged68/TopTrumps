@@ -17,6 +17,7 @@ import { DynamoDBDocumentClient, GetCommand, QueryCommand, TransactWriteCommand,
 
 export const key = {
   auth: hash => ({ pk: `AUTH#${hash}`, sk: 'META' }),
+  recent: id => ({ pk: `GUEST#${id}`, sk: 'RECENT' }),
   guest: id => ({ pk: `GUEST#${id}`, sk: 'META' }),
   entry: (guestId, createdAt, challengeId) => ({ pk: `GUEST#${guestId}`, sk: `CH#${String(createdAt).padStart(12, '0')}#${challengeId}` }),
   op: (guestId, name) => ({ pk: `GUEST#${guestId}`, sk: `OP#${name}` }),

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { deal,commit,reveal,view,GameError } from '../lib/game.mjs';
+import { deal,commit,reveal,view,GameError,rememberCards,selectWeighted,drawHand } from '../lib/game.mjs';
 import { transact } from '../lib/service.mjs';
 const dataset=JSON.parse(readFileSync(new URL('../data/donald.json',import.meta.url)));
 function memory(){const records=new Map();return {async read(id){return structuredClone(records.get(id)||null)},async compareAndSet(record,version){if((records.get(record.id)?.version??null)!==version)return false;records.set(record.id,structuredClone(record));return true;}}}
@@ -25,7 +25,7 @@ test('cancel expires a saved round, is idempotent and permits a different new de
  const store=memory(),id='cancel';
  await transact(store,dataset,id,{action:'deal',mode:'first'},1000);
  const results=await Promise.all([transact(store,dataset,id,{action:'cancel'},1001),transact(store,dataset,id,{action:'cancel'},1001)]);
- assert.deepEqual(results,[null,null]);assert.equal((await store.read(id)).expiresAt,1001);
+ assert.deepEqual(results,[null,null]);assert.equal((await store.read(id)).roundExpiresAt,1001);assert((await store.read(id)).expiresAt>1001);
  await assert.rejects(transact(store,dataset,id,{action:'play',card:'ignored',category:'Pride'},1002),/expired/);
  const next=await transact(store,dataset,id,{action:'deal',mode:'second'},1003);
  assert.equal(next.mode,'second');assert.equal(next.cards.length,2);
@@ -47,4 +47,29 @@ test('a replayed round gets a fresh 24h window, not the previous expiry',async()
 test('invalid bodies and rule violations raise GameError, not server faults',async()=>{
  for(const bad of [null,'x',[],42])await assert.rejects(transact(memory(),dataset,'id',bad),e=>e instanceof GameError&&e.status===400);
  await assert.rejects(transact(memory(),dataset,'id',{action:'deal',mode:'bad'}),e=>e instanceof GameError);
+});
+
+test('recency weights reduce repeat odds while every card remains selectable',()=>{
+ const recent=Array.from({length:24},(_,i)=>'r'+i);
+ const candidates=[{id:'r0'},{id:'r8'},{id:'r16'},{id:'new'}];
+ const counts=Object.fromEntries(candidates.map(c=>[c.id,0]));
+ for(let ticket=0;ticket<45;ticket++)counts[selectWeighted(candidates,recent,()=>ticket).id]++;
+ assert.deepEqual(counts,{r0:1,r8:4,r16:8,new:32});
+ const tiny={...dataset,cards:dataset.cards.filter(c=>c.status==='candidate').slice(0,2)};
+ const hand=drawHand(tiny,['donald','donald'],()=>0,[],tiny.cards.map(c=>c.id));
+ assert.equal(new Set(hand.map(c=>c.id)).size,2);
+});
+test('recent history is bounded and unique, and survives cancel, restore and retries',async()=>{
+ assert.deepEqual(rememberCards(['b','a','c'],['a','d']),['a','d','b','c']);
+ assert.equal(rememberCards([],Array.from({length:50},(_,i)=>String(i))).length,24);
+ const store=memory(),id='recency';const d=await transact(store,dataset,id,{action:'deal',mode:'first'},1000);
+ const before=await store.read(id);assert.equal(before.recentCards.length,3);
+ await transact(store,dataset,id,{action:'deal',mode:'first'},1001);
+ assert.deepEqual((await store.read(id)).recentCards,before.recentCards);
+ await transact(store,dataset,id,{action:'cancel'},1002);
+ const cancelled=await store.read(id);assert.deepEqual(cancelled.recentCards,before.recentCards);
+ const next=await transact(store,dataset,id,{action:'deal',mode:'first'},1003);
+ assert.equal(next.cards.length,2);const saved=await store.read(id);
+ assert(before.recentCards.every(card=>saved.recentCards.includes(card)));
+ assert(!('recentCards' in view(saved.round)));
 });
