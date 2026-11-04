@@ -1,5 +1,7 @@
 # Asynchronous friend challenges — developer implementation handoff
 
+> Historical handoff. For the implementation as of 4 November 2026, see [TWO_CARD_EXPERIENCE.md](TWO_CARD_EXPERIENCE.md). Two-card hands, quote-front sharing, no sin hints and asynchronous first-request rematches supersede the rules below.
+
 Version 1.0 · 2 November 2026 · **Specification only; not implemented**
 
 This document is the canonical experience, process and solution for adding human challenges to the current AWS web game. The owner explicitly wants to send a card and let another person respond later. Nobody has to remain online. WhatsApp, SMS/iMessage, email and copied links are delivery channels for the same saved challenge; gameplay stays in the browser.

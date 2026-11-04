@@ -126,3 +126,12 @@ export type IdParams = { params: Promise<{ id: string }> };
 export function withId(make: (id: string) => Handler, options?: Parameters<typeof handle>[1]) {
   return async (req: NextRequest, { params }: IdParams) => handle(make((await params).id), options)(req);
 }
+
+// Crawler reads do not consume an invitation or create a guest.
+export async function publicCardPreview(id: string) {
+ if (!challengesEnabled()) return null;
+ try {
+  const { publicCard } = await import('./challenge-service.mjs');
+  return await publicCard({store:store(),config:challengeConfig(),now:Math.floor(Date.now()/1000)},id);
+ } catch { return null; }
+}

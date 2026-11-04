@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { GameError } from '../lib/game.mjs';
+import { GameError, drawHand } from '../lib/game.mjs';
 import { CHALLENGE_DEFAULTS, challengeConfig } from '../lib/challenge-config.mjs';
-import { drawPair, pickHints, resolve, outcomeFor } from '../lib/challenge-rules.mjs';
+import { resolve, outcomeFor } from '../lib/challenge-rules.mjs';
 import * as S from '../lib/challenge-state.mjs';
 import { projectChallenge, summarizeChallenge } from '../lib/challenge-view.mjs';
 
@@ -12,7 +12,7 @@ const config = CHALLENGE_DEFAULTS;
 const T0 = 1_000_000;
 const draft = (now = T0) => S.createDraft({ dataset, senderId: 'A', senderName: 'Ann', now, config });
 const opened = (cat = 'Wrath') => S.lock(draft(), 'A', cat, T0 + 1, config);
-const accepted = () => S.accept(opened(), 'B', 'Bob', T0 + 2);
+const accepted = () => S.dealHand(S.accept(opened(), 'B', 'Bob', T0 + 2), 'B', dataset, ['donald','donald'], T0 + 2);
 const responded = () => { const a = accepted(); return S.respond(a, 'B', a.recipientCard.id, T0 + 3); };
 const code = fn => { try { fn(); } catch (e) { return e.code; } return null; };
 
@@ -23,22 +23,20 @@ test('config defaults and overrides', () => {
   assert.throws(() => challengeConfig({ TOPTRUMPS_CHALLENGE_RESULT_DAYS: 'abc' }));
 });
 
-test('drawPair gives two distinct eligible cards and fails closed on a tiny deck', () => {
-  for (let i = 0; i < 50; i++) {
-    const { senderCard, recipientCard } = drawPair(dataset);
-    assert.notEqual(senderCard.id, recipientCard.id);
-    assert.equal(dataset.cards.find(c => c.id === senderCard.id).status, 'candidate');
-  }
-  const tiny = { ...dataset, cards: dataset.cards.slice(0, 1) };
-  assert.equal(code(() => drawPair(tiny)), 'unavailable');
+test('two-card hands are distinct, eligible and cannot draw from locked packs',()=>{
+ for(let i=0;i<50;i++){
+  const cards=drawHand(dataset,['donald','donald']);
+  assert.equal(new Set(cards.map(c=>c.id)).size,2);
+  assert(cards.every(c=>dataset.cards.find(x=>x.id===c.id).status==='candidate'));
+ }
+ assert.throws(()=>drawHand({...dataset,cards:dataset.cards.slice(0,1)},['donald','donald']));
+ assert.throws(()=>drawHand(dataset,['donald','westminster']));
 });
-
-test('hints keep a low-ranked chosen sin, are canonical, and decoy ties follow deck order', () => {
-  const cats = dataset.categories.map(c => c.name);
-  const card = { scores: { Pride: 90, Greed: 80, Lust: 10, Envy: 80, Wrath: 5, Stupidity: 1 } };
-  assert.deepEqual(pickHints(card, 'Stupidity', cats), ['Pride', 'Stupidity']);
-  assert.deepEqual(pickHints(card, 'Pride', cats), ['Pride', 'Greed']); // Greed/Envy tie -> Greed
-  assert.equal(code(() => pickHints(card, 'Nope', cats)), 'invalid');
+test('a dealer can choose a low-ranked sin but no hints are returned',()=>{
+ const d=draft(),o=S.lock(d,'A','Stupidity',T0+1,config,d.senderCards[1].id);
+ assert.equal(o.senderCard.id,d.senderCards[1].id);
+ assert.equal(o.chosen,'Stupidity');assert.equal(o.hints,null);
+ assert.throws(()=>S.lock(d,'A','Nope',T0+1,config,d.senderCards[0].id));
 });
 
 test('resolve is viewer-neutral and outcomes are role-aware, including draws', () => {
@@ -58,8 +56,9 @@ test('happy path draft -> lock -> accept -> respond -> reveals', () => {
   const o = S.lock(d, 'A', 'Wrath', T0 + 1, config);
   assert.equal(o.state, 'open');
   assert.equal(o.deadline, T0 + 1 + config.inviteSeconds);
-  assert(o.hints.includes('Wrath') && o.hints.length === 2);
-  const a = S.accept(o, 'B', 'Bob', T0 + 2);
+  assert.equal(o.hints,null);
+  assert.equal(o.senderCards.length,2);
+  const a = S.dealHand(S.accept(o, 'B', 'Bob', T0 + 2), 'B', dataset, ['donald','donald'], T0 + 2);
   assert.equal(a.state, 'accepted');
   const r = S.respond(a, 'B', a.recipientCard.id, T0 + 3);
   assert.equal(r.state, 'responded');
@@ -136,20 +135,22 @@ test('disclosure matrix: sender before acceptance sees own card and sin only', (
   const v = projectChallenge(o, 'sender', T0 + 2);
   assert.equal(v.chosen, 'Wrath');
   assert.equal(v.card.id, o.senderCard.id);
-  assert(!flat(v).includes(o.recipientCard.id));
+  assert(!('recipientCards' in v));
+  assert.equal(o.recipientCard,null);
   assert(!('opponent' in v) && !('opponentFront' in v) && !('result' in v));
   const dv = projectChallenge(draft(), 'sender', T0 + 1);
   assert(!('chosen' in dv) && !('hints' in dv));
 });
 
-test('disclosure matrix: accepted recipient sees own card and two sins, never the locked one', () => {
+test('disclosure matrix: accepted recipient sees two own cards and opponent quote without any sin hint', () => {
   const a = accepted();
   const v = projectChallenge(a, 'recipient', T0 + 3);
   assert.equal(v.card.id, a.recipientCard.id);
   assert(!('chosen' in v));
-  assert.equal(v.hints.length, 2);
-  assert(!flat(v).includes(a.senderCard.id));
-  assert(!flat(v).includes(a.senderCard.front));
+  assert(!('hints' in v));
+  assert.equal(v.cards.length,2);
+  assert.equal(v.opponentFront.front,a.senderCard.front);
+  assert(!('scores' in v.opponentFront));
   assert.equal(v.status, 'your_turn');
   assert.equal(projectChallenge(a, 'sender', T0 + 3).status, 'accepted');
 });
@@ -162,7 +163,8 @@ test('disclosure matrix: after response, before reveal, only the other card fron
     assert.deepEqual(Object.keys(v.opponentFront).sort(), ['front', 'id', 'label', 'speaker']);
     assert.equal(v.opponentFront.front, other.front);
     assert(!('result' in v) && !('opponent' in v));
-    assert(!flat(v).includes(JSON.stringify(other.scores)));
+    assert(!v.cards.some(c=>c.id===other.id));
+    assert(!('scores' in v.opponentFront));
     assert.equal(v.status, 'result_ready');
   }
   assert('chosen' in projectChallenge(r, 'sender', T0 + 4) && !('chosen' in projectChallenge(r, 'recipient', T0 + 4)));
@@ -205,4 +207,13 @@ test('summaries hide the outcome until the viewer reveals', () => {
   assert.equal(summarizeChallenge(opened(), 'sender', T0 + 2).status, 'awaiting_reply');
   const o = opened();
   assert.equal(summarizeChallenge(o, 'sender', o.deadline).status, 'expired');
+});
+
+test('legacy one-card challenges can still respond and reveal without a redraw',()=>{
+ const a=accepted();const old={...a};delete old.handVersion;delete old.senderCards;delete old.recipientCards;
+ const original=old.recipientCard.id;
+ assert.equal(S.dealHand(old,'B',dataset,['donald','donald'],T0+3),old);
+ const r=S.respond(old,'B',original,T0+4);
+ const v=projectChallenge(S.reveal(r,'B',T0+5),'recipient',T0+5);
+ assert.equal(v.card.id,original);assert.equal(v.cards.length,1);assert(v.result);
 });

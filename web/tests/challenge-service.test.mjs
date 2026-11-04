@@ -39,7 +39,10 @@ test('full flow: draft, lock, invite, accept, respond, reveal both sides with on
   const acc = await svc.accept(w.ctx, null, d.id, { invite: tokenOf(path), nickname: 'Bob' });
   assert(acc.issuedCredential, 'a new guest is issued a credential');
   assert.equal(acc.view.role, 'recipient');
-  const cardId = acc.view.card.id;
+  assert.equal(acc.view.card,null);
+  assert.deepEqual(acc.view.cards,[]);
+  const hand = await svc.dealHand(w.ctx,acc.issuedCredential,d.id,{packs:['donald','donald']});
+  const cardId = hand.cards[1].id;
   const resp = await svc.respond(w.ctx, acc.issuedCredential, d.id, { card: cardId });
   assert.equal(resp.status, 'result_ready');
   assert(!('result' in resp));
@@ -63,7 +66,8 @@ test('a GET or inspection never claims a seat; accepting twice returns the same 
   const insp = await svc.inspectInvitation(w.ctx, null, d.id, { invite: tokenOf(path) });
   assert.equal(insp.availability, 'available');
   assert.equal(insp.senderName, 'Ann');
-  assert(!('card' in insp));
+  assert.equal(typeof insp.card.front,'string');
+  assert(!('scores' in insp.card));
   assert.equal((await svc.getChallenge(w.ctx, null, d.id).catch(e => e.code)), 'unavailable');
   const first = await svc.accept(w.ctx, null, d.id, { invite: tokenOf(path), nickname: 'Bob' });
   const again = await svc.accept(w.ctx, first.issuedCredential, d.id, { invite: tokenOf(path), nickname: 'Bob' });
@@ -173,80 +177,42 @@ async function finished(w) {
   const d = await startDraft(w);
   const path = await sendInvite(w, d.sender, d.id);
   const acc = await svc.accept(w.ctx, null, d.id, { invite: tokenOf(path), nickname: 'Bob' });
-  await svc.respond(w.ctx, acc.issuedCredential, d.id, { card: acc.view.card.id });
+  const hand=await svc.dealHand(w.ctx,acc.issuedCredential,d.id,{packs:['donald','donald']});
+  await svc.respond(w.ctx, acc.issuedCredential, d.id, { card: hand.cards[1].id });
   return { id: d.id, ann: d.sender, bob: acc.issuedCredential };
 }
 
-test('challenge back needs both players present and seats the accepter without a link', async () => {
-  const w = world();
-  const f = await finished(w);
-  // Bob is not on the page: a request is refused.
-  assert.equal(await reason(() => svc.requestRematch(w.ctx, f.ann, f.id)), 'opponent_left');
-  await svc.livePing(w.ctx, f.bob, f.id);
-  const asked = await svc.requestRematch(w.ctx, f.ann, f.id);
-  assert.deepEqual(asked.rematch, { from: 'you', state: 'pending' });
-  const bobSees = await svc.livePing(w.ctx, f.bob, f.id);
-  assert.deepEqual(bobSees.rematch, { from: 'them', state: 'pending' });
-  const done = await svc.answerRematch(w.ctx, f.bob, f.id, { accept: true });
-  assert.equal(done.rematch.state, 'accepted');
-  const next = done.rematch.challengeId;
-  // Ann is the sender of the new challenge; Bob is already seated and waits for her lock.
-  const annView = await svc.getChallenge(w.ctx, f.ann, next);
-  assert.equal(annView.role, 'sender'); assert.equal(annView.status, 'draft'); assert.equal(annView.opponentName, 'Bob');
-  const bobView = await svc.getChallenge(w.ctx, f.bob, next);
-  assert.equal(bobView.role, 'recipient'); assert.equal(bobView.status, 'waiting_for_sender');
-  assert(!('chosen' in bobView));
-  // Locking goes straight to Bob's turn: no invitation, no accept step.
-  await svc.lock(w.ctx, f.ann, next, { category: 'Pride' });
-  const turn = await svc.getChallenge(w.ctx, f.bob, next);
-  assert.equal(turn.status, 'your_turn'); assert.equal(turn.hints.length, 2); assert(!('chosen' in turn));
-  assert.equal(await reason(() => svc.invitation(w.ctx, f.ann, next)), 'not_shareable');
-  // Both players' lists include it, and only one rematch can be made.
-  assert((await svc.list(w.ctx, f.bob)).challenges.some(c => c.id === next));
-  assert.equal((await svc.answerRematch(w.ctx, f.bob, f.id, { accept: true })).rematch.challengeId, next);
+test('first request reserves next deal with the opponent offline; both can resume it later',async()=>{
+ const w=world(),f=await finished(w);
+ const asked=await svc.requestRematch(w.ctx,f.ann,f.id);
+ assert.equal(asked.rematch.state,'accepted');
+ const id=asked.rematch.challengeId;
+ const ann=await svc.getChallenge(w.ctx,f.ann,id),bob=await svc.getChallenge(w.ctx,f.bob,id);
+ assert.equal(ann.status,'draft');assert.equal(bob.status,'waiting_for_sender');
+ assert.deepEqual(ann.cards,[]);assert.deepEqual(bob.cards,[]);
+ const hand=await svc.dealHand(w.ctx,f.ann,id,{packs:['donald','donald']});
+ assert.equal(hand.cards.length,2);
+ await svc.lock(w.ctx,f.ann,id,{category:'Pride',card:hand.cards[1].id});
+ const turn=await svc.getChallenge(w.ctx,f.bob,id);
+ assert.equal(turn.status,'your_turn');assert(!('hints' in turn));assert(!('chosen' in turn));
+ const later=w.at(T0+3600);
+ assert.equal((await svc.requestRematch(later,f.bob,f.id)).rematch.challengeId,id);
+ assert.equal((await svc.livePing(later,f.bob,f.id)).rematch.from,'them');
+ assert.equal(await reason(()=>svc.invitation(w.ctx,f.ann,id)),'not_shareable');
 });
-
-test('a request lapses when either player leaves, and can be declined', async () => {
-  const w = world();
-  const f = await finished(w);
-  await svc.livePing(w.ctx, f.bob, f.id);
-  await svc.requestRematch(w.ctx, f.ann, f.id);
-  // Bob stops sending heartbeats (closed the page); Ann keeps hers.
-  const later = w.at(T0 + svc.LIVE.presentSeconds + 1);
-  await svc.livePing(later, f.ann, f.id);
-  assert.equal((await svc.livePing(later, f.ann, f.id)).rematch.state, 'lapsed');
-  assert.equal(await reason(() => svc.answerRematch(later, f.bob, f.id, { accept: true })), 'lapsed');
-  // Both back on the page: a fresh request works and Bob can say no.
-  await svc.livePing(later, f.bob, f.id);
-  await svc.requestRematch(later, f.ann, f.id);
-  const no = await svc.answerRematch(later, f.bob, f.id, { accept: false });
-  assert.equal(no.rematch.state, 'declined');
-  assert.equal((await svc.livePing(later, f.ann, f.id)).rematch.state, 'declined');
-  // Ann may ask again after a refusal.
-  assert.equal((await svc.requestRematch(later, f.ann, f.id)).rematch.state, 'pending');
+test('simultaneous Take the deal requests create one rematch, with one dealer',async()=>{
+ const w=world(),f=await finished(w);
+ const [a,b]=await Promise.all([svc.requestRematch(w.ctx,f.ann,f.id),svc.requestRematch(w.ctx,f.bob,f.id)]);
+ assert.equal(a.rematch.challengeId,b.rematch.challengeId);
+ assert.notEqual(a.rematch.from,b.rematch.from);
+ assert.equal((await svc.list(w.ctx,f.ann)).challenges.filter(c=>c.id!==f.id).length,1);
 });
-
-test('if both press challenge back, the second joins the first instead of making two', async () => {
-  const w = world();
-  const f = await finished(w);
-  await svc.livePing(w.ctx, f.ann, f.id);
-  await svc.livePing(w.ctx, f.bob, f.id);
-  await svc.requestRematch(w.ctx, f.ann, f.id);
-  const bob = await svc.requestRematch(w.ctx, f.bob, f.id);
-  assert.equal(bob.rematch.state, 'accepted');
-  const lists = (await svc.list(w.ctx, f.ann)).challenges.filter(c => c.id !== f.id);
-  assert.equal(lists.length, 1);
-  assert.equal(await reason(() => svc.answerRematch(w.ctx, f.ann, f.id, { accept: true })), 'no_request');
-});
-
-test('challenge back is only for the two players and only after the result', async () => {
-  const w = world();
-  const d = await startDraft(w);
-  assert.equal(await reason(() => svc.livePing(w.ctx, d.sender, d.id)), 'not_ready');
-  const f = await finished(w);
-  const stranger = (await startDraft(w, 'Eve', 'eve')).sender;
-  assert.equal(await reason(() => svc.livePing(w.ctx, stranger, f.id)), 'unavailable');
-  assert.equal(await reason(() => svc.requestRematch(w.ctx, null, f.id)), 'unavailable');
+test('rematches require a finished challenge and participant credentials',async()=>{
+ const w=world(),d=await startDraft(w);
+ assert.notEqual(await reason(()=>svc.requestRematch(w.ctx,d.sender,d.id)),null);
+ const f=await finished(w),stranger=(await startDraft(w,'Eve','eve')).sender;
+ assert.equal(await reason(()=>svc.requestRematch(w.ctx,stranger,f.id)),'unavailable');
+ assert.equal(await reason(()=>svc.livePing(w.ctx,null,f.id)),'unavailable');
 });
 
 test('invite links are short: /c/<id>#<22-char key>, and older long links still work', async () => {
@@ -273,4 +239,32 @@ test('short keys are bound to one challenge and expire with it', async () => {
   const late = w.at(T0 + CHALLENGE_DEFAULTS.inviteSeconds + 10);
   assert.notEqual(await reason(() => svc.accept(late, null, a.id, { invite: tokenOf(pathA), nickname: 'Bob' })), null);
   assert.notEqual((await svc.inspectInvitation(late, null, a.id, { invite: tokenOf(pathA) }).catch(() => ({ availability: 'gone' }))).availability, 'available');
+});
+
+test('hand draws and card locks are pinned across concurrent requests and refresh',async()=>{
+ const w=world(),d=await startDraft(w),path=await sendInvite(w,d.sender,d.id);
+ const acc=await svc.accept(w.ctx,null,d.id,{invite:tokenOf(path),nickname:'Bob'});
+ const hands=await Promise.all(Array.from({length:4},()=>svc.dealHand(w.ctx,acc.issuedCredential,d.id,{packs:['donald','donald']})));
+ for(const h of hands)assert.deepEqual(h.cards,hands[0].cards);
+ assert.equal(new Set(hands[0].cards.map(c=>c.id)).size,2);
+ assert(hands[0].cards.every(c=>c.id!==hands[0].opponentFront.id));
+ const replies=await Promise.all(hands[0].cards.map(c=>svc.respond(w.ctx,acc.issuedCredential,d.id,{card:c.id,category:'Greed'})));
+ assert.deepEqual(replies[0],replies[1]);
+ const result=await svc.reveal(w.ctx,acc.issuedCredential,d.id);
+ assert.equal(result.result.category,'Wrath');
+});
+test('public card preview contains only the locked quote front and cannot claim a seat',async()=>{
+ const w=world(),d=await startDraft(w);
+ assert.equal(await reason(()=>svc.publicCard(w.ctx,d.id)),'unavailable');
+ await svc.lock(w.ctx,d.sender,d.id,{card:d.view.cards[1].id,category:'Pride'});
+ const front=await svc.publicCard(w.ctx,d.id);
+ assert.equal(front.id,d.view.cards[1].id);
+ assert.deepEqual(Object.keys(front).sort(),['front','id','label','speaker']);
+ assert.equal((await svc.getChallenge(w.ctx,d.sender,d.id)).status,'awaiting_reply');
+ await svc.cancel(w.ctx,d.sender,d.id);
+ assert.equal(await reason(()=>svc.publicCard(w.ctx,d.id)),'unavailable');
+});
+test('unowned pack requests are rejected on the server',async()=>{
+ const w=world();
+ assert.equal(await reason(()=>svc.createDraft(w.ctx,null,{nickname:'Ann',idempotencyKey:'packs',packs:['donald','westminster']})),'invalid');
 });
