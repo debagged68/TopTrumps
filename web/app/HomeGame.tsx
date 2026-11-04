@@ -144,11 +144,7 @@ export default function HomeGame({
         <>
           <div className="home-intro">
             <p className="eyebrow">TWO CARDS. SIX SINS. YOUR MOVE.</p>
-            <h1>
-              Pick your words.
-              <br />
-              Hide your sin.
-            </h1>
+            <h1 className="sr-only">Top Trumps</h1>
             <p>Draw two cards. Choose your strongest challenge.</p>
           </div>
           <div className="opponent-options" aria-label="Choose opponent">

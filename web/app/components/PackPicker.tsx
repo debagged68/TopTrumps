@@ -1,5 +1,5 @@
 "use client";
-import { Crown, Landmark, Lock, Tv } from "lucide-react";
+import { Lock } from "lucide-react";
 import { PACKS } from "../../lib/packs";
 export const DEFAULT_PACKS = ["donald", "donald"];
 export default function PackPicker({
@@ -19,22 +19,17 @@ export default function PackPicker({
         <p>One random card per slot. Use the same pack twice.</p>
       </div>
       <div className="pack-grid">
-        {PACKS.map((p, i) => {
+        {PACKS.map((p) => {
           const slots = value
             .map((id, index) => (id === p.id ? index + 1 : 0))
             .filter(Boolean);
-          const Icon = i === 2 ? Landmark : i === 3 ? Tv : Crown;
           return (
             <div
               className={"pack-tile " + (!p.owned ? "locked" : "owned")}
               key={p.id}
             >
               <div className={"pack-cover pack-cover-" + p.id}>
-                {i < 2 ? (
-                  <img src="/trump-art.png" alt="" />
-                ) : (
-                  <Icon aria-hidden="true" />
-                )}
+                <img src={p.art} alt="" loading="lazy" decoding="async" />
                 <span>{p.short}</span>
                 {!p.owned && <Lock className="pack-lock" size={20} />}
               </div>

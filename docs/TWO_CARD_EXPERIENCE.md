@@ -4,7 +4,7 @@ Implemented 4 November 2026. This replaces the one-card flow and the live-only r
 
 ## Journey
 
-- Home offers computer play and friend challenges. All four packs are visible. Donald is included; the other packs remain grey and marked Coming soon because payments and their content are not available.
+- The former “Pick your words. Hide your sin.” headline is removed. Home offers computer play and friend challenges. All four packs are visible with matching cover artwork. Donald is included; the other packs remain grey and marked Coming soon because payments and their content are not available.
 - Two pack slots nominate one card each. The same owned pack can fill both. With Donald alone, two distinct random Donald cards are drawn.
 - Ownership colours are consistent across card fronts/reverses, opponent previews, enlarged reading and results: You = warm cream, Computer = pale blue, Friend = pale purple. The three-label colour key sits above play and result screens; text labels remain visible.
 - Both modes use one shared card-hand component: horizontal snap scrolling, navigation buttons/dots, card flip, enlarged reading dialog and score comparison table.
