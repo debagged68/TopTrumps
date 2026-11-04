@@ -662,3 +662,243 @@
   min-height: 32px;
   padding: 5px;
 }
+
+/* The reveal is one page: verdict, deciding scores and both quotes together. */
+.game-screen.round-result-mode {
+  height: 100dvh;
+  min-height: 0;
+}
+.round-result {
+  flex: 1;
+  min-height: 0;
+  width: min(100%, 760px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0 8px;
+}
+.result-verdict {
+  text-align: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.result-verdict > svg {
+  width: 25px;
+  height: 25px;
+  color: var(--gold);
+}
+.result-verdict h1 {
+  margin: 0;
+  font:
+    800 clamp(36px, 6dvh, 56px) / 1 Arial,
+    sans-serif;
+  letter-spacing: 5px;
+  color: #81edb5;
+}
+.round-result.loss .result-verdict h1,
+.round-result.loss .result-verdict > svg {
+  color: #ffa18e;
+}
+.round-result.draw .result-verdict h1 {
+  color: var(--gold);
+}
+.result-verdict p {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.result-scoreboard {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr 20px 1fr;
+  gap: 5px 10px;
+  align-items: center;
+  background: #112d39;
+  border: 1px solid #7c9298;
+  border-radius: 12px;
+  padding: 9px 14px;
+}
+.result-sin {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #617b83;
+}
+.result-sin .sin-badge {
+  font-size: 18px;
+  font-weight: 700;
+}
+.result-sin > span:last-child {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.result-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.result-score > span {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.result-score strong {
+  font-size: 32px;
+  font-variant-numeric: tabular-nums;
+}
+.result-score.winner {
+  background: #14653f;
+  color: #fff;
+}
+.result-versus {
+  color: var(--muted);
+  text-align: center;
+  font:
+    italic 18px Georgia,
+    serif;
+}
+.result-quotes {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 10px;
+}
+.result-quote {
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid #cca453;
+  border-radius: 12px;
+  padding: 10px 13px;
+}
+.result-quote.winner {
+  border-color: #69e6a8;
+}
+.result-quote-label {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-bottom: 6px;
+  font-size: 12px;
+}
+.result-quote-label > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #14653f;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.result-quote blockquote {
+  margin: 0;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  font:
+    18px/1.35 Georgia,
+    serif;
+  overflow-wrap: anywhere;
+}
+.result-quote cite {
+  display: block;
+  padding-top: 6px;
+  font:
+    11px/1.2 Arial,
+    sans-serif;
+  color: #514838;
+}
+.round-result-mode .primary-actions {
+  min-height: 54px;
+}
+@media (min-width: 700px) {
+  .result-quotes {
+    flex-direction: row;
+  }
+  .result-quote {
+    padding: 18px;
+  }
+  .result-quote blockquote {
+    font-size: 23px;
+  }
+}
+@media (max-height: 700px) {
+  .round-result {
+    gap: 7px;
+  }
+  .result-verdict > svg {
+    display: none;
+  }
+  .result-verdict h1 {
+    font-size: 34px;
+  }
+  .result-verdict p {
+    margin-top: 3px;
+  }
+  .result-scoreboard {
+    padding: 6px 10px;
+  }
+  .result-score strong {
+    font-size: 27px;
+  }
+  .result-quote blockquote {
+    font-size: 16px;
+  }
+  .result-quotes {
+    gap: 7px;
+  }
+  .result-quote {
+    padding: 8px 11px;
+  }
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .round-result {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 7px 12px;
+  }
+  .result-verdict {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .result-scoreboard {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+  }
+  .result-sin {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .result-score {
+    padding: 3px;
+    flex-direction: column;
+  }
+  .result-quotes {
+    grid-column: 2;
+    grid-row: 1/-1;
+    flex-direction: row;
+  }
+  .result-quote blockquote {
+    font-size: 17px;
+  }
+}
+.result-score > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

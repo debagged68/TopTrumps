@@ -75,3 +75,7 @@ const image=await fetch(base+`/api/challenges/${id}/image`);
 check(image.status===200&&image.headers.get('content-type')?.includes('image/png'),'actual challenge card image renders');
 const preview=await (await fetch(base+`/c/${id}`)).text();
 check(preview.includes(`/api/challenges/${id}/image`),'invitation has card-specific image metadata');
+
+check(preview.includes('property="og:title" content="Click to play"'), 'preview call to action is Click to play');
+const description = preview.match(/property="og:description" content="([^"]*)"/);
+check(!description || !description[1], 'preview does not repeat the quote below the image');

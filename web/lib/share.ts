@@ -2,8 +2,9 @@
 // Nothing here sends a message on the user's behalf.
 export type ShareOutcome = "shared" | "copied" | "cancelled" | "failed";
 
-export function inviteText(senderName: string, url: string, quote?: string) {
-  return `👑 ${senderName} challenges you.${quote ? `\n“${quote}”` : ""}\nWhich sin have I chosen? Pick your response:\n${url}`;
+// The quote is already on the shared image/preview; keep its caption short.
+export function inviteText(url: string) {
+  return `Click to play\n${url}`;
 }
 
 // A nudge goes to someone who is already in the game, so the plain challenge page is enough.

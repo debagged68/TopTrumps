@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Crown, RotateCcw, Send, X } from "lucide-react";
 import { emptyTally, parseTally, recordResult } from "../lib/tally.mjs";
+import RoundResult from "./components/RoundResult";
 import RoundCelebration from "./components/RoundCelebration";
 import CardHand, { OpponentCard, ReadingDialog } from "./components/CardHand";
 import PackPicker, { DEFAULT_PACKS } from "./components/PackPicker";
@@ -102,7 +103,11 @@ export default function HomeGame({
     : undefined;
   return (
     <main
-      className={game ? "game-screen two-card-game" : "home-screen new-home"}
+      className={
+        game
+          ? `game-screen two-card-game ${game.done ? "round-result-mode" : ""}`
+          : "home-screen new-home"
+      }
     >
       <header>
         <div className="brand-group">
@@ -190,63 +195,74 @@ export default function HomeGame({
         </>
       ) : (
         <>
-          <div className="turn-banner" aria-live="polite">
-            {game.done ? (
-              <>
-                <strong>{game.result.outcome}</strong>
-                <span>
-                  {game.result.category}: {game.result.yours}–
-                  {game.result.theirs}
-                </span>
-              </>
-            ) : game.committed ? (
-              <>
-                <strong>The cards are locked.</strong>
-                <span>Reveal the sin and see who wins.</span>
-              </>
-            ) : (
-              <>
-                <strong>
-                  {game.mode === "first"
-                    ? "You have the deal"
-                    : "Computer has the deal"}
-                </strong>
-                <span>
-                  {game.mode === "first"
-                    ? "Choose one card and a sin."
-                    : "Read its quote. Which sin has it chosen?"}
-                </span>
-              </>
-            )}
-          </div>
+          {!game.done && (
+            <div className="turn-banner" aria-live="polite">
+              {game.done ? (
+                <>
+                  <strong>{game.result.outcome}</strong>
+                  <span>
+                    {game.result.category}: {game.result.yours}–
+                    {game.result.theirs}
+                  </span>
+                </>
+              ) : game.committed ? (
+                <>
+                  <strong>The cards are locked.</strong>
+                  <span>Reveal the sin and see who wins.</span>
+                </>
+              ) : (
+                <>
+                  <strong>
+                    {game.mode === "first"
+                      ? "You have the deal"
+                      : "Computer has the deal"}
+                  </strong>
+                  <span>
+                    {game.mode === "first"
+                      ? "Choose one card and a sin."
+                      : "Read its quote. Which sin has it chosen?"}
+                  </span>
+                </>
+              )}
+            </div>
+          )}
           {game.mode === "second" && !game.committed && game.opponentFront && (
             <OpponentCard card={game.opponentFront} name="Computer" />
           )}
-          <CardHand
-            key={game.roundId + ":" + game.committed + ":" + game.done}
-            cards={
-              game.committed
-                ? [game.played, game.opponent || game.opponentFront]
-                : game.cards
-            }
-            categories={game.categories}
-            disabled={busy}
-            onActive={(c) => {
-              setSelected(c);
-              setPicked("");
-            }}
-            onPick={
-              !game.committed && game.mode === "first" ? setPicked : undefined
-            }
-            picked={picked}
-            heading={
-              !game.committed && game.mode === "first"
-                ? "Choose your sin"
-                : "Sins & scores"
-            }
-            result={result}
-            tags={game.committed ? ["Your card", "Computer"] : undefined}
-          />
+          {game.done ? (
+            <RoundResult
+              yours={game.played}
+              theirs={game.opponent}
+              opponent="Computer"
+              result={result!}
+            />
+          ) : (
+            <CardHand
+              key={game.roundId + ":" + game.committed + ":" + game.done}
+              cards={
+                game.committed
+                  ? [game.played, game.opponent || game.opponentFront]
+                  : game.cards
+              }
+              categories={game.categories}
+              disabled={busy}
+              onActive={(c) => {
+                setSelected(c);
+                setPicked("");
+              }}
+              onPick={
+                !game.committed && game.mode === "first" ? setPicked : undefined
+              }
+              picked={picked}
+              heading={
+                !game.committed && game.mode === "first"
+                  ? "Choose your sin"
+                  : "Sins & scores"
+              }
+              result={result}
+              tags={game.committed ? ["Your card", "Computer"] : undefined}
+            />
+          )}
           <div className="bottom-actions primary-actions">
             {game.done ? (
               <>
