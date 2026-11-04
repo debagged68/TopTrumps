@@ -106,9 +106,9 @@
   font: bold 20px Georgia;
   text-align: center;
 }
-.locked .pack-cover {
+.locked .pack-cover img,
+.unowned-art {
   filter: grayscale(1);
-  opacity: 0.65;
 }
 .pack-cover > .pack-lock {
   position: absolute;

@@ -3,6 +3,7 @@
 // Placeholder names and blurbs: edit here, the packs page reads this list.
 export type Pack = {
   id: string;
+  art: string;
   name: string;
   short: string; // label for the front-page chips
   blurb: string;

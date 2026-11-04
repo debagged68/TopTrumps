@@ -39,12 +39,41 @@ The earlier three-phone WhatsApp concept board is a visual inspiration from an e
 
 One portrait per pack, in the same house style as the Donald portrait so the packs read as a set: vertical 1024 × 1536 PNG, engraved editorial illustration meets hand-painted luxury tarot, midnight navy, antique gold, ivory and vermilion, warm dramatic light, fine detail. No embedded text, letters, logos or card border (the UI renders those). The art is decorative and must not hint at scores. Each pack keeps the gold crown and floating gilded playing cards from the Donald portrait, which ties the packs together.
 
-Save each file as `assets/artwork/packs/<pack-id>.png` (ids come from `web/lib/packs.ts`). `npm run prepare:content` copies them to `web/public/packs/`, and the packs page shows each one automatically.
+The implemented covers use `assets/artwork/packs/<pack-id>.webp`; IDs and runtime image URLs come from `web/lib/packs.mjs`. `npm run prepare:content` copies these to `web/public/packs/`. The original briefs below informed the finished covers; the implementation and prompts are documented in the following section.
 
 | File | Pack | Brief |
 |---|---|---|
-| `donald-extended.png` | The Donald Deck: Extended | Optional. Without a file this pack uses the Donald portrait. A variation on the original: same caricature, a wider scene with more gilded cards and a grander stage. |
-| `westminster.png` | The Westminster Pack | The Palace of Westminster by the Thames at dusk, shown as a ruined grand theatre set. The Elizabeth Tower (Big Ben) is cracked and leaning, its clock face split with the hands hanging loose, stone falling into the river. Union-flag-coloured bunting torn and flying. A gold crown hangs over the tower with gilded playing cards swirling in the sky. No real people. |
-| `unreality-tv.png` | Un-Reality TV | A dazzling reality-TV studio that is falling apart. A huge gilded TV set stands in a spotlit arena with a cracked screen, snapped cameras on cranes, a ring of ring-lights and a vermilion curtain half torn down, confetti and gold cards raining over a podium with a toppled trophy. A gold crown floats over the stage. No real people, no logos. |
+| `donald-extended.webp` | The Donald Deck: Extended | A distinct variation on the original: same caricature, a wider scene with more gilded cards and a grander stage. |
+| `westminster.webp` | The Westminster Pack | The Palace of Westminster by the Thames at dusk, shown as a ruined grand theatre set. The Elizabeth Tower (Big Ben) is cracked and leaning, its clock face split with the hands hanging loose, stone falling into the river. Union-flag-coloured bunting torn and flying. A gold crown hangs over the tower with gilded playing cards swirling in the sky. No real people. |
+| `unreality-tv.webp` | Un-Reality TV | A dazzling reality-TV studio that is falling apart. A huge gilded TV set stands in a spotlit arena with a cracked screen, snapped cameras on cranes, a ring of ring-lights and a vermilion curtain half torn down, confetti and gold cards raining over a podium with a toppled trophy. A gold crown floats over the stage. No real people, no logos. |
 
 Generic caricature figures can be added later for either pack, but avoid recognisable real individuals unless the quote cards for that pack depict them, so the art and the licensing story stay consistent with REQUIREMENTS.md.
+
+## Implemented pack covers — 4 November 2026
+
+Matching colour artwork is now committed as optimised 768 × 1152 WebP assets:
+
+- `assets/artwork/packs/donald.webp`: web cover derived from the existing original Donald portrait.
+- `assets/artwork/packs/donald-extended.webp`: new throne-and-theatre illustration.
+- `assets/artwork/packs/westminster.webp`: new crumbling Westminster illustration.
+- `assets/artwork/packs/unreality-tv.webp`: new shattered television studio illustration.
+
+The three new originals were created with built-in image generation. Existing-art searches located the Donald portrait and earlier concept board, but no finished covers for these three packs. New output used the established briefs and house style. Pack names remain HTML text, not part of the images. The shared pack catalogue supplies each image URL; preparation copies the committed assets to `web/public/packs/` and verifies every catalogue image exists. Home, new-challenge selection and the packs page use the same images. Unowned artwork uses CSS `grayscale(1)`; owning a pack removes the filter automatically without replacing the colour source. Ownership, availability and checkout rules are unchanged.
+
+### Generation prompts
+
+Common prefix for each new illustration:
+
+> Use case: stylized-concept. Asset type: portrait card-pack cover illustration, 2:3 vertical. Match a luxury satirical tarot series: ornate engraved editorial illustration mixed with rich hand-painted texture, midnight navy, antique gold, ivory and vermilion, warm theatrical lighting, intricate etching, floating gilded playing cards and a prominent gold crown. Strong central silhouette readable as a small mobile pack tile. No typography, no text, no logos, no card border, no watermarks.
+
+Donald Extended subject:
+
+> Subject: a recognisable satirical Donald Trump caricature on a grand gold throne, navy suit, red tie, gold sweeping hair and theatrical imperious expression. Wider scene than a close portrait: extravagant velvet curtain stage, classical columns, floating gilded cards swirling around the throne and a hovering crown. Original art for The Donald Deck: Extended, visually distinct from a close-up hand-forward portrait.
+
+Westminster subject:
+
+> Subject: Palace of Westminster by the Thames at dusk as a ruined grand theatre set. Elizabeth Tower is cracked and slightly leaning, its clock face split, stone falling toward the water. Torn red, ivory and navy bunting flies. A gold crown hangs prominently above the tower with gilded cards swirling in the navy sky. No real people.
+
+Un-Reality TV subject:
+
+> Subject: dazzling reality television studio falling apart: huge ornate gilded television with a cracked dark screen at centre, spotlit arena, broken camera cranes, ring lights, torn vermilion curtains, a toppled gold trophy on a podium. Gold confetti and gilded playing cards rain around it; a gold crown floats over the stage. No real people or logos.

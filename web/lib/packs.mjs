@@ -2,6 +2,7 @@
 export const PACKS = [
   {
     id: "donald",
+    art: "/packs/donald.webp",
     name: "The Donald Deck",
     short: "Donald",
     blurb: "The original 48 quote cards, scored across the six sins.",
@@ -11,6 +12,7 @@ export const PACKS = [
   },
   {
     id: "donald-extended",
+    art: "/packs/donald-extended.webp",
     name: "The Donald Deck: Extended",
     short: "Donald Extended",
     blurb:
@@ -20,6 +22,7 @@ export const PACKS = [
   },
   {
     id: "westminster",
+    art: "/packs/westminster.webp",
     name: "The Westminster Pack",
     short: "Westminster",
     blurb:
@@ -29,6 +32,7 @@ export const PACKS = [
   },
   {
     id: "unreality-tv",
+    art: "/packs/unreality-tv.webp",
     name: "Un-Reality TV",
     short: "Un-Reality TV",
     blurb:
