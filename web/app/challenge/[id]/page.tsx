@@ -19,10 +19,9 @@ export async function generateMetadata({
   const proto =
     h.get("x-forwarded-proto") ??
     (host?.startsWith("localhost") ? "http" : "https");
-  const title = "Your move: play your card";
-  const description = card
-    ? `“${card.front}” — Which sin have I chosen?`
-    : "Open the link, choose your packs and play.";
+  const title = "Click to play";
+  // The quote is already in the image; previews must not repeat it underneath.
+  const description = "";
   const image = host
     ? [
         {

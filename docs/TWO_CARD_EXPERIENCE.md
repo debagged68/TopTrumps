@@ -9,7 +9,7 @@ Implemented 4 November 2026. This replaces the one-card flow and the live-only r
 - Both modes use one shared card-hand component: horizontal snap scrolling, navigation buttons/dots, card flip, enlarged reading dialog and score comparison table.
 - The dealer inspects two cards, selects one and a sin, then confirms the exact card/sin. Selecting a score row alone never submits.
 - The responder can inspect the dealer's quote in a collapsible strip, chooses packs, draws two cards, and commits one. No sin hints are exposed. The dealer's sin determines the outcome.
-- The result shows the deciding sin and both scores. Each player independently reveals the same server result; tally awards happen once.
+- The result is a single page showing both quotes, the deciding sin and both scores, and a large WIN, LOSE or DRAW verdict. Win confetti and loss embers/waves play once on reveal. Each player independently reveals the same server result; tally awards happen once.
 - Take the deal reserves one next challenge, atomically. The first server transaction determines the next dealer. The opponent need not be present and is already seated. Both players choose their packs before their new hands are drawn.
 
 ## Rules and storage
@@ -24,7 +24,7 @@ The existing DynamoDB challenge table and transactional operations are reused. N
 
 ## Sharing
 
-The share action follows a saved lock; invitation data and the card image are prepared before the explicit share tap. Native sharing offers a generated PNG containing the actual quote front and text containing the challenge URL. The image contains no sin badges, scores or chosen sin. Unsupported file sharing falls back to quote text and the link. A separate WhatsApp link action and copy action remain available.
+The share action follows a saved lock; invitation data and the card image are prepared before the explicit share tap. Native sharing offers a generated PNG containing the actual quote front and text containing the challenge URL. The image contains no sin badges, scores or chosen sin. Unsupported file sharing falls back to quote text and the link. The share caption is only “Click to play” followed by the challenge URL; the quote is not repeated beneath the image. A copy-link action remains available.
 
 Invitation metadata now points to `/api/challenges/:id/image`, a card-specific PNG. This intentionally makes the committed quote front publicly readable by unpredictable challenge ID while the challenge is available. The image and metadata never disclose the locked sin, scores, participant credentials or result. Preview requests cannot claim a seat. Cancelled, declined and expired challenges stop serving the card preview.
 

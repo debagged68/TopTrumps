@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import CardHand, { OpponentCard } from "../components/CardHand";
 import PackPicker, { DEFAULT_PACKS } from "../components/PackPicker";
+import RoundResult from "../components/RoundResult";
 import RoundCelebration from "../components/RoundCelebration";
 import { api, daysLeft, STATUS_TEXT } from "../../lib/challenge-client";
 import {
@@ -39,6 +40,7 @@ export default function ChallengeRoom({ id }: { id: string }) {
     ),
     [shareUrl, setShareUrl] = useState(""),
     [shareFile, setShareFile] = useState<File | null>(null),
+    [imageFailed, setImageFailed] = useState(false),
     [rematch, setRematch] = useState<any>(null);
   const [sound, setSoundState] = useState(true);
   useEffect(() => setSoundState(soundOn()), []);
@@ -101,7 +103,9 @@ export default function ChallengeRoom({ id }: { id: string }) {
       try {
         const file = await prepareCardImage(view.card);
         if (alive) setShareFile(file);
-      } catch {}
+      } catch {
+        if (alive) setImageFailed(true);
+      }
     });
     return () => {
       alive = false;
@@ -153,7 +157,7 @@ export default function ChallengeRoom({ id }: { id: string }) {
     if (data?.result) setCelebrate(data.result.outcome);
   }
   function inviteMessage() {
-    return inviteText(view.yourName, shareUrl, view.card?.front);
+    return inviteText(shareUrl);
   }
   async function share(withCard: boolean) {
     const outcome = withCard
@@ -161,7 +165,7 @@ export default function ChallengeRoom({ id }: { id: string }) {
       : await shareText(inviteMessage());
     setNotice(
       outcome === "copied"
-        ? "Card quote and link copied. Paste into your message."
+        ? "Challenge link copied. Paste into your message."
         : outcome === "failed"
           ? "Copy the link below."
           : outcome === "shared"
@@ -201,53 +205,62 @@ export default function ChallengeRoom({ id }: { id: string }) {
       className={
         needsHand
           ? "challenge-page hand-setup"
-          : "game-screen two-card-game challenge-room"
+          : `game-screen two-card-game challenge-room ${revealed ? "round-result-mode" : ""}`
       }
     >
       <Header />
-      <div className="turn-banner" aria-live="polite">
-        <button
-          className="text-control room-sound"
-          aria-label={sound ? "Mute sound alerts" : "Enable sound alerts"}
-          aria-pressed={sound}
-          onClick={() => {
-            const next = !sound;
-            setSound(next);
-            setSoundState(next);
-            if (next) unlockAudio();
-          }}
-        >
-          {sound ? <Bell size={17} /> : <BellOff size={17} />}
-        </button>
-        <strong>
-          {revealed
-            ? view.result.outcome === "win"
-              ? "You win"
-              : view.result.outcome === "loss"
-                ? `${opponent} wins`
-                : "Draw"
-            : view.status === "draft"
-              ? "You have the deal"
-              : view.status === "your_turn"
-                ? `${opponent} has the deal`
-                : status}
-        </strong>
-        <span>
-          {revealed
-            ? `${view.result.category}: ${view.result.yours}–${view.result.theirs}`
-            : view.status === "draft"
-              ? "Choose one card and a hidden sin."
-              : view.status === "your_turn"
-                ? "Which sin did they choose? Pick your response."
-                : view.status === "waiting_for_sender"
-                  ? `${opponent} is choosing their card and sin.`
-                  : daysLeft(view.deadline)}
-        </span>
-      </div>
+      {!revealed && (
+        <div className="turn-banner" aria-live="polite">
+          <button
+            className="text-control room-sound"
+            aria-label={sound ? "Mute sound alerts" : "Enable sound alerts"}
+            aria-pressed={sound}
+            onClick={() => {
+              const next = !sound;
+              setSound(next);
+              setSoundState(next);
+              if (next) unlockAudio();
+            }}
+          >
+            {sound ? <Bell size={17} /> : <BellOff size={17} />}
+          </button>
+          <strong>
+            {revealed
+              ? view.result.outcome === "win"
+                ? "You win"
+                : view.result.outcome === "loss"
+                  ? `${opponent} wins`
+                  : "Draw"
+              : view.status === "draft"
+                ? "You have the deal"
+                : view.status === "your_turn"
+                  ? `${opponent} has the deal`
+                  : status}
+          </strong>
+          <span>
+            {revealed
+              ? `${view.result.category}: ${view.result.yours}–${view.result.theirs}`
+              : view.status === "draft"
+                ? "Choose one card and a hidden sin."
+                : view.status === "your_turn"
+                  ? "Which sin did they choose? Pick your response."
+                  : view.status === "waiting_for_sender"
+                    ? `${opponent} is choosing their card and sin.`
+                    : daysLeft(view.deadline)}
+          </span>
+        </div>
+      )}
       {view.role === "recipient" && choosing && view.opponentFront && (
         <OpponentCard card={view.opponentFront} name={opponent} />
       )}
-      {needsHand ? (
+      {revealed ? (
+        <RoundResult
+          yours={view.card}
+          theirs={view.opponent}
+          opponent={opponent}
+          result={view.result}
+        />
+      ) : needsHand ? (
         <section className="challenge-panel">
           <PackPicker value={packs} onChange={setPacks} />
           <button disabled={busy} onClick={() => act("hand", { packs })}>
@@ -306,19 +319,13 @@ export default function ChallengeRoom({ id }: { id: string }) {
           </button>
         )}
         {view.status === "awaiting_reply" && (
-          <>
-            <button disabled={busy || !shareUrl} onClick={() => share(true)}>
-              <MessageCircle size={18} />
-              Share card & challenge
-            </button>
-            <button
-              className="secondary"
-              disabled={!shareUrl}
-              onClick={() => openWhatsApp(inviteMessage())}
-            >
-              WhatsApp link
-            </button>
-          </>
+          <button
+            disabled={busy || !shareUrl || (!shareFile && !imageFailed)}
+            onClick={() => share(!imageFailed)}
+          >
+            <MessageCircle size={18} />
+            {imageFailed ? "Share challenge link" : "Share card"}
+          </button>
         )}
         {view.status === "result_ready" && (
           <button disabled={busy} onClick={reveal}>
@@ -405,13 +412,13 @@ export default function ChallengeRoom({ id }: { id: string }) {
             onClick={async () =>
               setNotice(
                 (await copyText(inviteMessage()))
-                  ? "Quote and link copied."
+                  ? "Link copied."
                   : "Could not copy. Use the link below.",
               )
             }
           >
             <Copy size={14} />
-            Copy quote & link
+            Copy link
           </button>
           <a href={shareUrl} onClick={(e) => e.preventDefault()}>
             {shareUrl}
